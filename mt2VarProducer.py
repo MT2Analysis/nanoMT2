@@ -7,10 +7,6 @@ import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
 
-from ROOT.heppy import Hemisphere
-from ROOT.heppy import ReclusterJets
-from ROOT.heppy import Davismt2
-davismt2 = Davismt2()
 
 # my implementation of closest
 def closest(obj,collection):

@@ -24,7 +24,7 @@ def computeMT2(visApx, visApy, visBpx, visBpy, invispx, invispy):
 
 def getMT2(objects, met):
 # objects - list of Objects
-# met - ROOT.TVector2()
+# met - ROOT.TLorentzVector()
 # creates auxiliary arrays for objects and met
 # calls Hemisphere method
 
