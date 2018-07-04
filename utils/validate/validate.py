@@ -7,24 +7,6 @@ import re
 from ast import literal_eval
 
 
-qs = [
-{'name': 'ht', 'hname': 'ht',  'binning': (15,0,1500), 'title': 'H_{T}  [GeV]'},
-{'name': 'met_pt', 'hname': 'met_pt',  'binning': (16,0,800), 'title': 'E_{T}^{miss}  [GeV]'},
-{'name': 'met_phi', 'hname': 'met_phi',  'binning': (8,-3.2,3.2), 'title': 'phi of E_{T}^{miss}'},
-{'name': 'mht_pt', 'hname': 'mht_pt',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-{'name': '', 'hname': '',  'binning': (), 'title': ''},
-]
 
 qs_common = []
 file = open('validation_plots_MT2_common.txt', 'r')
