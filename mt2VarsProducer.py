@@ -28,6 +28,24 @@ def mtw(x1_pt, x1_phi, x2_pt, x2_phi):
 def getBitDecision(x, n): # x is an integer
   return x & 2**n != 0
 
+def getDeltaPhiMin(objects, met4vec):
+    if len(objects) == 0: return -99
+    deltaPhiMin = 999
+    for n,obj in enumerate(objects):
+      if n>3: break
+      thisDeltaPhi = abs(tools.deltaPhi(obj.phi, met4vec.Phi()))
+      if thisDeltaPhi < deltaPhiMin: deltaPhiMin=thisDeltaPhi
+    return deltaPhiMin
+
+def getHt(objects):
+  return sum([x.pt for x in objects]) if len(objects)>0 else -99
+
+def getMht4vec(objects):
+  if len(objects)>0:
+    return ROOT.TLorentzVector( -1.*(sum([x.p4().Px() for x in objects])) , -1.*(sum([x.p4().Py() for x in objects])), 0, 0 )
+  else:
+    return ROOT.TLorentzVector(0, 0, 0, 0)
+
 
 class mt2VarsProducer(Module):
   def __init__(self, isMC=True, year=2017):
@@ -54,14 +72,21 @@ class mt2VarsProducer(Module):
     self.out.branch("ht", "F")
     self.out.branch("mht_pt", "F")
     self.out.branch("mht_phi", "F")
+    self.out.branch("zll_ht", "F")
+    self.out.branch("zll_mht_pt", "F")
+    self.out.branch("zll_mht_phi", "F")
     self.out.branch("diffMetMht", "F")
     self.out.branch("deltaPhiMin", "F")
+    self.out.branch("zll_diffMetMht", "F")
+    self.out.branch("zll_deltaPhiMin", "F")
     self.out.branch("jet1_pt", "F")
     self.out.branch("jet2_pt", "F")
     self.out.branch("mt2", "F")
     self.out.branch("met_pt", "F")
     self.out.branch("met_phi", "F")
-
+    self.out.branch("zll_mt2", "F")
+    self.out.branch("zll_met_pt", "F")
+    self.out.branch("zll_met_phi", "F")
 
 
     # TODO: create the other branches
@@ -173,6 +198,7 @@ class mt2VarsProducer(Module):
     clean_pfhadrons =    selected_pfhadrons # TODO: check
     clean_leptons =      clean_pfleptons + clean_recoleptons
     objects_std =        clean_jets30 + clean_leptons
+    objects_zll =        clean_jets30
 
     ####
     # Additional sorting should happen here
@@ -199,31 +225,72 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("nPFHad10LowMT", nPFHad10LowMT)
     self.out.fillBranch("nLepLowMT", nLepLowMT)
 
+    ###################################################
+    # MET computations
+    ###################################################
+    # NB: convention for all zll-removed variables of the outputtree
+    # (i.e. variables involving with prefix zll AND involving met in the computation):
+    #if len(clean_recoleptons)!=2 they must be set to -99
+
+    met4vec = ROOT.TLorentzVector()
+    met4vec.SetPtEtaPhiM(met.pt, 0., met.phi, 0.)
+    met_pt = met.pt
+    met_phi = met.phi
+
+    # zll met # I want it to be always defined
+    zll_met4vec = ROOT.TLorentzVector(met4vec)
+    zll_met_pt = -99
+    zll_met_phi = -99
+    if len(clean_recoleptons)==2:
+      px = met4vec.Px() + clean_recoleptons[0].p4().Px() + clean_recoleptons[1].p4().Px()
+      py = met4vec.Py() + clean_recoleptons[0].p4().Py() + clean_recoleptons[1].p4().Py()
+      zll_met4vec = ROOT.TLorentzVector(px, py, 0, 0)
+      zll_met_pt = zll_met4vec.Pt()
+      zll_met_phi = zll_met4vec.Phi()
+
+    self.out.fillBranch("met_pt", met_pt)
+    self.out.fillBranch("met_phi", met_phi)
+    self.out.fillBranch("zll_met_pt", zll_met_pt)
+    self.out.fillBranch("zll_met_phi", zll_met_phi)
+
     ####################################################
     # HT and MHT computations, hadronic variables
     ####################################################
-    mht4vec = ROOT.TLorentzVector( -1.*(sum([x.p4().Px() for x in objects_std])) , -1.*(sum([x.p4().Py() for x in objects_std])), 0, 0 )
-    met4vec = ROOT.TLorentzVector()
-    met4vec.SetPtEtaPhiM(met.pt, 0., met.phi, 0.)
-    diffMetMht4vec = ROOT.TLorentzVector(mht4vec-met4vec)
+    # Ht
+    ht =      getHt(objects_std)
+    zll_ht =  getHt(objects_zll)
 
-    ht = sum([x.pt for x in objects_std]) if len(objects_std)>0 else -99
+    # Mht
+    mht4vec = getMht4vec(objects_std)
     mht_pt =  mht4vec.Pt() if len(objects_std)>0 else -99
     mht_phi = mht4vec.Phi() if len(objects_std)>0 else -99
-    diffMetMht = ROOT.TMath.Sqrt( diffMetMht4vec.Px()*diffMetMht4vec.Px() + diffMetMht4vec.Py()*diffMetMht4vec.Py() ) if len(objects_std)>0 else -99
-    deltaPhiMin = 999
-    for n,obj in enumerate(objects_std):
-      if n>3: break
-      thisDeltaPhi = abs(tools.deltaPhi(obj.phi, met4vec.Phi()))
-      if thisDeltaPhi < deltaPhiMin: deltaPhiMin=thisDeltaPhi
+    zll_mht_pt = mht_pt
+    zll_mht_phi = mht_phi
+
+    # Diff MET MHT
+    diffMetMht4vec = ROOT.TLorentzVector(mht4vec-met4vec)
+    zll_diffMetMht4vec = ROOT.TLorentzVector(mht4vec-zll_met4vec)
+
+    diffMetMht =     ROOT.TMath.Sqrt( diffMetMht4vec.Px()*diffMetMht4vec.Px()         + diffMetMht4vec.Py()*diffMetMht4vec.Py() )         if len(objects_std)>0 else -99
+    zll_diffMetMht = ROOT.TMath.Sqrt( zll_diffMetMht4vec.Px()*zll_diffMetMht4vec.Px() + zll_diffMetMht4vec.Py()*zll_diffMetMht4vec.Py() ) if len(objects_zll)>0 and len(clean_recoleptons)==2 else -99
+
+    # DeltaPhi
+    deltaPhiMin = getDeltaPhiMin(objects_std, met4vec)
+    zll_deltaPhiMin = getDeltaPhiMin(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
+
     jet1_pt = clean_jets30[0].pt if len(clean_jets30)>0 else -99
     jet2_pt = clean_jets30[1].pt if len(clean_jets30)>1 else -99
 
     self.out.fillBranch("ht", ht)
     self.out.fillBranch("mht_pt", mht_pt)
     self.out.fillBranch("mht_phi", mht_phi)
+    self.out.fillBranch("zll_ht", zll_ht)
+    self.out.fillBranch("zll_mht_pt", zll_mht_pt)
+    self.out.fillBranch("zll_mht_phi", zll_mht_phi)
     self.out.fillBranch("diffMetMht", diffMetMht)
     self.out.fillBranch("deltaPhiMin", deltaPhiMin)
+    self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
+    self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
     self.out.fillBranch("jet1_pt", jet1_pt)
     self.out.fillBranch("jet2_pt", jet2_pt)
 
@@ -231,17 +298,12 @@ class mt2VarsProducer(Module):
     # MT2
     ####################################################
     mt2 = getMT2(objects_std, met4vec)
+    zll_mt2 = getMT2(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
     #if len(selected_jets)>=2: print getMT2(selected_jets, metTV2 ), met.pt, len(selected_jets)
     self.out.fillBranch("mt2", mt2)
+    self.out.fillBranch("zll_mt2", zll_mt2)
 
-    ###################################################
-    # MET computations
-    ###################################################
-    met_pt = met.pt
-    met_phi = met.phi
 
-    self.out.fillBranch("met_pt", met_pt)
-    self.out.fillBranch("met_phi", met_phi)
 
     ''''# make gamma met , not including overlap removal with jets
     gamma_met = ROOT.TVector2()
