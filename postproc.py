@@ -28,6 +28,14 @@ class ExampleAnalysis(Module):
 #modules = [ExampleAnalysis()]
 
 
+from argparse import ArgumentParser
+import os
+parser = ArgumentParser(description='', add_help=True)
+parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir', default='out')
+parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events', default=1001)
+options = parser.parse_args()
+
+
 from PhysicsTools.NanoAODTools.postprocessing.examples.mhtjuProducerCpp import mhtjuProducerCpp
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.lepSFProducer import lepSFProducer
 from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import btagSFProducer
@@ -47,7 +55,6 @@ modules = [mt2VarsProducer(isMC=True, year=2017)]
 #from PhysicsTools.NanoAODTools.postprocessing.framework.exampleModule import exampleProducer
 #modules = [exampleProducer(jetSelection=lambda j : j.pt > 30)]
 
-outputdir='testmc_94X_nano'
 #preselection='Jet_pt[0] > 250'
 preselection = ''
 
@@ -72,6 +79,6 @@ files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/Phys
 
 
 #p=PostProcessor(outputdir,files,cbranchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=100000)
-p=PostProcessor(outputdir,files,cut=preselection,branchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=5001)
+p=PostProcessor(options.outdirname,files,cut=preselection,branchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=options.nevents)
 
 p.run()

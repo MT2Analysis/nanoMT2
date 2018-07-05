@@ -33,7 +33,6 @@ file.close
 
 
 if __name__ == "__main__":
-  #gROOT.ProcessLine('')
   # add style please
   ROOT.gROOT.ProcessLine('.L ~/CMS_style/tdrstyle.C')
   ROOT.gROOT.ProcessLine('setTDRStyle()')
