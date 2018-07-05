@@ -63,6 +63,7 @@ class mt2VarsProducer(Module):
     self.out.branch("met_phi", "F")
 
 
+
     # TODO: create the other branches
 
 
@@ -162,7 +163,7 @@ class mt2VarsProducer(Module):
     # ##################################################    #selected_jets = [jet for jet in baseline_jets if abs(jet.eta) < 2.4]
     clean_jets20 =        [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 and jet.pt > 20]
     clean_jets30 =        [jet for jet in clean_jets20 if jet.pt > 30]
-    clean_bjets20 =       [jet for jet in clean_jets20 if jet.btagCSVV2 < 0.8838]
+    clean_bjets20 =       [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
@@ -171,12 +172,11 @@ class mt2VarsProducer(Module):
     clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
     clean_pfhadrons =    selected_pfhadrons # TODO: check
     clean_leptons =      clean_pfleptons + clean_recoleptons
-    objects_std =            clean_jets30 + clean_leptons
+    objects_std =        clean_jets30 + clean_leptons
 
     ####
     # Additional sorting should happen here
     objects_std.sort(key=lambda obj: obj.pt, reverse = True)
-
 
     # ##################################################
     # Now you're ready to count objects
@@ -188,7 +188,7 @@ class mt2VarsProducer(Module):
     nMuons10 = len(clean_recomuons)
     nPFLep5LowMT = len(clean_pfleptons)
     nPFHad10LowMT = len(clean_pfhadrons)
-    nLepLowMT = len(clean_leptons)
+    nLepLowMT = len(clean_leptons) # TODO: add MT cut on selected recoleptons for this variable
 
     self.out.fillBranch("nJet20", nJet20)
     self.out.fillBranch("nJet30", nJet30)
