@@ -9,8 +9,8 @@ rawmet_phi: met_rawPhi: 8,-3.15,3.15    : phi of E_{T}^{miss}
 mht:   mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
 mht_phi:   mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-deltaPhiMin: deltaPhiMin: 70,0,3.15    : dphi_{min}(jet,E_{T}^{miss})
-diffMetMht: diffMetMht: 100,0,500    : |MET-MHT|
+deltaPhiMin: deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+diffMetMht: diffMetMht: 50,0,500    : |MET-MHT|
 
 ht: ht:  15,0,1500    : H_{T}  [GeV]
 
@@ -152,8 +152,8 @@ jet_id: jet_id: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] : jet id
 jet_puId: jet_puId: [-0.5,0.5,1.5] : jet PU id
 jet_qgl: jet_qgl: 60,-0.5,1.0 : jet qgl
 
-jet1_pt: jet1_pt: 16,0,800    : jet1  p_{T}  [GeV]
-jet2_pt: jet2_pt: 16,0,800    : jet2  p_{T}  [GeV]
+jet1_pt: jet1_pt: 80,0,800    : jet1  p_{T}  [GeV]
+jet2_pt: jet2_pt: 80,0,800    : jet2  p_{T}  [GeV]
 
 ##### ISO TRACK
 
@@ -215,8 +215,8 @@ cr_gamma_met_phi:   gamma_met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
 cr_gamma_mht:   gamma_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
 cr_gamma_mht_phi:   gamma_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_gamma_deltaPhiMin: gamma_deltaPhiMin: 70,0,3.15    : dphi_{min}(jet,E_{T}^{miss})
-cr_gamma_diffMetMht: gamma_diffMetMht: 100,0,500    : |MET-MHT|
+cr_gamma_deltaPhiMin: gamma_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_gamma_diffMetMht: gamma_diffMetMht: 50,0,500    : |MET-MHT|
 
 cr_gamma_ht: gamma_ht:  15,0,1500    : H_{T}  [GeV]
 
@@ -232,18 +232,18 @@ cr_gamma_jet2_pt: gamma_jet2_pt: 16,0,800    : gamma jet2  p_{T}  [GeV]
 
 ##### ZLL control variables
 
-cr_zll_mt2:   zll_mt2: 16,0,800    : MT2  [GeV]
+cr_zll_mt2:   zll_mt2: 16,0,800    : Zll MT2  [GeV]
 
-cr_zll_met:   zll_met_pt: 16,0,800    : E_{T}^{miss}  [GeV]
-cr_zll_met_phi:   zll_met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+cr_zll_met:   zll_met_pt: 16,0,800    : Zll E_{T}^{miss}  [GeV]
+cr_zll_met_phi:   zll_met_phi: 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
 
-cr_zll_ht: zll_ht:  16,0,800    : H_{T}  [GeV]
+cr_zll_ht: zll_ht:  16,0,800    : Zll H_{T}  [GeV]
 
-cr_zll_mht:   zll_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
-cr_zll_mht_phi:   zll_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
+cr_zll_mht:   zll_mht_pt: 16,0,800    : Zll H_{T}^{miss}  [GeV]
+cr_zll_mht_phi:   zll_mht_phi: 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
 
-cr_zll_deltaPhiMin: zll_deltaPhiMin: 70,0,3.15    : dphi_{min}(jet,E_{T}^{miss})
-cr_zll_diffMetMht: zll_diffMetMht: 100,0,500    : |MET-MHT|
+cr_zll_deltaPhiMin: zll_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
+cr_zll_diffMetMht: zll_diffMetMht: 50,0,500    : Zll |MET-MHT|
 
 cr_zll_pt: zll_pt: 16,0,600    : Z p_{T}  [GeV]
 cr_zll_phi: zll_phi: 8,-3.15,3.15    : Z phi
@@ -251,7 +251,7 @@ cr_zll_eta: zll_eta: 10,-5.,5.    : Z eta
 cr_zll_mass: zll_mass: 20,0,400.    : Z mass [GeV]
 
 
-##### ZLL control variables
+##### ZLL mt control variables (?)
 
 cr_zllmt_mt2:   zllmt_mt2: 16,0,800    : MT2  [GeV]
 
@@ -263,8 +263,8 @@ cr_zllmt_ht: zllmt_ht:  16,0,800    : H_{T}  [GeV]
 cr_zllmt_mht:   zllmt_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
 cr_zllmt_mht_phi:   zllmt_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: 70,0,3.15    : dphi_{min}(jet,E_{T}^{miss})
-cr_zllmt_diffMetMht: zllmt_diffMetMht: 100,0,500    : |MET-MHT|
+cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_zllmt_diffMetMht: zllmt_diffMetMht: 50,0,500    : |MET-MHT|
 
 cr_zllmt_mt: zllmt_mt: 16,0,600    : M_{T}  [GeV]
 
@@ -281,8 +281,8 @@ cr_rl_ht: rl_ht:  16,0,800    : H_{T}  [GeV]
 cr_rl_mht:   rl_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
 cr_rl_mht_phi:   rl_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_rl_deltaPhiMin: rl_deltaPhiMin: 70,0,3.15    : dphi_{min}(jet,E_{T}^{miss})
-cr_rl_diffMetMht: rl_diffMetMht: 100,0,500    : |MET-MHT|
+cr_rl_deltaPhiMin: rl_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_rl_diffMetMht: rl_diffMetMht: 50,0,500    : |MET-MHT|
 
 cr_rl_pt: rl_pt: 16,0,600    : Zlike p_{T}  [GeV]
 cr_rl_phi: rl_phi: 8,-3.15,3.15    : Zlike phi

@@ -11,7 +11,7 @@ from ast import literal_eval
 qs_common = []
 file = open('validation_plots_MT2_common.txt', 'r')
 for line in file:
-  if '#' in line: continue
+  if line.startswith('#'): continue
   if line == '\n': continue
   data = line.split(':')
   data = map(lambda x: x.strip(),data)
@@ -49,6 +49,7 @@ if __name__ == "__main__":
   parser.add_argument('-l1', '--label1', type=str, dest='label1', help='', default = 'A')
   parser.add_argument('-l2', '--label2', type=str, dest='label2', help='', default = 'B')
   parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir')
+  parser.add_argument('--doNorm', dest='doNorm', help='do shape comparison', action='store_true', default=False)
 
   options = parser.parse_args()
 
@@ -63,6 +64,6 @@ if __name__ == "__main__":
     ret1,histo1 = RP.makeHistoFromNtuple(options.fname1, options.treename1, q['hname'] + '_1', q['binning'], q['name'], '(1)', '(1)', False )
     ret2,histo2 = RP.makeHistoFromNtuple(options.fname2, options.treename2, q['hname'] + '_2', q['binning'], q['name'], '(1)', '(1)', False )
     if ret1 != -1 and ret2 != -1:
-      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=False, outDir=options.outdirname, plotName=q['name'])
+      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, outDir=options.outdirname, plotName=q['name'])
     else:
       print 'Skipping ', q['name']
