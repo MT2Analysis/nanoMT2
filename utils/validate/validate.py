@@ -16,8 +16,8 @@ for line in file:
   data = line.split(':')
   data = map(lambda x: x.strip(),data)
   dic = {}
-  dic['name'] = data[0]
-  dic['hname'] = data[1]
+  dic['name'] = data[1]
+  dic['hname'] = data[0]
   dic['title'] = data[3]
   if '[' not in data[2]:
     strings = data[2].split(',')
@@ -61,8 +61,8 @@ if __name__ == "__main__":
 
   for q in qs_to_run:
     print 'investigating ', q['name']
-    ret1,histo1 = RP.makeHistoFromNtuple(options.fname1, options.treename1, q['name'] + '_1', q['binning'], q['hname'], '(1)', '(1)', False )
-    ret2,histo2 = RP.makeHistoFromNtuple(options.fname2, options.treename2, q['name'] + '_2', q['binning'], q['hname'], '(1)', '(1)', False )
+    ret1,histo1 = RP.makeHistoFromNtuple(options.fname1, options.treename1, q['hname'] + '_1', q['binning'], q['name'], '(1)', '(1)', False )
+    ret2,histo2 = RP.makeHistoFromNtuple(options.fname2, options.treename2, q['hname'] + '_2', q['binning'], q['name'], '(1)', '(1)', False )
     if ret1 != -1 and ret2 != -1:
       RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=False, outDir=options.outdirname, plotName=q['name'])
     else:

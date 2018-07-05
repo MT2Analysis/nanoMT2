@@ -15,32 +15,32 @@ diffMetMht: diffMetMht: 100,0,500    : |MET-MHT|
 ht: ht:  15,0,1500    : H_{T}  [GeV]
 
 rho: rho: 10,0,1  : rho
-#nTrueInt: nTrueInt: 50,0,50  : nTrueInt
+nTrueInt: nTrueInt: 50,0,50  : nTrueInt
 
 nVert: nVert: 50,0,50  : nVert
 
 ######### COUNTER
 
-count_nMuons10 : nMuons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#mu, p_{T} > 10)
-count_nElectrons10 : nElectrons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(ele, p_{T} > 10)
-count_nTaus20 : nTaus20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#tau, p_{T} > 20)
-count_nGammas20 : nGammas20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#gamma, p_{T} > 20)
+nMuons10 : nMuons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#mu, p_{T} > 10)
+nElectrons10 : nElectrons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(ele, p_{T} > 10)
+nTaus20 : nTaus20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#tau, p_{T} > 20)
+nGammas20 : nGammas20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#gamma, p_{T} > 20)
 
-count_nJet30 : nJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 30)
-count_nJet40 : nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 40)
+nJet30 : nJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 30)
+nJet40 : nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 40)
 
-#count_nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 30)
-#count_nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 100)
+#nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 30)
+#nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 100)
 
-count_nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, MVAM)
-count_nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, MVAM)
-count_nBJet25 : nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, MVAM)
-count_nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVAM)
+nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
+nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
+nBJet25 : nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
+nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
 
-count_nBJet20mva : nBJet20mva : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVAM)
-count_nBJet20csv : nBJet20csv : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
+nBJet20mva : nBJet20mva : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVA)
+nBJet20csv : nBJet20csv : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
 
-##count_ngenParticles: ngenPart : 500,0,500  : nGenParticles
+##ngenParticles: ngenPart : 500,0,500  : nGenParticles
 
 ##### TRIGGERS
 
@@ -220,10 +220,10 @@ cr_gamma_diffMetMht: gamma_diffMetMht: 100,0,500    : |MET-MHT|
 cr_gamma_ht: gamma_ht:  15,0,1500    : H_{T}  [GeV]
 
 cr_gamma_nJet40 : gamma_nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 40)
-cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, MVAM)
-cr_gamma_nBJet30 : gamma_nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, MVAM)
-cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, MVAM)
-cr_gamma_nBJet20 : gamma_nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVAM)
+cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
+cr_gamma_nBJet30 : gamma_nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
+cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
+cr_gamma_nBJet20 : gamma_nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
 #cr_gamma_minMTBMet : gamma_minMTBMet: 16,0,800    : min M_{T}(B,met)
 
 cr_gamma_jet1_pt: gamma_jet1_pt: 16,0,800    : gamma jet1  p_{T}  [GeV]

@@ -1,5 +1,5 @@
 from ROOT import gROOT, TH1F, TH1, kBlack, kRed, kBlue, TCanvas, gStyle, TLegend, TLatex, TFile, TChain, TPad, kWhite
-
+import ROOT
 
 
 
@@ -7,16 +7,11 @@ def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, o
 
   TH1.SetDefaultSumw2()
 
-  # output
-  #bins = array('d', outhistobins)
-  #bins_n = len(outhistobins)-1
   histo = TH1F(outhistoname, outhistoname, *(outhistobinning))
 
-  # input
   chain = TChain(intreename)
-  chain.Add(infilename)
 
-  #print 'Projecting tree to histogram...'
+  chain.Add(infilename)
 
   ret = chain.Project(histo.GetName(), outhistoquantity, '('+outhistoselection + ')*(' + outhistoweight + ')')
 
@@ -98,6 +93,7 @@ def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="
 
   # prepare canva
   canvas=TCanvas(plotName, plotName, 600, 600)
+  ROOT.SetOwnership(canvas, False) # Crucial to avoid crashes due to the way python deletes the objects
   canvas.cd()
   yMinP1=0.305;
   bottomMarginP1=0.005;
@@ -189,7 +185,7 @@ def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="
 
   #hRatio.SetLineColor(kRed+2)
   if nameDen2 != "": hRatio2.SetLineColor(kBlue)
-
+  print hRatio.Integral()
   makeRatioSettings(hRatio)
   if nameDen2 != "": makeRatioSettings(hRatio2)
 
@@ -203,12 +199,4 @@ def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="
   if nameDen2 != "": hRatio2.Draw('PEsame')
   #hRatio.GetXaxis().SetRangeUser(200.,2000.)
 
-  canvas.cd()
-  canvas.Modified()
-  canvas.Update()
-  #return canvas
   canvas.SaveAs('{d}/{name}.pdf'.format(d=outDir, name = plotName))
-  #canvas.SaveAs('ratio_{}_{}.pdf'.format(hNum.GetName(), hDen.GetName()))
-  #canvas.SaveAs('plots/ratio_{}_{}.C'.format(hNum.GetName(), hDen.GetName()))
-  #canvas.SaveAs('plots/ratio_{}_{}.root'.format(hNum.GetName(), hDen.GetName()))
-  #canvas.Close()
