@@ -31,7 +31,7 @@ class ExampleAnalysis(Module):
 from argparse import ArgumentParser
 import os
 parser = ArgumentParser(description='', add_help=True)
-parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir', default='out')
+parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir', default='output/out')
 parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events', default=1001)
 options = parser.parse_args()
 
