@@ -1,343 +1,368 @@
 ######### SUMS
 
-met:   met_pt: 16,0,800    : E_{T}^{miss}  [GeV]
-met_phi:   met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+met:   met_pt: (1): 16,0,800    : E_{T}^{miss}  [GeV]
+met_phi:   met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-rawmet: met_rawPt: 16,0,800    : E_{T}^{miss}  [GeV]
-rawmet_phi: met_rawPhi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+rawmet: met_rawPt: (1): 16,0,800    : E_{T}^{miss}  [GeV]
+rawmet_phi: met_rawPhi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-mht:   mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
-mht_phi:   mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
+mht:   mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
+mht_phi:   mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-deltaPhiMin: deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-diffMetMht: diffMetMht: 50,0,500    : |MET-MHT|
+deltaPhiMin: deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+diffMetMht: diffMetMht: (1): 50,0,500    : |MET-MHT|
 
-ht: ht:  15,0,1500    : H_{T}  [GeV]
+ht: ht: (1):  15,0,1500    : H_{T}  [GeV]
 
-rho: rho: 10,0,1  : rho
-nTrueInt: nTrueInt: 50,0,50  : nTrueInt
+rho: rho: (1): 10,0,1  : rho
+nTrueInt: nTrueInt: (1): 50,0,50  : nTrueInt
 
-nVert: nVert: 50,0,50  : nVert
+nVert: nVert: (1): 50,0,50  : nVert
 
 ######### COUNTER
 
-nMuons10 : nMuons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#mu, p_{T} > 10)
-nElectrons10 : nElectrons10 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(ele, p_{T} > 10)
-nTaus20 : nTaus20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#tau, p_{T} > 20)
-nGammas20 : nGammas20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#gamma, p_{T} > 20)
+nMuons10 : nMuons10 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#mu, p_{T} > 10)
+nElectrons10 : nElectrons10 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(ele, p_{T} > 10)
+nTaus20 : nTaus20 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#tau, p_{T} > 20)
+nGammas20 : nGammas20 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]: N(#gamma, p_{T} > 20)
 
-nJet20 : nJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 20)
-nJet30 : nJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 30)
-nJet40 : nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 40)
+nJet20 : nJet20 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 20)
+nJet30 : nJet30 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 30)
+nJet40 : nJet40 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 40)
 
-#nJet30FailId : nJet30FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 30)
-#nJet100FailId : nJet100FailId : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 100)
+#nJet30FailId : nJet30FailId : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 30)
+#nJet100FailId : nJet100FailId : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 100)
 
-nBJet40 : nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
-nBJet30 : nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
-nBJet25 : nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
-nBJet20 : nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
+nBJet40 : nBJet40 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
+nBJet30 : nBJet30 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
+nBJet25 : nBJet25 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
+nBJet20 : nBJet20 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
 
-nBJet20mva : nBJet20mva : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVA)
-nBJet20csv : nBJet20csv : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
+nBJet20mva : nBJet20mva : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, MVA)
+nBJet20csv : nBJet20csv : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
 
-##ngenParticles: ngenPart : 500,0,500  : nGenParticles
+##ngenParticles: ngenPart : (1): 500,0,500  : nGenParticles
 
 ##### TRIGGERS
 
 # magic string: cat prova |awk -F: {print $1} |grep -v \#| sed s///g|awk {print HLT_$1 : HLT_$1  : [-0.5,0.5,1.5]: XTitle=\HLT\ }
 
-# HLT_PFHT800 : HLT_PFHT800 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT900 : HLT_PFHT900 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMET170 : HLT_PFMET170 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT300_PFMET100 : HLT_PFHT300_PFMET100 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT300_PFMET110 : HLT_PFHT300_PFMET110 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT350_PFMET100 : HLT_PFHT350_PFMET100 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT350_PFMET120 : HLT_PFHT350_PFMET120 : [-0.5,0.5,1.5]: HLT
+# HLT_PFHT800 : HLT_PFHT800 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT900 : HLT_PFHT900 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMET170 : HLT_PFMET170 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT300_PFMET100 : HLT_PFHT300_PFMET100 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT300_PFMET110 : HLT_PFHT300_PFMET110 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT350_PFMET100 : HLT_PFHT350_PFMET100 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT350_PFMET120 : HLT_PFHT350_PFMET120 : (1): [-0.5,0.5,1.5]: HLT
 
-# HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : [-0.5,0.5,1.5]: HLT
+# HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : HLT_MonoCentralPFJet80_PFMETNoMu90_PFMHTNoMu90 : (1): [-0.5,0.5,1.5]: HLT
 
-# HLT_PFMETNoMu90_PFMHTNoMu90 : HLT_PFMETNoMu90_PFMHTNoMu90 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMETNoMu100_PFMHTNoMu100 : HLT_PFMETNoMu100_PFMHTNoMu100 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMETNoMu110_PFMHTNoMu110 : HLT_PFMETNoMu110_PFMHTNoMu110 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMETNoMu120_PFMHTNoMu120 : HLT_PFMETNoMu120_PFMHTNoMu120 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMET90_PFMHT90 : HLT_PFMET90_PFMHT90 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMET100_PFMHT100 : HLT_PFMET100_PFMHT100 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMET110_PFMHT110 : HLT_PFMET110_PFMHT110 : [-0.5,0.5,1.5]: HLT
-# HLT_PFMET120_PFMHT120 : HLT_PFMET120_PFMHT120 : [-0.5,0.5,1.5]: HLT
+# HLT_PFMETNoMu90_PFMHTNoMu90 : HLT_PFMETNoMu90_PFMHTNoMu90 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMETNoMu100_PFMHTNoMu100 : HLT_PFMETNoMu100_PFMHTNoMu100 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMETNoMu110_PFMHTNoMu110 : HLT_PFMETNoMu110_PFMHTNoMu110 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMETNoMu120_PFMHTNoMu120 : HLT_PFMETNoMu120_PFMHTNoMu120 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMET90_PFMHT90 : HLT_PFMET90_PFMHT90 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMET100_PFMHT100 : HLT_PFMET100_PFMHT100 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMET110_PFMHT110 : HLT_PFMET110_PFMHT110 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFMET120_PFMHT120 : HLT_PFMET120_PFMHT120 : (1): [-0.5,0.5,1.5]: HLT
 
-# HLT_SingleMu : HLT_SingleMu : [-0.5,0.5,1.5]: HLT
-# HLT_SingleEl : HLT_SingleEl : [-0.5,0.5,1.5]: HLT
-# HLT_DoubleEl : HLT_DoubleEl : [-0.5,0.5,1.5]: HLT
-# HLT_DoubleEl33 : HLT_DoubleEl33 : [-0.5,0.5,1.5]: HLT
-# HLT_MuX_Ele12 : HLT_MuX_Ele12 : [-0.5,0.5,1.5]: HLT
-# HLT_Mu8_EleX : HLT_Mu8_EleX : [-0.5,0.5,1.5]: HLT
-# HLT_DoubleMu : HLT_DoubleMu : [-0.5,0.5,1.5]: HLT
+# HLT_SingleMu : HLT_SingleMu : (1): [-0.5,0.5,1.5]: HLT
+# HLT_SingleEl : HLT_SingleEl : (1): [-0.5,0.5,1.5]: HLT
+# HLT_DoubleEl : HLT_DoubleEl : (1): [-0.5,0.5,1.5]: HLT
+# HLT_DoubleEl33 : HLT_DoubleEl33 :  (1):[-0.5,0.5,1.5]: HLT
+# HLT_MuX_Ele12 : HLT_MuX_Ele12 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_Mu8_EleX : HLT_Mu8_EleX : (1): [-0.5,0.5,1.5]: HLT
+# HLT_DoubleMu : HLT_DoubleMu : (1): [-0.5,0.5,1.5]: HLT
 
-# HLT_Photon120 : HLT_Photon120 : [-0.5,0.5,1.5]: HLT
-# HLT_Photon165_HE10 : HLT_Photon165_HE10 : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT125_Prescale : HLT_PFHT125_Prescale : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT200_Prescale : HLT_PFHT200_Prescale : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT300_Prescale : HLT_PFHT300_Prescale : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT350_Prescale : HLT_PFHT350_Prescale : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT475_Prescale : HLT_PFHT475_Prescale : [-0.5,0.5,1.5]: HLT
-# HLT_PFHT600_Prescale : HLT_PFHT600_Prescale : [-0.5,0.5,1.5]: HLT
+# HLT_Photon120 : HLT_Photon120 :  (1):[-0.5,0.5,1.5]: HLT
+# HLT_Photon165_HE10 : HLT_Photon165_HE10 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT125_Prescale : HLT_PFHT125_Prescale : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT200_Prescale : HLT_PFHT200_Prescale : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT300_Prescale : HLT_PFHT300_Prescale : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT350_Prescale : HLT_PFHT350_Prescale : (1): [-0.5,0.5,1.5]: HLT
+# HLT_PFHT475_Prescale : HLT_PFHT475_Prescale :  (1):[-0.5,0.5,1.5]: HLT
+# HLT_PFHT600_Prescale : HLT_PFHT600_Prescale : (1): [-0.5,0.5,1.5]: HLT
 
-# HLT_DiCentralPFJet70_PFMET120 : HLT_DiCentralPFJet70_PFMET120 : [-0.5,0.5,1.5]: HLT
-# HLT_DiCentralPFJet55_PFMET110 : HLT_DiCentralPFJet55_PFMET110 : [-0.5,0.5,1.5]: HLT
+# HLT_DiCentralPFJet70_PFMET120 : HLT_DiCentralPFJet70_PFMET120 : (1): [-0.5,0.5,1.5]: HLT
+# HLT_DiCentralPFJet55_PFMET110 : HLT_DiCentralPFJet55_PFMET110 : (1): [-0.5,0.5,1.5]: HLT
 
 #Zgammas crap :-)
-#HLT_Photon75_R9Id90_HE10_IsoM : HLT_Photon75_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]: HLT
-#HLT_Photon90_R9Id90_HE10_IsoM : HLT_Photon90_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]: HLT
-#HLT_Photon120_R9Id90_HE10_IsoM : HLT_Photon120_R9Id90_HE10_IsoM : [-0.5,0.5,1.5]: HLT
-#HLT_Photon75 : HLT_Photon75 : [-0.5,0.5,1.5]: HLT
-#HLT_Photon90 : HLT_Photon90 : [-0.5,0.5,1.5]: HLT
-#HLT_Photon155 : HLT_Photon155 : [-0.5,0.5,1.5]: HLT
-#HLT_Photon175 : HLT_Photon175 : [-0.5,0.5,1.5]: HLT
-#HLT_DoubleEle33 : HLT_DoubleEle33 : [-0.5,0.5,1.5]: HLT
-#HLT_Mu30_TkMu11 : HLT_Mu30_TkMu11 : [-0.5,0.5,1.5]: HLT
+#HLT_Photon75_R9Id90_HE10_IsoM : HLT_Photon75_R9Id90_HE10_IsoM : (1): [-0.5,0.5,1.5]: HLT
+#HLT_Photon90_R9Id90_HE10_IsoM : HLT_Photon90_R9Id90_HE10_IsoM : (1): [-0.5,0.5,1.5]: HLT
+#HLT_Photon120_R9Id90_HE10_IsoM : HLT_Photon120_R9Id90_HE10_IsoM : (1): [-0.5,0.5,1.5]: HLT
+#HLT_Photon75 : HLT_Photon75 :  (1):[-0.5,0.5,1.5]: HLT
+#HLT_Photon90 : HLT_Photon90 : (1): [-0.5,0.5,1.5]: HLT
+#HLT_Photon155 : HLT_Photon155 :  (1):[-0.5,0.5,1.5]: HLT
+#HLT_Photon175 : HLT_Photon175 :  (1):[-0.5,0.5,1.5]: HLT
+#HLT_DoubleEle33 : HLT_DoubleEle33 : (1): [-0.5,0.5,1.5]: HLT
+#HLT_Mu30_TkMu11 : HLT_Mu30_TkMu11 :  (1):[-0.5,0.5,1.5]: HLT
 
 
 ##### FLAGS
-Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : [-0.5,0.5,1.5]: metFilter
-Flag_HBHENoiseIsoFilter : Flag_HBHENoiseIsoFilter : [-0.5,0.5,1.5]: metFilter
-Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]: metFilter
-Flag_goodVertices : Flag_goodVertices: [-0.5,0.5,1.5]: metFilter
-Flag_eeBadScFilter : Flag_eeBadScFilter: [-0.5,0.5,1.5]: metFilter
-Flag_globalTightHalo2016Filter : Flag_globalTightHalo2016Filter: [-0.5,0.5,1.5]: metFilter
-#Flag_badMuonFilter : Flag_badMuonFilter : [-0.5,0.5,1.5]: metFilter
-#Flag_badChargedHadronFilter :Flag_badChargedHadronFilter : [-0.5,0.5,1.5]: metFilter
+Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : (1): [-0.5,0.5,1.5]: metFilter
+Flag_HBHENoiseIsoFilter : Flag_HBHENoiseIsoFilter : (1): [-0.5,0.5,1.5]: metFilter
+Flag_EcalDeadCellTriggerPrimitiveFilter : (1): Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]: metFilter
+Flag_goodVertices : Flag_goodVertices: (1): [-0.5,0.5,1.5]: metFilter
+Flag_eeBadScFilter : Flag_eeBadScFilter: (1): [-0.5,0.5,1.5]: metFilter
+Flag_globalTightHalo2016Filter : Flag_globalTightHalo2016Filter:  (1):[-0.5,0.5,1.5]: metFilter
+#Flag_badMuonFilter : Flag_badMuonFilter :  (1):[-0.5,0.5,1.5]: metFilter
+#Flag_badChargedHadronFilter :Flag_badChargedHadronFilter :  (1):[-0.5,0.5,1.5]: metFilter
 
 
-nJet200MuFrac50DphiMet :nJet200MuFrac50DphiMet : [-0.5,0.5,1.5,2.5,3.5]: nJet200MuFrac 0.5
+nJet200MuFrac50DphiMet :nJet200MuFrac50DphiMet :  (1):[-0.5,0.5,1.5,2.5,3.5]: nJet200MuFrac 0.5
 
 
 
 
 ##### MT2
 
-mt2:   mt2: 16,0,800    : MT2  [GeV]
+mt2:   mt2: (1): 16,0,800    : MT2  [GeV]
 
-pseudoJet1_pt: pseudoJet1_pt: 16,0,800    : PseJet1  p_{T}  [GeV]
-pseudoJet1_phi: pseudoJet1_phi: 8,-3.15,3.15    : PseJet1 phi
-pseudoJet1_eta: pseudoJet1_eta: 10,-5.,5.    : PseJet1 eta
-pseudoJet1_mass: pseudoJet1_mass: 24,0,1200.    : PseJet1 mass [GeV]
+pseudoJet1_pt: pseudoJet1_pt: (1): 16,0,800    : PseJet1  p_{T}  [GeV]
+pseudoJet1_phi: pseudoJet1_phi:  (1):8,-3.15,3.15    : PseJet1 phi
+pseudoJet1_eta: pseudoJet1_eta:  (1):10,-5.,5.    : PseJet1 eta
+pseudoJet1_mass: pseudoJet1_mass: (1): 24,0,1200.    : PseJet1 mass [GeV]
 
-pseudoJet2_pt: pseudoJet2_pt: 16,0,800    : PseJet12 p_{T}  [GeV]
-pseudoJet2_phi: pseudoJet2_phi: 8,-3.15,3.15    : PseJet2 phi
-pseudoJet2_eta: pseudoJet2_eta: 10,-5.,5.    : PseJet2 eta
-pseudoJet2_mass: pseudoJet2_mass: 24,0,1200.    : PseJet2 mass [GeV]
+pseudoJet2_pt: pseudoJet2_pt: (1): 16,0,800    : PseJet12 p_{T}  [GeV]
+pseudoJet2_phi: pseudoJet2_phi:  (1):8,-3.15,3.15    : PseJet2 phi
+pseudoJet2_eta: pseudoJet2_eta:  (1):10,-5.,5.    : PseJet2 eta
+pseudoJet2_mass: pseudoJet2_mass:  (1):24,0,1200.    : PseJet2 mass [GeV]
 
-nPFLep5LowMT:  nPFLep5LowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFLep, p_{T} > 5, M_{T} < 100)
-nPFHad10LowMT: nPFHad10LowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFHad, p_{T} > 10, M_{T} < 100)
-nLepLowMT:  nLepLowMT: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(Lep(POG+PF), M_{T} < 100)
+nPFLep5LowMT:  nPFLep5LowMT: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFLep, p_{T} > 5, M_{T} < 100)
+nPFHad10LowMT: nPFHad10LowMT: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFHad, p_{T} > 10, M_{T} < 100)
+nLepLowMT:  nLepLowMT:  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(Lep(POG+PF), M_{T} < 100)
 
 
 ##### JET
 
-jet_njet : njet : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,28.5,29.5,30.5] : N(jet, p_{T} > 10, |#eta| < 5.2 )
-jet_pt: jet_pt: 200, 0, 200    : jet p_{T}  [GeV]
-jet_phi: jet_phi: 8,-3.15,3.15    : jet phi
-jet_eta: jet_eta: 24,-6.0,6.0    : jet eta
-jet_mass: jet_mass: 20,0,400.    : jet mass [GeV]
-jet_csv: jet_btagCSV: 110,-0.1,1.    : jet csv
+jet_njet : njet :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,28.5,29.5,30.5] : N(jet, p_{T} > 10, |#eta| < 5.2 )
+jet_pt: jet_pt: (1): 200, 0, 200    : jet p_{T}  [GeV]
+jet_phi: jet_phi: (1): 8,-3.15,3.15    : jet phi
+jet_eta: jet_eta: (1): 24,-6.0,6.0    : jet eta
+jet_mass: jet_mass: (1): 20,0,400.    : jet mass [GeV]
+jet_csv: jet_btagCSV:  (1):110,-0.1,1.    : jet csv
 
-jet_rawPt: jet_rawPt: 200, 0, 200     : jet raw pt
-#jet_mcPt: jet_mcPt: 200, 0, 200     : jet mc pt
+jet_rawPt: jet_rawPt: (1): 200, 0, 200     : jet raw pt
+#jet_mcPt: jet_mcPt: (1): 200, 0, 200     : jet mc pt
 
-#jet_mcFlavour: jet_mcFlavour: 25, 0,25 : jet mc flavour
-jet_area: jet_area: 100, 0,100 : jet mc area
+#jet_mcFlavour: jet_mcFlavour:  (1):25, 0,25 : jet mc flavour
+jet_area: jet_area:  (1):100, 0,100 : jet mc area
 
-jet_id: jet_id: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] : jet id
-jet_puId: jet_puId: [-0.5,0.5,1.5] : jet PU id
-jet_qgl: jet_qgl: 60,-0.5,1.0 : jet qgl
+jet_id: jet_id: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] : jet id
+jet_puId: jet_puId: (1): [-0.5,0.5,1.5] : jet PU id
+jet_qgl: jet_qgl:  (1):60,-0.5,1.0 : jet qgl
 
-jet1_pt: jet1_pt: 80,0,800    : jet1  p_{T}  [GeV]
-jet2_pt: jet2_pt: 80,0,800    : jet2  p_{T}  [GeV]
+jet1_pt: jet1_pt: (1): 80,0,800    : jet1  p_{T}  [GeV]
+jet2_pt: jet2_pt: (1): 80,0,800    : jet2  p_{T}  [GeV]
 
 ##### ISO TRACK
 
-isoTrack_nisoTrack : nisoTrack : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(isotrack)
-isoTrack_pt: isoTrack_pt: 16,0,800    : isotrack p_{T}  [GeV]
-isoTrack_phi: isoTrack_phi: 8,-3.15,3.15    : isotrack phi
-isoTrack_eta: isoTrack_eta: 10,-5.,5.    : isotrack eta
-isoTrack_mass: isoTrack_mass: 20,0,400.    : isotrack mass [GeV]
+isoTrack_nisoTrack : nisoTrack : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(isotrack)
+isoTrack_pt: isoTrack_pt: (1): 16,0,800    : isotrack p_{T}  [GeV]
+isoTrack_phi: isoTrack_phi: (1): 8,-3.15,3.15    : isotrack phi
+isoTrack_eta: isoTrack_eta:  (1):10,-5.,5.    : isotrack eta
+isoTrack_mass: isoTrack_mass:  (1):20,0,400.    : isotrack mass [GeV]
 
-isoTrack_pdgId : isoTrack_pdgId : 300, -150,150 : PDG_ID
+isoTrack_pdgId : isoTrack_pdgId : (1): 300, -150,150 : PDG_ID
 
-isoTrack_dz: isoTrack_dz: 100,0,0.5    : isotrack dz  [cm]
+isoTrack_dz: isoTrack_dz:  (1):40,0,0.4    : isotrack dz  [cm]
 
-isoTrack_absIso:  isoTrack_absIso: 16,0,8: isoTrack absIso
-isoTrack_relIsoAn04:  isoTrack_relIsoAn04: 15,0,.5:  isoTrack relIsoAn04
+isoTrack_absIso:  isoTrack_absIso: (1): 16,0,8: isoTrack absIso
+isoTrack_relIsoAn04:  isoTrack_relIsoAn04: (1): 15,0,.5:  isoTrack relIsoAn04
 
 
 ##### TAU
 
-tau_ntau : ntau : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(tau, p_{T} > 10, |#eta| < 2.4 )
-tau_pt: tau_pt: 16,0,800    : tau p_{T}  [GeV]
-tau_phi: tau_phi: 8,-3.15,3.15    : tau phi
-tau_eta: tau_eta: 10,-5.,5.    : tau eta
-tau_mass: tau_mass: 20,0,400.    : tau mass
+tau_ntau : ntau : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(tau, p_{T} > 10, |#eta| < 2.4 )
+tau_pt: tau_pt: (1): 16,0,800    : tau p_{T}  [GeV]
+tau_phi: tau_phi: (1): 8,-3.15,3.15    : tau phi
+tau_eta: tau_eta:  (1):10,-5.,5.    : tau eta
+tau_mass: tau_mass: (1): 20,0,400.    : tau mass
 
 
-#tau_dxy: tau_dxy: 100,0,0.5    : tau dxy  [cm]
-#tau_dz: tau_dz: 100,0,0.5    : tau dz  [cm]
+#tau_dxy: tau_dxy: (1): 40,0,0.4    : tau dxy  [cm]
+#tau_dz: tau_dz: (1): 40,0,0.4    : tau dz  [cm]
 
-tau_isoCI3hit: tau_isoCI3hit: 100,0,0.5    : tau ISO  [GeV]
-tau_idCI3hit: tau_idCI3hit: 10,0,10.    : tau ID
+tau_isoCI3hit: tau_isoCI3hit: (1): 40,0,0.4    : tau ISO  [GeV]
+tau_idCI3hit: tau_idCI3hit: (1): 10,0,10.    : tau ID
 
 ##### PHOTONS
 
-gamma_ngamma : ngamma : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(gamma, p_{T} > 10, |#eta| < 2.4 )
-gamma_pt: gamma_pt: 16,0,800    : gamma p_{T}  [GeV]
-gamma_phi: gamma_phi: 8,-3.15,3.15    : gamma phi
-gamma_eta: gamma_eta: 10,-5.,5.    : gamma eta
-gamma_mass: gamma_mass: 20,0,400.    : gamma mass
+gamma_ngamma : ngamma :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(gamma, p_{T} > 10, |#eta| < 2.4 )
+gamma_pt: gamma_pt:  (1):16,0,800    : gamma p_{T}  [GeV]
+gamma_phi: gamma_phi: (1): 8,-3.15,3.15    : gamma phi
+gamma_eta: gamma_eta:  (1):10,-5.,5.    : gamma eta
+gamma_mass: gamma_mass:  (1):20,0,400.    : gamma mass
 
-gamma_chHadIso: gamma_chHadIso: 100,0,100.    : ch gamma ISO  [GeV]
-gamma_neuHadIso: gamma_neuHadIso: 100,0,30.    : neu gamma ISO  [GeV]
-gamma_phIso: gamma_phIso: 100,0,50.    : ph gamma ISO  [GeV]
+gamma_chHadIso: gamma_chHadIso: (1): 100,0,100.    : ch gamma ISO  [GeV]
+gamma_neuHadIso: gamma_neuHadIso: (1): 100,0,30.    : neu gamma ISO  [GeV]
+gamma_phIso: gamma_phIso: (1): 100,0,50.    : ph gamma ISO  [GeV]
 
-gamma_sigmaIetaIeta: gamma_sigmaIetaIeta: 35,0,0.035    : gamma sigmaIetaIeta
-gamma_r9: gamma_r9: 100,0,1.    : gamma r9
-gamma_hOverE: gamma_hOverE: 100,0,0.1    : gamma hOverE
-gamma_idCutBased: gamma_idCutBased: 10,0,10.    : gamma ID Cut based
+gamma_sigmaIetaIeta: gamma_sigmaIetaIeta: (1): 35,0,0.035    : gamma sigmaIetaIeta
+gamma_r9: gamma_r9:  (1):100,0,1.    : gamma r9
+gamma_hOverE: gamma_hOverE:  (1):100,0,0.1    : gamma hOverE
+gamma_idCutBased: gamma_idCutBased:  (1):10,0,10.    : gamma ID Cut based
 
-#gamma_genIso: gamma_genIso: 100,0,0.5    : ph gamma ISO  [GeV]
+#gamma_genIso: gamma_genIso: (1): 40,0,0.4    : ph gamma ISO  [GeV]
 
 ##### GAMMA control variables
 
-cr_gamma_mt2:   gamma_mt2: 16,0,800    : MT2  [GeV]
+cr_gamma_mt2:   gamma_mt2:  (1):16,0,800    : MT2  [GeV]
 
-cr_gamma_met:   gamma_met_pt: 16,0,800    : E_{T}^{miss}  [GeV]
-cr_gamma_met_phi:   gamma_met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+cr_gamma_met:   gamma_met_pt: (1): 16,0,800    : E_{T}^{miss}  [GeV]
+cr_gamma_met_phi:   gamma_met_phi:  (1):8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_gamma_mht:   gamma_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
-cr_gamma_mht_phi:   gamma_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
+cr_gamma_mht:   gamma_mht_pt:  (1):16,0,800    : H_{T}^{miss}  [GeV]
+cr_gamma_mht_phi:   gamma_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_gamma_deltaPhiMin: gamma_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-cr_gamma_diffMetMht: gamma_diffMetMht: 50,0,500    : |MET-MHT|
+cr_gamma_deltaPhiMin: gamma_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_gamma_diffMetMht: gamma_diffMetMht: (1): 50,0,500    : |MET-MHT|
 
-cr_gamma_ht: gamma_ht:  15,0,1500    : H_{T}  [GeV]
+cr_gamma_ht: gamma_ht:  (1): 15,0,1500    : H_{T}  [GeV]
 
-cr_gamma_nJet40 : gamma_nJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 40)
-cr_gamma_nBJet40 : gamma_nBJet40 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
-cr_gamma_nBJet30 : gamma_nBJet30 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
-cr_gamma_nBJet25 : gamma_nBJet25 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
-cr_gamma_nBJet20 : gamma_nBJet20 : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
-#cr_gamma_minMTBMet : gamma_minMTBMet: 16,0,800    : min M_{T}(B,met)
+cr_gamma_nJet40 : gamma_nJet40 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 40)
+cr_gamma_nBJet40 : gamma_nBJet40 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
+cr_gamma_nBJet30 : gamma_nBJet30 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 30, CSV)
+cr_gamma_nBJet25 : gamma_nBJet25 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 25, CSV)
+cr_gamma_nBJet20 : gamma_nBJet20 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 20, CSV)
+#cr_gamma_minMTBMet : gamma_minMTBMet:  (1):16,0,800    : min M_{T}(B,met)
 
-cr_gamma_jet1_pt: gamma_jet1_pt: 16,0,800    : gamma jet1  p_{T}  [GeV]
-cr_gamma_jet2_pt: gamma_jet2_pt: 16,0,800    : gamma jet2  p_{T}  [GeV]
+cr_gamma_jet1_pt: gamma_jet1_pt: (1): 16,0,800    : gamma jet1  p_{T}  [GeV]
+cr_gamma_jet2_pt: gamma_jet2_pt: (1): 16,0,800    : gamma jet2  p_{T}  [GeV]
 
 ##### ZLL control variables
 
-cr_zll_mt2:   zll_mt2: 16,0,800    : Zll MT2  [GeV]
+cr_zll_mt2:   zll_mt2:  (1):16,0,800    : Zll MT2  [GeV]
 
-cr_zll_met:   zll_met_pt: 16,0,800    : Zll E_{T}^{miss}  [GeV]
-cr_zll_met_phi:   zll_met_phi: 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
+cr_zll_met:   zll_met_pt: (1): 16,0,800    : Zll E_{T}^{miss}  [GeV]
+cr_zll_met_phi:   zll_met_phi: (1): 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
 
-cr_zll_ht: zll_ht:  16,0,800    : Zll H_{T}  [GeV]
+cr_zll_ht: zll_ht:  (1):  16,0,800    : Zll H_{T}  [GeV]
 
-cr_zll_mht:   zll_mht_pt: 16,0,800    : Zll H_{T}^{miss}  [GeV]
-cr_zll_mht_phi:   zll_mht_phi: 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
+cr_zll_mht:   zll_mht_pt:  (1):16,0,800    : Zll H_{T}^{miss}  [GeV]
+cr_zll_mht_phi:   zll_mht_phi:  (1): 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
 
-cr_zll_deltaPhiMin: zll_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
-cr_zll_diffMetMht: zll_diffMetMht: 50,0,500    : Zll |MET-MHT|
+cr_zll_deltaPhiMin: zll_deltaPhiMin:  (1):32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
+cr_zll_diffMetMht: zll_diffMetMht: (1): 50,0,500    : Zll |MET-MHT|
 
-cr_zll_pt: zll_pt: 16,0,600    : Z p_{T}  [GeV]
-cr_zll_phi: zll_phi: 8,-3.15,3.15    : Z phi
-cr_zll_eta: zll_eta: 10,-5.,5.    : Z eta
-cr_zll_mass: zll_mass: 20,0,400.    : Z mass [GeV]
+cr_zll_pt: zll_pt:  (1):16,0,600    : Z p_{T}  [GeV]
+cr_zll_phi: zll_phi: (1): 8,-3.15,3.15    : Z phi
+cr_zll_eta: zll_eta:  (1):10,-5.,5.    : Z eta
+cr_zll_mass: zll_mass:  (1):20,0,400.    : Z mass [GeV]
 
 
 ##### ZLL mt control variables (?)
 
-cr_zllmt_mt2:   zllmt_mt2: 16,0,800    : MT2  [GeV]
+cr_zllmt_mt2:   zllmt_mt2: (1): 16,0,800    : MT2  [GeV]
 
-cr_zllmt_met:   zllmt_met_pt: 16,0,800    : E_{T}^{miss}  [GeV]
-cr_zllmt_met_phi:   zllmt_met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+cr_zllmt_met:   zllmt_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
+cr_zllmt_met_phi:   zllmt_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_zllmt_ht: zllmt_ht:  16,0,800    : H_{T}  [GeV]
+cr_zllmt_ht: zllmt_ht:  (1): 16,0,800    : H_{T}  [GeV]
 
-cr_zllmt_mht:   zllmt_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
-cr_zllmt_mht_phi:   zllmt_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
+cr_zllmt_mht:   zllmt_mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
+cr_zllmt_mht_phi:   zllmt_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-cr_zllmt_diffMetMht: zllmt_diffMetMht: 50,0,500    : |MET-MHT|
+cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_zllmt_diffMetMht: zllmt_diffMetMht: (1): 50,0,500    : |MET-MHT|
 
-cr_zllmt_mt: zllmt_mt: 16,0,600    : M_{T}  [GeV]
+cr_zllmt_mt: zllmt_mt: (1): 16,0,600    : M_{T}  [GeV]
 
 
 ##### lepton removed plots
 
-cr_rl_mt2:   rl_mt2: 16,0,800    : MT2  [GeV]
+cr_rl_mt2:   rl_mt2:  (1):16,0,800    : MT2  [GeV]
 
-cr_rl_met:   rl_met_pt: 16,0,800    : E_{T}^{miss}  [GeV]
-cr_rl_met_phi:   rl_met_phi: 8,-3.15,3.15    : phi of E_{T}^{miss}
+cr_rl_met:   rl_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
+cr_rl_met_phi:   rl_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_rl_ht: rl_ht:  16,0,800    : H_{T}  [GeV]
+cr_rl_ht: rl_ht:  (1): 16,0,800    : H_{T}  [GeV]
 
-cr_rl_mht:   rl_mht_pt: 16,0,800    : H_{T}^{miss}  [GeV]
-cr_rl_mht_phi:   rl_mht_phi: 8,-3.15,3.15    : phi of H_{T}^{miss}
+cr_rl_mht:   rl_mht_pt:  (1):16,0,800    : H_{T}^{miss}  [GeV]
+cr_rl_mht_phi:   rl_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_rl_deltaPhiMin: rl_deltaPhiMin: 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-cr_rl_diffMetMht: rl_diffMetMht: 50,0,500    : |MET-MHT|
+cr_rl_deltaPhiMin: rl_deltaPhiMin:(1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+cr_rl_diffMetMht: rl_diffMetMht:(1): 50,0,500    : |MET-MHT|
 
-cr_rl_pt: rl_pt: 16,0,600    : Zlike p_{T}  [GeV]
-cr_rl_phi: rl_phi: 8,-3.15,3.15    : Zlike phi
-cr_rl_eta: rl_eta: 10,-5.,5.    : Zlike eta
-cr_rl_mass: rl_mass: 20,0,400.    : Zlike mass [GeV]
+cr_rl_pt: rl_pt:(1): 16,0,600    : Zlike p_{T}  [GeV]
+cr_rl_phi: rl_phi:(1): 8,-3.15,3.15    : Zlike phi
+cr_rl_eta: rl_eta: (1):10,-5.,5.    : Zlike eta
+cr_rl_mass: rl_mass:(1): 20,0,400.    : Zlike mass [GeV]
 
 
 
 ##### LEPTON
 
-lep_nlep : nlep : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(lep, p_{T} > 10, |#eta| < 2.4 )
-lep_pt: lep_pt: 16,0,800    : lep p_{T}  [GeV]
-lep_phi: lep_phi: 8,-3.15,3.15    : lep phi
-lep_eta: lep_eta: 10,-5.,5.    : lep eta
-lep_mass: lep_mass: 20,0,400.    : lep mass [GeV]
+lep_nlep : nlep :(1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(lep, p_{T} > 10, |#eta| < 2.4 )
+lep_pt: lep_pt:(1): 16,0,800    : lep p_{T}  [GeV]
+lep_phi: lep_phi:(1): 8,-3.15,3.15    : lep phi
+lep_eta: lep_eta:(1): 10,-5.,5.    : lep eta
+lep_mass: lep_mass:(1): 20,0,400.    : lep mass [GeV]
 
-lep_pdgId : lep_pdgId : [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
+lep_pdgId : lep_pdgId :(1): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
 
-lep_dxy: lep_dxy: 100,0,0.5    : lep dxy  [cm]
-lep_dz: lep_dz: 100,0,0.5    : lep dz  [cm]
+lep_dxy: lep_dxy:(1): 40,0,0.4    : lep dxy  [cm]
+lep_dz: lep_dz:(1): 40,0,0.4    : lep dz  [cm]
 
-lep_relIso03:  lep_relIso03: 15,0,.5:  lep relIso03
-#lep_relIso04:  lep_relIso04: 15,0,.5:  lep relIso04
-lep_miniRelIso: lep_miniRelIso: 15,0,.5:  lep minireliso
-lep_tightId:  lep_tightId: [-0.5,0.5,1.5,2.5,3.5]:  lep tightId
+lep_relIso03:  lep_relIso03: (1):15,0,.5:  lep relIso03
+#lep_relIso04:  lep_relIso04:(1): 15,0,.5:  lep relIso04
+lep_miniRelIso: lep_miniRelIso/lep_pt:(1): 15,0,.5:  lep minireliso/pt
+lep_tightId:  lep_tightId:(1): [-0.5,0.5,1.5,2.5,3.5]:  lep tightId
 
-lep_lostHits:  lep_lostHits: [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]:  lep_lostHits
-lep_convVeto:  lep_convVeto: 10,0.,5.:  lep_convVeto
-lep_tightCharge:  lep_tightCharge: [-1.5,-0.5,0.5,1.5]:  lep_tightCharge
+lep_lostHits:lep_lostHits: (1):  [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]:  lep_lostHits
+lep_convVeto:  lep_convVeto:(1): 10,0.,5.:  lep_convVeto
+lep_tightCharge:lep_tightCharge:  (1): [-1.5,-0.5,0.5,1.5]:  lep_tightCharge
+
+## electrons
+
+ele_pt: (lep_pt):(fabs(lep_pdgId)==11): 16,0,800    : ele p_{T}  [GeV]
+ele_phi: (lep_phi):(fabs(lep_pdgId)==11): 8,-3.15,3.15    : ele phi
+ele_eta: (lep_eta):(fabs(lep_pdgId)==11): 10,-5.,5.    : ele eta
+ele_mass: (lep_mass):(fabs(lep_pdgId)==11): 20,0,400.    : ele mass [GeV]
+ele_pdgId : (lep_pdgId):(fabs(lep_pdgId)==11): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
+ele_dxy: (lep_dxy):(fabs(lep_pdgId)==11): 40,0,0.4    : ele dxy  [cm]
+ele_dz: (lep_dz):(fabs(lep_pdgId)==11):40,0,0.4    : ele dz  [cm]
+ele_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==11): 15,0,.5:  ele minireliso/pt
+
+
+## muons
+
+mu_pt: (lep_pt):(fabs(lep_pdgId)==13): 16,0,800    : mu p_{T}  [GeV]
+mu_phi: (lep_phi):(fabs(lep_pdgId)==13): 8,-3.15,3.15    : mu phi
+mu_eta: (lep_eta):(fabs(lep_pdgId)==13): 10,-5.,5.    : mu eta
+mu_mass: (lep_mass):(fabs(lep_pdgId)==13):20,0,400.    : mu mass [GeV]
+mu_pdgId : (lep_pdgId):(fabs(lep_pdgId)==13): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
+mu_dxy: (lep_dxy):(fabs(lep_pdgId)==13): 40,0,0.4    : mu dxy  [cm]
+mu_dz: (lep_dz):(fabs(lep_pdgId)==13): 40,0,0.4    : mu dz  [cm]
+mu_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso/pt
+
+
 
 
 ##### TOP
-#top_pt: top_pt: 100, 0, 500: top p_{T} [GeV]
-#anti_top_pt: anti_top_pt: 250, 0, 500: anti-top p_{T} [GeV]
+#top_pt: top_pt: (1): 100, 0, 500: top p_{T} [GeV]
+#anti_top_pt: anti_top_pt: (1): 250, 0, 500: anti-top p_{T} [GeV]
 
 
 ##### WEIGHTS
-#weight_btagsf: weight_btagsf: 20,0.8,1.5: weight_btagsf
-#weight_btagsf_heavy_UP: weight_btagsf_heavy_UP: 20,0.9,1.1: weight_btagsf_heavy_UP
-#weight_btagsf_heavy_DN: weight_btagsf_heavy_DN: 20,0.7,1.4: weight_btagsf_heavy_DN
-#weight_btagsf_light_UP: weight_btagsf_light_UP: 20,0.7,1.3: weight_btagsf_light_UP
-#weight_btagsf_light_DN: weight_btagsf_light_DN: 20,0.8,1.3: weight_btagsf_light_DN
+#weight_btagsf: weight_btagsf: (1): 20,0.8,1.5: weight_btagsf
+#weight_btagsf_heavy_UP: weight_btagsf_heavy_UP: (1): 20,0.9,1.1: weight_btagsf_heavy_UP
+#weight_btagsf_heavy_DN: weight_btagsf_heavy_DN: (1): 20,0.7,1.4: weight_btagsf_heavy_DN
+#weight_btagsf_light_UP: weight_btagsf_light_UP: (1): 20,0.7,1.3: weight_btagsf_light_UP
+#weight_btagsf_light_DN: weight_btagsf_light_DN: (1): 20,0.8,1.3: weight_btagsf_light_DN
 #
-#weight_lepsf: weight_lepsf: 20,0.9,1.1: weight_lepsf
-#weight_lepsf_UP: weight_lepsf_UP: 20,0.95,1.1: weight_lepsf_UP
-#weight_lepsf_DN: weight_lepsf_DN: 20,0.9,1.05: weight_lepsf_DN
+#weight_lepsf: weight_lepsf: (1): 20,0.9,1.1: weight_lepsf
+#weight_lepsf_UP: weight_lepsf_UP: (1): 20,0.95,1.1: weight_lepsf_UP
+#weight_lepsf_DN: weight_lepsf_DN: (1): 20,0.9,1.05: weight_lepsf_DN
 #
-#weight_isr: weight_isr: 20,0.9,1.1: weight_isr
-#weight_isr_UP: weight_isr_UP: 20,0.95,1.1: weight_isr_UP
-#weight_isr_DN: weight_isr_DN: 20,0.9,1.05: weight_isr_DN
+#weight_isr: weight_isr: (1): 20,0.9,1.1: weight_isr
+#weight_isr_UP: weight_isr_UP: (1): 20,0.95,1.1: weight_isr_UP
+#weight_isr_DN: weight_isr_DN: (1): 20,0.9,1.05: weight_isr_DN
 #
 #
-#weight_toppt: weight_toppt: 20,0.7,1.2: weight_toppt
-##weight_toppt_2: weight_toppt_2: 20,0.7,1.2: weight_toppt (ETH corrected)
+#weight_toppt: weight_toppt: (1): 20,0.7,1.2: weight_toppt
+##weight_toppt_2: weight_toppt_2:  (1):20,0.7,1.2: weight_toppt (ETH corrected)
 ##weight_scales:
 ##weight_scales_av
 #
-##puWeight: puWeight: 20,0.,3.: puWeight
+##puWeight: puWeight:  (1):20,0.,3.: puWeight

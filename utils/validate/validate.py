@@ -17,17 +17,19 @@ for line in file:
   data = map(lambda x: x.strip(),data)
   dic = {}
   dic['name'] = data[1]
+  dic['sel'] = data[2]
   dic['hname'] = data[0]
-  dic['title'] = data[3]
-  if '[' not in data[2]:
-    strings = data[2].split(',')
+  dic['title'] = data[4]
+  if '[' not in data[3]:
+    strings = data[3].split(',')
     tuple = (int(strings[0]), float(strings[1]), float(strings[2]))
     dic['binning'] = tuple
   else:
-    histobins = literal_eval(data[2])
+    histobins = literal_eval(data[3])
     bins_n = len(histobins)-1
     bins = array.array('d', histobins)
     dic['binning'] = (bins_n, bins)
+  print dic
   qs_common.append(dic)
 file.close
 
@@ -61,9 +63,11 @@ if __name__ == "__main__":
 
   for q in qs_to_run:
     print 'investigating ', q['name']
-    ret1,histo1 = RP.makeHistoFromNtuple(options.fname1, options.treename1, q['hname'] + '_1', q['binning'], q['name'], '(1)', '(1)', False )
-    ret2,histo2 = RP.makeHistoFromNtuple(options.fname2, options.treename2, q['hname'] + '_2', q['binning'], q['name'], '(1)', '(1)', False )
+
+    ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
+    ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
     if ret1 != -1 and ret2 != -1:
-      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, outDir=options.outdirname, plotName=q['name'])
+      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, outDir=options.outdirname, plotName=q['hname'])
+      print 'Entries histo1', histo1.GetEntries(), ' histo2', histo2.GetEntries()
     else:
       print 'Skipping ', q['name']
