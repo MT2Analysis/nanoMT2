@@ -4,4 +4,4 @@
 python validate.py -f1 ../../testmc_94X_nano/test94X_Wlv_NANO_15K_Skim.root -t1 Events -f2 /mnt/t3nfs01/data01/shome/mratti/heppy_workarea/CMSSW_9_4_1/src/CMGTools/TTHAnalysis/cfg/testmc_94X_v2/WJetsToLNu_HT-600To800/mt2.root -t2 mt2 -o out_v2 -l1 nano -l2 mini
 
 # Latest command
-python validate.py -f1 ../../testmc_94X_nano_zll/test94X_Wlv_NANO_15K_Skim.root -t1 Events -f2 /shome/mratti/heppy_workarea/CMSSW_9_4_1/src/CMGTools/TTHAnalysis/cfg/testmc_94X_v7/WJetsToLNu_HT-600To800/mt2.root -t2 mt2 -o out_zll -l1 nano94X -l2 mini94X --doNorm
+python validate.py -f1 ../../output/testmc_94X_nano_zll/test94X_Wlv_NANO_15K_Skim.root -t1 Events -f2 /shome/mratti/heppy_workarea/CMSSW_9_4_1/src/CMGTools/TTHAnalysis/cfg/testmc_94X_v7/WJetsToLNu_HT-600To800/mt2.root -t2 mt2 -o out_zll -l1 nano94X -l2 mini94X --doNorm

@@ -88,8 +88,16 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_met_pt", "F")
     self.out.branch("zll_met_phi", "F")
 
+    self.out.branch("lep_pt", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_eta", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_phi", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_mass", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_charge", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_pdgId", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_dxy", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_dz", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_miniRelIso", "F", 1, "nLep") # what is 1 and what is nLep ?
 
-    # TODO: create the other branches
 
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
@@ -129,7 +137,11 @@ class mt2VarsProducer(Module):
     for muon in muons:
       if muon.pt < 10: continue
       if abs(muon.eta)>2.4: continue
-      # id cut if isLooseMuon coincides with loose working point
+      #if muon.isPFcand: continue
+      #print 'medium id for muon ', muon.mediumId
+      #print 'tight id for muon ', muon.tightId
+      #if muon.tightId == False: continue # medium working point instead of loose
+      # isLooseMuon coincides with loose working point so no cut is needed in principle
       if abs(muon.dz)>0.5: continue
       if abs(muon.dxy)>0.2: continue
       if muon.miniPFRelIso_all/muon.pt > 0.2: continue
@@ -304,6 +316,52 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("zll_mt2", zll_mt2)
 
 
+    ####################################################
+    # Lepton quantities
+    ####################################################
+    # save quantities of the various cleaned electrons and muons
+    # with the naming as in https://twiki.cern.ch/twiki/bin/view/SusyMECCA/BabyTrees
+    # all these quantities are arrays of floats (sic!), not std::vectors<float>
+
+    lep_pt  = [-99.]*len(clean_recoleptons)
+    lep_eta = [-99.]*len(clean_recoleptons)
+    lep_phi =  [-99.]*len(clean_recoleptons)
+    lep_mass = [-99.]*len(clean_recoleptons)
+    lep_charge = [-99.]*len(clean_recoleptons)
+    lep_pdgId = [-99.]*len(clean_recoleptons)
+    lep_dxy = [-99.]*len(clean_recoleptons)
+    lep_dz = [-99.]*len(clean_recoleptons)
+    lep_miniRelIso = [-99.]*len(clean_recoleptons)
+    # and this goes for the other variables
+
+    for i,ilep in enumerate(clean_recoleptons):
+      lep_pt[i] = ilep.pt
+      lep_eta[i] = ilep.eta
+      lep_phi[i] = ilep.phi
+      lep_mass[i] = ilep.mass
+      lep_charge[i] = ilep.charge
+      lep_pdgId[i] = ilep.pdgId
+      lep_dxy[i] = ilep.dxy
+      lep_dz[i] = ilep.dz
+      lep_miniRelIso[i] = ilep.miniPFRelIso_all
+      #[i] = ilep.
+
+
+    self.out.fillBranch("lep_pt", lep_pt)
+    self.out.fillBranch("lep_eta", lep_eta)
+    self.out.fillBranch("lep_phi", lep_phi)
+    self.out.fillBranch("lep_mass", lep_mass)
+    self.out.fillBranch("lep_charge", lep_charge)
+    self.out.fillBranch("lep_pdgId", lep_pdgId)
+    self.out.fillBranch("lep_dxy", lep_dxy)
+    self.out.fillBranch("lep_dz", lep_dz)
+    #self.out.fillBranch("lep_tightId", lep_tightId)
+    self.out.fillBranch("lep_miniRelIso", lep_miniRelIso)
+    #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
+    #self.out.fillBranch("lep_lostHits", lep_lostHits)
+    #self.out.fillBranch("lep_convVeto", lep_convVeto)
+    #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
+    # variables for ele id (?)
 
     ''''# make gamma met , not including overlap removal with jets
     gamma_met = ROOT.TVector2()
