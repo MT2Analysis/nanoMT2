@@ -47,6 +47,30 @@ def getMht4vec(objects):
     return ROOT.TLorentzVector(0, 0, 0, 0)
 
 
+def passEleId(electron):
+  passId = True
+  if abs(electron.eta + electron.deltaEtaSC) < 1.479:
+    if electron.sieie > 0.01114: passId = False
+    # delta eta ieta cut
+    # delta phi ieta cut
+    if electron.hoe > 0.181: passId = False
+    if abs(electron.eInvMinusPInv) > 0.207: passId = False
+    if abs(electron.dxy) > 0.0564: passId = False
+    if abs(electron.dz) > 0.472: passId = False
+    if electron.lostHits > 2: passId = False
+    if electron.convVeto == False: passId = False
+  else:
+    if electron.sieie > 0.0352: passId = False
+    # delta eta ieta cut
+    # delta phi ieta cut
+    if electron.hoe > 0.116: passId = False
+    if abs(electron.eInvMinusPInv) > 0.174: passId = False
+    if abs(electron.dxy) > 0.222: rpassId = False
+    if abs(electron.dz) > 0.921: passId = False
+    if electron.lostHits > 3: passId = False
+    if electron.convVeto == False: passId = False
+  return passId
+
 class mt2VarsProducer(Module):
   def __init__(self, isMC=True, year=2017):
     self.year = year
@@ -77,6 +101,7 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_mht_phi", "F")
     self.out.branch("diffMetMht", "F")
     self.out.branch("deltaPhiMin", "F")
+    self.out.branch("deltaPhiMin_had", "F")
     self.out.branch("zll_diffMetMht", "F")
     self.out.branch("zll_deltaPhiMin", "F")
     self.out.branch("jet1_pt", "F")
@@ -88,7 +113,7 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_met_pt", "F")
     self.out.branch("zll_met_phi", "F")
 
-    self.out.branch("lep_pt", "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_pt", "F", 1, "nLep") # TODO: understand what is the size at the end what is 1 and what is nLep ?
     self.out.branch("lep_eta", "F", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_phi", "F", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_mass", "F", 1, "nLep") # what is 1 and what is nLep ?
@@ -98,6 +123,10 @@ class mt2VarsProducer(Module):
     self.out.branch("lep_dz", "F", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_miniRelIso", "F", 1, "nLep") # what is 1 and what is nLep ?
 
+    self.out.branch("jet_pt", "F", 1, "nJet") #
+    self.out.branch("jet_eta", "F", 1, "nJet") #
+    self.out.branch("jet_phi", "F", 1, "nJet")
+    self.out.branch("jet_id", "I", 1, "nJet")
 
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
@@ -127,10 +156,18 @@ class mt2VarsProducer(Module):
     for electron in electrons:
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      if electron.cutBased == 0: continue
-      # could it be instead Electron_convVeto the flag to check ?
-      if electron.miniPFRelIso_all/electron.pt > 0.1: continue
-      # TODO: check miniPFRelIso_all does not include /pt
+      if electron.cutBased == 0: continue # does not include d0, dz, conv veto
+      # d0 and dz cut are not included in the id
+      #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+      if abs(electron.eta + electron.deltaEtaSC) < 1.479:
+        if electron.dxy > 0.05: continue
+        if electron.dz > 0.10: continue
+      else:
+        if electron.dxy > 0.10: continue
+        if electron.dz > 0.20: continue
+      # try to use the cuts exactly how stated in the int note
+      #if not passEleId(electron): continue
+      if electron.miniPFRelIso_all > 0.1: continue
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
 
@@ -144,7 +181,7 @@ class mt2VarsProducer(Module):
       # isLooseMuon coincides with loose working point so no cut is needed in principle
       if abs(muon.dz)>0.5: continue
       if abs(muon.dxy)>0.2: continue
-      if muon.miniPFRelIso_all/muon.pt > 0.2: continue
+      if muon.miniPFRelIso_all > 0.2: continue
       muon.isToRemove = False
       selected_recomuons.append(muon)
 
@@ -169,8 +206,8 @@ class mt2VarsProducer(Module):
       jet.isToRemove = False
       if self.verbose:  print 'jet id tight ', getBitDecision(jet.jetId, 2)
       if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
-      if jet.pt<20: continue # TODO: is it the right cut?
-      if abs(jet.eta)>4.7: continue
+      if jet.pt<20: continue # CHECKED it does not make difference to use 15 or no cut
+      if abs(jet.eta)>4.7: continue # large eta cut
       baseline_jets.append(jet)
       #if abs(jet.eta)<2.4: continue
       #selected_jets.append(jet)
@@ -197,10 +234,11 @@ class mt2VarsProducer(Module):
 
     # ##################################################
     # cleaned collections of objects
-    # ##################################################    #selected_jets = [jet for jet in baseline_jets if abs(jet.eta) < 2.4]
-    clean_jets20 =        [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 and jet.pt > 20]
-    clean_jets30 =        [jet for jet in clean_jets20 if jet.pt > 30]
-    clean_bjets20 =       [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
+    # ##################################################
+    clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20]
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ]
+    clean_jets30 =          [jet for jet in clean_jets20 if jet.pt > 30]
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
@@ -288,6 +326,7 @@ class mt2VarsProducer(Module):
 
     # DeltaPhi
     deltaPhiMin = getDeltaPhiMin(objects_std, met4vec)
+    deltaPhiMin_had = getDeltaPhiMin(clean_jets30, met4vec)
     zll_deltaPhiMin = getDeltaPhiMin(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
 
     jet1_pt = clean_jets30[0].pt if len(clean_jets30)>0 else -99
@@ -301,10 +340,12 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("zll_mht_phi", zll_mht_phi)
     self.out.fillBranch("diffMetMht", diffMetMht)
     self.out.fillBranch("deltaPhiMin", deltaPhiMin)
+    self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
     self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
     self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
     self.out.fillBranch("jet1_pt", jet1_pt)
     self.out.fillBranch("jet2_pt", jet2_pt)
+
 
     ####################################################
     # MT2
@@ -362,6 +403,26 @@ class mt2VarsProducer(Module):
     #self.out.fillBranch("lep_convVeto", lep_convVeto)
     #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
     # variables for ele id (?)
+
+
+    ####################################################
+    # Clean jets
+    ###################################################
+    jet_pt  = [-99.]*len(clean_jets20_largeEta)
+    jet_eta = [-99.]*len(clean_jets20_largeEta)
+    jet_phi =  [-99.]*len(clean_jets20_largeEta)
+    jet_id = [-99.]*len(clean_jets20_largeEta)
+
+    for i,ijet in enumerate(clean_jets20_largeEta):
+      jet_pt[i] = ijet.pt
+      jet_phi[i] = ijet.phi
+      jet_eta[i] = ijet.eta
+      jet_id[i] = int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
+
+    self.out.fillBranch("jet_pt", jet_pt)
+    self.out.fillBranch("jet_eta", jet_eta)
+    self.out.fillBranch("jet_phi", jet_phi)
+    self.out.fillBranch("jet_id", jet_id)
 
     ''''# make gamma met , not including overlap removal with jets
     gamma_met = ROOT.TVector2()
