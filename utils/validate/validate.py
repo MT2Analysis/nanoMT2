@@ -29,7 +29,7 @@ for line in file:
     bins_n = len(histobins)-1
     bins = array.array('d', histobins)
     dic['binning'] = (bins_n, bins)
-  print dic
+  #print dic
   qs_common.append(dic)
 file.close
 
@@ -52,6 +52,7 @@ if __name__ == "__main__":
   parser.add_argument('-l2', '--label2', type=str, dest='label2', help='', default = 'B')
   parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir')
   parser.add_argument('--doNorm', dest='doNorm', help='do shape comparison', action='store_true', default=False)
+  parser.add_argument('--doLog', dest='doLog', help='use Log scale on y axis', action='store_true', default=False)
 
   options = parser.parse_args()
 
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
     ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
     if ret1 != -1 and ret2 != -1:
-      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, outDir=options.outdirname, plotName=q['hname'])
+      RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, log=options.doLog, outDir=options.outdirname, plotName=q['hname'])
       print 'Entries histo1', histo1.GetEntries(), ' histo2', histo2.GetEntries()
     else:
       print 'Skipping ', q['name']

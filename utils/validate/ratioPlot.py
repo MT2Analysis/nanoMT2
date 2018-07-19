@@ -59,7 +59,7 @@ def makeRatioSettings(ratioMC):
   ratioMC.SetLineWidth(2)
 
 # hnum nominal, hden var1, hden2 var2
-def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="", xtitle="pt",ytitle="Entries", ratiotitle="Ratio", norm=False, plotName="ratio", outDir='out'):
+def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="", xtitle="pt",ytitle="Entries", ratiotitle="Ratio", norm=False, log=True, plotName="ratio", outDir='out'):
   TH1.SetDefaultSumw2()
 
   # prepare settings of histos
@@ -98,7 +98,7 @@ def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="
   yMinP1=0.305;
   bottomMarginP1=0.005;
   pad1 = TPad('pad1','pad1',0,yMinP1,0.99,1)
-  pad1.SetLogy()
+  if log: pad1.SetLogy()
   pad1.SetBottomMargin(bottomMarginP1)
   pad1.SetFillColor(kWhite)
   pad1.SetTickx()
@@ -200,3 +200,4 @@ def makeRatioPlot(hNum, hDen, hDen2="", nameNum="num", nameDen="den", nameDen2="
   #hRatio.GetXaxis().SetRangeUser(200.,2000.)
 
   canvas.SaveAs('{d}/{name}.pdf'.format(d=outDir, name = plotName))
+  canvas.SaveAs('{d}/{name}.png'.format(d=outDir, name = plotName))

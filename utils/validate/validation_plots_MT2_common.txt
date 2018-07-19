@@ -12,6 +12,9 @@ mht_phi:   mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 deltaPhiMin: deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
 diffMetMht: diffMetMht: (1): 50,0,500    : |MET-MHT|
 
+deltaPhiMin_had: deltaPhiMin_had: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+
+
 ht: ht: (1):  15,0,1500    : H_{T}  [GeV]
 
 rho: rho: (1): 10,0,1  : rho
@@ -136,8 +139,8 @@ nLepLowMT:  nLepLowMT:  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] 
 ##### JET
 
 jet_njet : njet :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,28.5,29.5,30.5] : N(jet, p_{T} > 10, |#eta| < 5.2 )
-jet_pt: jet_pt: (1): 200, 0, 200    : jet p_{T}  [GeV]
-jet_phi: jet_phi: (1): 8,-3.15,3.15    : jet phi
+jet_pt: jet_pt: (1): 100, 0, 500    : jet p_{T}  [GeV]
+jet_phi: jet_phi: (1): 32,-3.2,3.2    : jet phi
 jet_eta: jet_eta: (1): 24,-6.0,6.0    : jet eta
 jet_mass: jet_mass: (1): 20,0,400.    : jet mass [GeV]
 jet_csv: jet_btagCSV:  (1):110,-0.1,1.    : jet csv
@@ -163,7 +166,7 @@ isoTrack_phi: isoTrack_phi: (1): 8,-3.15,3.15    : isotrack phi
 isoTrack_eta: isoTrack_eta:  (1):10,-5.,5.    : isotrack eta
 isoTrack_mass: isoTrack_mass:  (1):20,0,400.    : isotrack mass [GeV]
 
-isoTrack_pdgId : isoTrack_pdgId : (1): 300, -150,150 : PDG_ID
+isoTrack_pdgId : isoTrack_pdgId : (1): 300, -150,150 : isotrack PDG_ID
 
 isoTrack_dz: isoTrack_dz:  (1):40,0,0.4    : isotrack dz  [cm]
 
@@ -299,14 +302,14 @@ lep_phi: lep_phi:(1): 8,-3.15,3.15    : lep phi
 lep_eta: lep_eta:(1): 10,-5.,5.    : lep eta
 lep_mass: lep_mass:(1): 20,0,400.    : lep mass [GeV]
 
-lep_pdgId : lep_pdgId :(1): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
+lep_pdgId : lep_pdgId :(1): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : lep PDG_ID
 
-lep_dxy: lep_dxy:(1): 40,0,0.4    : lep dxy  [cm]
-lep_dz: lep_dz:(1): 40,0,0.4    : lep dz  [cm]
+lep_dxy: fabs(lep_dxy):(1): 40,0,0.4    : lep |dxy|  [cm]
+lep_dz: fabs(lep_dz):(1): 40,0,0.4    : lep |dz|  [cm]
 
 lep_relIso03:  lep_relIso03: (1):15,0,.5:  lep relIso03
 #lep_relIso04:  lep_relIso04:(1): 15,0,.5:  lep relIso04
-lep_miniRelIso: lep_miniRelIso/lep_pt:(1): 15,0,.5:  lep minireliso/pt
+lep_miniRelIso: lep_miniRelIso/lep_pt:(1): 15,0,.5:  lep minireliso
 lep_tightId:  lep_tightId:(1): [-0.5,0.5,1.5,2.5,3.5]:  lep tightId
 
 lep_lostHits:lep_lostHits: (1):  [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]:  lep_lostHits
@@ -319,10 +322,10 @@ ele_pt: (lep_pt):(fabs(lep_pdgId)==11): 16,0,800    : ele p_{T}  [GeV]
 ele_phi: (lep_phi):(fabs(lep_pdgId)==11): 8,-3.15,3.15    : ele phi
 ele_eta: (lep_eta):(fabs(lep_pdgId)==11): 10,-5.,5.    : ele eta
 ele_mass: (lep_mass):(fabs(lep_pdgId)==11): 20,0,400.    : ele mass [GeV]
-ele_pdgId : (lep_pdgId):(fabs(lep_pdgId)==11): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
-ele_dxy: (lep_dxy):(fabs(lep_pdgId)==11): 40,0,0.4    : ele dxy  [cm]
-ele_dz: (lep_dz):(fabs(lep_pdgId)==11):40,0,0.4    : ele dz  [cm]
-ele_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==11): 15,0,.5:  ele minireliso/pt
+ele_pdgId : (lep_pdgId):(fabs(lep_pdgId)==11): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : ele PDG_ID
+ele_dxy: fabs(lep_dxy):(fabs(lep_pdgId)==11): 40,0,0.4    : ele |dxy|  [cm]
+ele_dz: fabs(lep_dz):(fabs(lep_pdgId)==11):40,0,0.4    : ele |dz|  [cm]
+ele_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==11): 15,0,.5:  ele minireliso
 
 
 ## muons
@@ -331,10 +334,10 @@ mu_pt: (lep_pt):(fabs(lep_pdgId)==13): 16,0,800    : mu p_{T}  [GeV]
 mu_phi: (lep_phi):(fabs(lep_pdgId)==13): 8,-3.15,3.15    : mu phi
 mu_eta: (lep_eta):(fabs(lep_pdgId)==13): 10,-5.,5.    : mu eta
 mu_mass: (lep_mass):(fabs(lep_pdgId)==13):20,0,400.    : mu mass [GeV]
-mu_pdgId : (lep_pdgId):(fabs(lep_pdgId)==13): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : PDG_ID
-mu_dxy: (lep_dxy):(fabs(lep_pdgId)==13): 40,0,0.4    : mu dxy  [cm]
-mu_dz: (lep_dz):(fabs(lep_pdgId)==13): 40,0,0.4    : mu dz  [cm]
-mu_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso/pt
+mu_pdgId : (lep_pdgId):(fabs(lep_pdgId)==13): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : mu
+mu_dxy: fabs(lep_dxy):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dxy|  [cm]
+mu_dz: fabs(lep_dz):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dz|  [cm]
+mu_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso
 
 
 
