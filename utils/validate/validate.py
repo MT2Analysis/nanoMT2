@@ -3,6 +3,7 @@ import ROOT
 import ratioPlot as RP
 import array
 import os
+import os.path
 import re
 from ast import literal_eval
 
@@ -10,16 +11,14 @@ from ast import literal_eval
 
 qs_common = []
 file = open('validation_plots_MT2_common.txt', 'r')
+#file = open('validation_single.txt', 'r')
 for line in file:
   if line.startswith('#'): continue
   if line == '\n': continue
   data = line.split(':')
   data = map(lambda x: x.strip(),data)
   dic = {}
-  dic['name'] = data[1]
-  dic['sel'] = data[2]
-  dic['hname'] = data[0]
-  dic['title'] = data[4]
+  dic['name'] = data[1]; dic['sel'] = data[2]; dic['hname'] = data[0]; dic['title'] = data[4]
   if '[' not in data[3]:
     strings = data[3].split(',')
     tuple = (int(strings[0]), float(strings[1]), float(strings[2]))
@@ -53,6 +52,8 @@ if __name__ == "__main__":
   parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir')
   parser.add_argument('--doNorm', dest='doNorm', help='do shape comparison', action='store_true', default=False)
   parser.add_argument('--doLog', dest='doLog', help='use Log scale on y axis', action='store_true', default=False)
+  parser.add_argument('--doFriend', dest='doFriend', help='do friend trees checks', action='store_true', default=False)
+  parser.add_argument('-s', '--selection', type=str, dest='sel', help='selection for friend tree, example: abs(ht/new.ht-1)>0.05', default='(1)')
 
   options = parser.parse_args()
 
@@ -65,10 +66,20 @@ if __name__ == "__main__":
   for q in qs_to_run:
     print 'investigating ', q['name']
 
-    ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
-    ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
+
+    if options.doFriend == False:
+      ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
+      ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
+
+    else:
+      ret1,ret2,histo1,histo2 = RP.makeHistosFromFriends(infilename1=options.fname1, infilename2=options.fname2, intreename1=options.treename1, intreename2=options.treename2, \
+                                                         outhistoname=q['hname'], outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', \
+                                                         outhistoselection=q['sel'] + '*({})'.format(options.sel), outhistosmooth=False, index='evt', friendname='new')
+    # now you should have the histograms
     if ret1 != -1 and ret2 != -1:
       RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, log=options.doLog, outDir=options.outdirname, plotName=q['hname'])
       print 'Entries histo1', histo1.GetEntries(), ' histo2', histo2.GetEntries()
     else:
       print 'Skipping ', q['name']
+
+      # do the friend tree buisness

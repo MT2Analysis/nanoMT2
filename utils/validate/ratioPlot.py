@@ -1,9 +1,9 @@
 from ROOT import gROOT, TH1F, TH1, kBlack, kRed, kBlue, TCanvas, gStyle, TLegend, TLatex, TFile, TChain, TPad, kWhite
 import ROOT
+import os.path
 
 
-
-def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=True):
+def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=False):
 
   TH1.SetDefaultSumw2()
 
@@ -20,7 +20,46 @@ def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, o
 
   return ret,histo
 
+def makeHistosFromFriends(infilename1, infilename2, intreename1, intreename2, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=False, index='evt', friendname='new'):
 
+  TH1.SetDefaultSumw2()
+
+  if  os.path.isfile(infilename1)==False or os.path.isfile(infilename2)==False: raise RuntimeError('wrong files')
+
+  fref = TFile(infilename1, 'READ')
+  fnew = TFile(infilename2, 'READ')
+
+  tref = fref.Get(intreename1)
+  tnew = fnew.Get(intreename2)
+
+  # FIXME: find a way to index on the same variable
+  #tref.BuildIndex(index)
+  #tnew.BuildIndex(index)
+  tref.AddFriend(tnew, friendname)
+
+  htemp = TH1F( 'htemp', 'htemp', *(outhistobinning))
+  htemp2 = TH1F( 'htemp2', 'htemp2', *(outhistobinning))
+
+  print str(outhistobinning)
+  #ret1=tref.Draw('%s>>%s%s' % (outhistoquantity, outhistoname,outhistobinning), outhistoselection, 'goff')
+  ret1=tref.Draw('%s>>htemp' % (outhistoquantity), outhistoselection, 'goff')
+  href = tref.GetHistogram().Clone('htemp')
+  href.SetDirectory(0)
+  href.SetTitle(href.GetName())
+
+  #ret2=tref.Draw('%s.%s>>%s%s' % (friendname, outhistoquantity, outhistoname, outhistobinning), outhistoselection, 'goff')
+  #ret2=tref.Draw('%s.%s>>%s%s' % (friendname, outhistoquantity, outhistoname, outhistobinning), outhistoselection, 'goff')
+  ret2=tref.Draw('%s.%s>>htemp2' % (friendname, outhistoquantity), outhistoselection, 'goff')
+
+  #hnew = tref.GetHistogram().Clone('%s_new' % outhistoname)
+  hnew = tref.GetHistogram().Clone('htemp2')
+  hnew.SetDirectory(0)
+  hnew.SetTitle(hnew.GetName()+'_')
+
+
+  print ret1, ret2, href.GetEntries(), hnew.GetEntries()
+
+  return ret1,ret2,href,hnew
 
 
 def makeHistSettings(h):
