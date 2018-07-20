@@ -84,6 +84,8 @@ class mt2VarsProducer(Module):
     self.verbose = False
     self.out = wrappedOutputTree
 
+    #self.out.branch("evt", "L")
+
 
     self.out.branch("nJet20", "I")
     self.out.branch("nJet30", "I")
@@ -140,6 +142,9 @@ class mt2VarsProducer(Module):
     met = Object(event, "MET")
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
+    #evt = Object(event, "event")
+
+    #self.out.fillBranch("evt", evt)
 
     # Perform SELECTIONS
     selected_recoelectrons = []
@@ -171,6 +176,14 @@ class mt2VarsProducer(Module):
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
 
+    for electron in electrons:
+      if electron.pt < 5: continue
+      if electron.isPFcand == False: continue # passa la pf id
+      if electron.pfRelIso03_chg > 0.2: continue
+      if abs(electron.dz)>0.1: continue
+      electron.isToRemove = False
+      selected_pfleptons.append(electron)
+
     for muon in muons:
       if muon.pt < 10: continue
       if abs(muon.eta)>2.4: continue
@@ -185,20 +198,28 @@ class mt2VarsProducer(Module):
       muon.isToRemove = False
       selected_recomuons.append(muon)
 
+    # loop again to recover low pt PFcandidates
+    for muon in muons:
+      if muon.pt < 5: continue
+      if muon.isPFcand == False: continue # passa la pf id
+      if muon.pfRelIso03_chg > 0.2: continue
+      if abs(muon.dz)>0.1: continue
+      muon.isToRemove = False
+      selected_pfleptons.append(muon)
+
+    # maybe some other pf candidates which failed to enter muon collection
     for it in isotracks:
       it.mass = 0.
       if not it.isPFcand: continue # consider only pfcandidates
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
-        if it.pfRelIso03_chg/it.pt > 0.2: continue
-        MT_it_met = mtw(it.pt, it.phi, met.pt, met.phi)
-        if MT_it_met > 100: continue
+        if it.pfRelIso03_chg > 0.2: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
       else:
         if it.pt<10: continue
-        if it.pfRelIso03_chg/it.pt > 0.1: continue
+        if it.pfRelIso03_chg > 0.1: continue
         it.isToRemove = False
         selected_pfhadrons.append(it)
 
@@ -209,8 +230,7 @@ class mt2VarsProducer(Module):
       if jet.pt<20: continue # CHECKED it does not make difference to use 15 or no cut
       if abs(jet.eta)>4.7: continue # large eta cut
       baseline_jets.append(jet)
-      #if abs(jet.eta)<2.4: continue
-      #selected_jets.append(jet)
+
 
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
@@ -220,10 +240,8 @@ class mt2VarsProducer(Module):
     # ##################################################
     for it in selected_pfleptons:
       (irl,dRmin) = closest(it,selected_recoleptons)
-      if irl and dRmin<0.1:
+      if irl and dRmin<0.01:
         it.isToRemove = True # mark the pflepton for removal because it overlaps with a selected reco lepton
-      #else: clean_pfleptons.append(it)
-        # mark the pfleptons as to be removed to be removed
 
     # now remove closest jet to lepton within DeltaR
     for lep in selected_recoleptons:
@@ -236,19 +254,24 @@ class mt2VarsProducer(Module):
     # cleaned collections of objects
     # ##################################################
     clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20]
-    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ]
-    clean_jets30 =          [jet for jet in clean_jets20 if jet.pt > 30]
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
+    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_pfleptons =    [it for it in selected_pfleptons if it.isToRemove == False]
+    clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBased>1] # require electrons also to be loose
+    clean_recomuons_CR = clean_recomuons
+    clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
+    clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if mtw(x.pt, x.phi, met.pt, met.phi)<100]
+    clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
+    clean_pfleptons_lowMT = [x for x in selected_pfleptons if x.isToRemove == False and mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_pfelectrons =  [lep for lep in clean_pfleptons if abs(it.pdgId) == 11]
     clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
     clean_pfhadrons =    selected_pfhadrons # TODO: check
     clean_leptons =      clean_pfleptons + clean_recoleptons
-    objects_std =        clean_jets30 + clean_leptons
-    objects_zll =        clean_jets30
+    objects_std =        clean_jets30 + clean_recoleptons #  # FIXME: 20 GeV cut. TODO: check it's not clean_leptons
+    objects_zll =        clean_jets20
 
     ####
     # Additional sorting should happen here
@@ -262,9 +285,9 @@ class mt2VarsProducer(Module):
     nBJet20 = len(clean_bjets20)
     nElectrons10 = len(clean_recoelectrons)
     nMuons10 = len(clean_recomuons)
-    nPFLep5LowMT = len(clean_pfleptons)
+    nPFLep5LowMT = len(clean_pfleptons_lowMT)
     nPFHad10LowMT = len(clean_pfhadrons)
-    nLepLowMT = len(clean_leptons) # TODO: add MT cut on selected recoleptons for this variable
+    nLepLowMT = len(clean_recoleptons_CR_lowMT)
 
     self.out.fillBranch("nJet20", nJet20)
     self.out.fillBranch("nJet30", nJet30)
@@ -308,7 +331,7 @@ class mt2VarsProducer(Module):
     ####################################################
     # Ht
     ht =      getHt(objects_std)
-    zll_ht =  getHt(objects_zll)
+    zll_ht =  getHt(objects_zll) if len(clean_recoleptons)==2 else -99 # I don't like this initialization, but that's life
 
     # Mht
     mht4vec = getMht4vec(objects_std)
@@ -329,8 +352,8 @@ class mt2VarsProducer(Module):
     deltaPhiMin_had = getDeltaPhiMin(clean_jets30, met4vec)
     zll_deltaPhiMin = getDeltaPhiMin(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
 
-    jet1_pt = clean_jets30[0].pt if len(clean_jets30)>0 else -99
-    jet2_pt = clean_jets30[1].pt if len(clean_jets30)>1 else -99
+    jet1_pt = clean_jets20[0].pt if len(clean_jets20)>0 else -99 # for a reson that only the MINDS of the previous MT2 analysis can understand, these jets start from pt > 20 GeV : FUCK YOU!
+    jet2_pt = clean_jets20[1].pt if len(clean_jets20)>1 else -99 # same goes for the second leading jet pt
 
     self.out.fillBranch("ht", ht)
     self.out.fillBranch("mht_pt", mht_pt)

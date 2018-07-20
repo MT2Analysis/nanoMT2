@@ -31,8 +31,9 @@ class ExampleAnalysis(Module):
 from argparse import ArgumentParser
 import os
 parser = ArgumentParser(description='', add_help=True)
-parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='output dir', default='output/out')
-parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events', default=1001)
+parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='name of the output dir', default='output/out')
+parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events to run on', default=1001)
+parser.add_argument('-w', '--what', type=str, dest='what', help='what sample to run on: Wlv, Zll', default='Wlv')
 options = parser.parse_args()
 
 
@@ -74,8 +75,11 @@ preselection = ''
 #'root://cms-xrd-global.cern.ch//store/data/Run2017D/MET/NANOAOD/31Mar2018-v1/210000/D064F6E9-DC46-E811-AF6D-008CFAF28DCE.root']
 #files = ['/scratch/mratti/MT2_test_nanoAODs/ZJetsToNuNu_HT-600To800__RunIIFall17NanoAOD/A8548111-275A-E811-A7C4-A0369FC5E71C.root']
 #files=[' root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/40000/2CE738F9-C212-E811-BD0E-EC0D9A8222CE.root']
-files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
-files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root'] 
+if options.what == 'Wlv':
+  files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
+  files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
+elif options.what == 'Zll':
+  files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
 #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_nodxyIT.root']
 #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
 
