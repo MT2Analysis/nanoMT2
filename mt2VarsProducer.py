@@ -130,6 +130,10 @@ class mt2VarsProducer(Module):
     self.out.branch("jet_phi", "F", 1, "nJet")
     self.out.branch("jet_id", "I", 1, "nJet")
 
+    self.out.branch("zll_pt", "F")
+    self.out.branch("zll_eta", "F")
+    self.out.branch("zll_phi", "F")
+    self.out.branch("zll_mass", "F")
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
@@ -176,6 +180,7 @@ class mt2VarsProducer(Module):
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
 
+    # loop to look for the low pt pf candidates
     for electron in electrons:
       if electron.pt < 5: continue
       if electron.isPFcand == False: continue # passa la pf id
@@ -227,7 +232,7 @@ class mt2VarsProducer(Module):
       jet.isToRemove = False
       if self.verbose:  print 'jet id tight ', getBitDecision(jet.jetId, 2)
       if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
-      if jet.pt<20: continue # CHECKED it does not make difference to use 15 or no cut
+      if jet.pt<20: continue
       if abs(jet.eta)>4.7: continue # large eta cut
       baseline_jets.append(jet)
 
@@ -236,27 +241,13 @@ class mt2VarsProducer(Module):
     selected_recoleptons = selected_recomuons + selected_recoelectrons
 
     # ##################################################
-    # NOW PERFORM THE CROSS-CLEANING
+    # NOW PERFORM THE CROSS-CLEANING: stage 1
     # ##################################################
     for it in selected_pfleptons:
       (irl,dRmin) = closest(it,selected_recoleptons)
       if irl and dRmin<0.01:
-        it.isToRemove = True # mark the pflepton for removal because it overlaps with a selected reco lepton
+        it.isToRemove = True # mark the pflepton for removal because it overlaps with a the closest selected reco lepton
 
-    # now remove closest jet to lepton within DeltaR
-    for lep in selected_recoleptons:
-      (ijet,dRmin) = closest(lep,baseline_jets)
-      if self.verbose: print ijet,dRmin
-      if ijet and dRmin<0.4: # mark that jet to be removed
-        baseline_jets[ijet].isToRemove = True
-
-    # ##################################################
-    # cleaned collections of objects
-    # ##################################################
-    clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20]
-    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
-    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
-    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
@@ -268,14 +259,30 @@ class mt2VarsProducer(Module):
     clean_pfleptons_lowMT = [x for x in selected_pfleptons if x.isToRemove == False and mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_pfelectrons =  [lep for lep in clean_pfleptons if abs(it.pdgId) == 11]
     clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
-    clean_pfhadrons =    selected_pfhadrons # TODO: check
+    clean_pfhadrons =    selected_pfhadrons # TODO: check how overlap removal is done for them !
     clean_leptons =      clean_pfleptons + clean_recoleptons
-    objects_std =        clean_jets30 + clean_recoleptons #  # FIXME: 20 GeV cut. TODO: check it's not clean_leptons
-    objects_zll =        clean_jets20
+
+    # ##################################################
+    # NOW PERFORM THE CROSS-CLEANING: stage 2, remove closest jet to lepton within given DeltaR
+    # ##################################################
+    for lep in clean_leptons:
+      (ijet,dRmin) = closest(lep,baseline_jets)
+      if self.verbose: print ijet,dRmin
+      if ijet and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
+        baseline_jets[ijet].isToRemove = True
+
+    clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20]
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
+    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
+
+    objects_std =        clean_jets30 + clean_recoleptons + clean_pfleptons #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
+    objects_zll =        clean_jets30 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
 
     ####
     # Additional sorting should happen here
     objects_std.sort(key=lambda obj: obj.pt, reverse = True)
+    objects_zll.sort(key=lambda obj: obj.pt, reverse = True)
 
     # ##################################################
     # Now you're ready to count objects
@@ -446,6 +453,23 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("jet_eta", jet_eta)
     self.out.fillBranch("jet_phi", jet_phi)
     self.out.fillBranch("jet_id", jet_id)
+
+    #####
+    # Zll
+    ######
+    zll4vec = ROOT.TLorentzVector(0, 0, 0, 0)
+    for ilep in clean_recoleptons:
+      zll4vec += ilep.p4()
+    zll_pt = zll4vec.Pt() if len(clean_recoleptons)==2 else -99
+    zll_eta = zll4vec.Eta() if len(clean_recoleptons)==2 else -99
+    zll_phi = zll4vec.Phi() if len(clean_recoleptons)==2 else -99
+    zll_mass = zll4vec.M() if len(clean_recoleptons)==2 else -99
+
+    self.out.fillBranch("zll_pt", zll_pt)
+    self.out.fillBranch("zll_eta", zll_eta)
+    self.out.fillBranch("zll_phi", zll_phi)
+    self.out.fillBranch("zll_mass", zll_mass)
+
 
     ''''# make gamma met , not including overlap removal with jets
     gamma_met = ROOT.TVector2()
