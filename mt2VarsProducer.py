@@ -260,6 +260,7 @@ class mt2VarsProducer(Module):
     clean_pfelectrons =  [lep for lep in clean_pfleptons if abs(it.pdgId) == 11]
     clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
     clean_pfhadrons =    selected_pfhadrons # TODO: check how overlap removal is done for them !
+    clean_pfhadrons_lowMT = [x for x in clean_pfhadrons if mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_leptons =      clean_pfleptons + clean_recoleptons
 
     # ##################################################
@@ -276,7 +277,7 @@ class mt2VarsProducer(Module):
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
 
-    objects_std =        clean_jets30 + clean_recoleptons + clean_pfleptons #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
+    objects_std =        clean_jets30 + clean_recoleptons #+ clean_pfleptons #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
     objects_zll =        clean_jets30 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
 
     ####
@@ -344,8 +345,8 @@ class mt2VarsProducer(Module):
     mht4vec = getMht4vec(objects_std)
     mht_pt =  mht4vec.Pt() if len(objects_std)>0 else -99
     mht_phi = mht4vec.Phi() if len(objects_std)>0 else -99
-    zll_mht_pt = mht_pt
-    zll_mht_phi = mht_phi
+    zll_mht_pt = mht_pt if len(clean_recoleptons)==2 else -99
+    zll_mht_phi = mht_phi if len(clean_recoleptons)==2 else -99
 
     # Diff MET MHT
     diffMetMht4vec = ROOT.TLorentzVector(mht4vec-met4vec)
