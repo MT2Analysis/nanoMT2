@@ -89,6 +89,7 @@ class mt2VarsProducer(Module):
 
     self.out.branch("nJet20", "I")
     self.out.branch("nJet30", "I")
+    self.out.branch("nJet30FailId", "I")
     self.out.branch("nBJet20", "I")
     self.out.branch("nElectrons10", "I")
     self.out.branch("nMuons10", "I")
@@ -158,6 +159,7 @@ class mt2VarsProducer(Module):
     selected_pfhadrons = []
     selected_jets = []
     baseline_jets = []
+    baseline_jets_noId = []
 
     # Want to loop explicitly on the objects to add the isToRemove flag -
     # - which I need to check for overlaps between objects efficiently
@@ -186,6 +188,7 @@ class mt2VarsProducer(Module):
       if electron.isPFcand == False: continue # passa la pf id
       if electron.pfRelIso03_chg > 0.2: continue
       if abs(electron.dz)>0.1: continue
+      if mtw(electron.pt, electron.phi, met.pt, met.phi)>100: continue
       electron.isToRemove = False
       selected_pfleptons.append(electron)
 
@@ -209,6 +212,7 @@ class mt2VarsProducer(Module):
       if muon.isPFcand == False: continue # passa la pf id
       if muon.pfRelIso03_chg > 0.2: continue
       if abs(muon.dz)>0.1: continue
+      if mtw(muon.pt, muon.phi, met.pt, met.phi)>100: continue
       muon.isToRemove = False
       selected_pfleptons.append(muon)
 
@@ -216,13 +220,14 @@ class mt2VarsProducer(Module):
     for it in isotracks:
       it.mass = 0.
       if not it.isPFcand: continue # consider only pfcandidates
+      if mtw(it.pt, it.phi, met.pt, met.phi)>100: continue
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
         if it.pfRelIso03_chg > 0.2: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
-      else:
+      elif abs(it.pdgId == 211):
         if it.pt<10: continue
         if it.pfRelIso03_chg > 0.1: continue
         it.isToRemove = False
@@ -231,13 +236,14 @@ class mt2VarsProducer(Module):
     for jet in jets:
       jet.isToRemove = False
       if self.verbose:  print 'jet id tight ', getBitDecision(jet.jetId, 2)
-      if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
       if jet.pt<20: continue
       if abs(jet.eta)>4.7: continue # large eta cut
+      baseline_jets_noId.append(jet)
+      if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
       baseline_jets.append(jet)
 
-
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
+    baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
 
     # ##################################################
@@ -256,11 +262,9 @@ class mt2VarsProducer(Module):
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
     clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
-    clean_pfleptons_lowMT = [x for x in selected_pfleptons if x.isToRemove == False and mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_pfelectrons =  [lep for lep in clean_pfleptons if abs(it.pdgId) == 11]
     clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
-    clean_pfhadrons =    selected_pfhadrons # TODO: check how overlap removal is done for them !
-    clean_pfhadrons_lowMT = [x for x in clean_pfhadrons if mtw(x.pt, x.phi, met.pt, met.phi)<100]
+    clean_pfhadrons =    selected_pfhadrons
     clean_leptons =      clean_pfleptons + clean_recoleptons
 
     # ##################################################
@@ -272,13 +276,21 @@ class mt2VarsProducer(Module):
       if ijet and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
         baseline_jets[ijet].isToRemove = True
 
-    clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20]
-    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 20 and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
+    # repeat x-cleaning for all jets including those that pass the id # FIXME: personally I think we should remove this x-cleaning
+    for lep in clean_leptons:
+      (ijet,dRmin) = closest(lep,baseline_jets_noId)
+      if self.verbose: print ijet,dRmin
+      if ijet and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
+        baseline_jets_noId[ijet].isToRemove = True
+
+    clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False]
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
+    clean_jets30_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and getBitDecision(jet.jetId, 2) == False]
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
 
-    objects_std =        clean_jets30 + clean_recoleptons #+ clean_pfleptons #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
-    objects_zll =        clean_jets30 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
+    objects_std =        clean_jets20 + clean_leptons  #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
+    objects_zll =        clean_jets20 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
 
     ####
     # Additional sorting should happen here
@@ -291,14 +303,16 @@ class mt2VarsProducer(Module):
     nJet20 = len(clean_jets20)
     nJet30 = len(clean_jets30)
     nBJet20 = len(clean_bjets20)
-    nElectrons10 = len(clean_recoelectrons)
-    nMuons10 = len(clean_recomuons)
-    nPFLep5LowMT = len(clean_pfleptons_lowMT)
-    nPFHad10LowMT = len(clean_pfhadrons)
-    nLepLowMT = len(clean_recoleptons_CR_lowMT)
+    nJet30FailId = len(clean_jets30_FailId)
+    nElectrons10 = len(selected_recoelectrons) # for vetoing I do not care about x-cleaning
+    nMuons10 = len(selected_recomuons) # for vetoing I do not care about x-cleaning
+    nPFLep5LowMT = len(selected_pfleptons) # for vetoing I do not care about x-cleaning
+    nPFHad10LowMT = len(selected_pfhadrons) # for vetoing I do not care about x-cleaning
+    nLepLowMT = len(clean_recoleptons_CR_lowMT) + len(clean_pfleptons)
 
     self.out.fillBranch("nJet20", nJet20)
     self.out.fillBranch("nJet30", nJet30)
+    self.out.fillBranch("nJet30FailId", nJet30FailId)
     self.out.fillBranch("nBJet20", nBJet20)
     self.out.fillBranch("nElectrons10", nElectrons10)
     self.out.fillBranch("nMuons10", nMuons10)
