@@ -10,13 +10,20 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
 
+def stampP(obj):
+  print 'pt={:>8} eta={:>8} phi={:>8}'.format(obj.pt, obj.eta, obj.phi)
 
 # my implementation of closest
 # returns index of DeltaR-closest element in collecion wrt obj
 def closest(obj,collection):
   ret = None; drMin = 999
+  #print 'info in closest'
+  #print obj, collection
   for i,x in enumerate(collection):
+    #print stampP(obj)
+    #print stampP(x)
     dr = tools.deltaR(obj,x)
+    #print 'dr=',dr
     if dr < drMin:
       ret = i; drMin = dr
   return (ret,drMin)
@@ -164,23 +171,44 @@ class mt2VarsProducer(Module):
     # Want to loop explicitly on the objects to add the isToRemove flag -
     # - which I need to check for overlaps between objects efficiently
     # otherwise I could do it with filter(lambda x: blabla)
+    #print '*****************'
+    #print 'NEW EVENT'
+    #print 'Before selection'
+    #print 'Number of electrons, ', len(electrons)
+    #for i,el in enumerate(electrons):
+    #  print i, 'pt=',el.pt, 'eta=', el.eta, 'phi=', el.phi, 'dxy=',el.dxy, 'dz=',el.dz, 'losthits=',el.lostHits,'minireliso=', el.miniPFRelIso_all, 'convVeto=', el.convVeto, 'ecorr=', el.eCorr
+    #  print 'sigmaIetaIeta=', el.sieie
+    #  print 'H/E=', el.hoe
+    #  print 'eInvMinusPInv=', el.eInvMinusPInv
+
+
     for electron in electrons:
+      electron.pt /= electron.eCorr # FIXME: for the moment uncalibrated pt to match with heppy, but prefer to have it calibrated
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      if electron.cutBased == 0: continue # does not include d0, dz, conv veto
+      #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
       if abs(electron.eta + electron.deltaEtaSC) < 1.479:
-        if electron.dxy > 0.05: continue
-        if electron.dz > 0.10: continue
-      else:
-        if electron.dxy > 0.10: continue
-        if electron.dz > 0.20: continue
+      #  if electron.dxy > 0.05: continue
+      #  if electron.dz > 0.10: continue
+         if electron.lostHits > 2: continue
+      #else:
+      #  if electron.dxy > 0.10: continue
+      #  if electron.dz > 0.20: continue
+         if electron.lostHits > 3: continue
       # try to use the cuts exactly how stated in the int note
       #if not passEleId(electron): continue
       if electron.miniPFRelIso_all > 0.1: continue
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
+
+
+    #print 'After selection'
+    #print 'Number of selected electrons, ', len(selected_recoelectrons)
+    #for i,el in enumerate(selected_recoelectrons):
+    #  print i, 'pt=',el.pt, 'eta=', el.eta, 'phi=', el.phi, 'dxy=',el.dxy, 'dz=',el.dz, 'losthits=',el.lostHits,'minireliso=', el.miniPFRelIso_all
+
 
     # loop to look for the low pt pf candidates
     for electron in electrons:
@@ -245,14 +273,26 @@ class mt2VarsProducer(Module):
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
+    #print '************************'
+    #print 'NEW EVENT'
+    #print '\nBefore cleaning stage 1'
+    #print 'Selected reco electrons', len(selected_recoelectrons)
+    #for ele in selected_recoelectrons: stampP(ele)
+    #print 'Selected reco muons', len(selected_recomuons)
+    #for mu in selected_recomuons: stampP(mu)
+    #print 'Selected pf leptons', len(selected_pfleptons)
+    #for it in selected_pfleptons: stampP(it)
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 1
     # ##################################################
     for it in selected_pfleptons:
       (irl,dRmin) = closest(it,selected_recoleptons)
-      if irl and dRmin<0.01:
+      #print 'info in cleaning ', irl, dRmin
+      if irl!=None and dRmin<0.01:
         it.isToRemove = True # mark the pflepton for removal because it overlaps with a the closest selected reco lepton
+        #print 'info in cleaning ', stampP(it),
+        #print 'info in cleaning ', it.isToRemove
 
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
@@ -267,20 +307,38 @@ class mt2VarsProducer(Module):
     clean_pfhadrons =    selected_pfhadrons
     clean_leptons =      clean_pfleptons + clean_recoleptons
 
+    #print '\nAfter cleaning stage 1'
+    #print 'Clean reco electrons', len(clean_recoelectrons)
+    #for ele in clean_recoelectrons: stampP(ele)
+    #print 'Clean reco muons', len(clean_recomuons)
+    #for mu in clean_recomuons: stampP(mu)
+    #print 'Clean pf leptons', len(clean_pfleptons)
+    #for it in clean_pfleptons: stampP(it)
+
+    #print '\nBefore cleaning stage 2'
+    #print 'Clean leptons', len(clean_leptons)
+    #for lep in clean_leptons: stampP(lep)
+    #print 'Baseline jets', len(baseline_jets)
+    #for jet in baseline_jets: stampP(jet)
+
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 2, remove closest jet to lepton within given DeltaR
     # ##################################################
     for lep in clean_leptons:
+      #print 'info in cleaning stage 2'
       (ijet,dRmin) = closest(lep,baseline_jets)
+      #print ijet, dRmin
       if self.verbose: print ijet,dRmin
-      if ijet and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
+      if ijet!=None and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
         baseline_jets[ijet].isToRemove = True
+        #print ijet, 'is to remove', baseline_jets[ijet].isToRemove
+
 
     # repeat x-cleaning for all jets including those that pass the id # FIXME: personally I think we should remove this x-cleaning
     for lep in clean_leptons:
       (ijet,dRmin) = closest(lep,baseline_jets_noId)
       if self.verbose: print ijet,dRmin
-      if ijet and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
+      if ijet!=None and dRmin<0.4: # mark that closest jet to a clean lepton to be removed because it overlaps with it
         baseline_jets_noId[ijet].isToRemove = True
 
     clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False]
@@ -289,13 +347,20 @@ class mt2VarsProducer(Module):
     clean_jets30_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and getBitDecision(jet.jetId, 2) == False]
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
 
-    objects_std =        clean_jets20 + clean_leptons  #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
-    objects_zll =        clean_jets20 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
+    objects_std =        clean_jets30 + clean_leptons  #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
+    objects_zll =        clean_jets30 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
 
     ####
     # Additional sorting should happen here
     objects_std.sort(key=lambda obj: obj.pt, reverse = True)
     objects_zll.sort(key=lambda obj: obj.pt, reverse = True)
+
+
+    #print '\nAfter cleaning stage 2'
+    #print 'Clean leptons', len(clean_leptons)
+    #for lep in clean_leptons: stampP(lep)
+    #print 'Clean jets20 largeeta', len(clean_jets20_largeEta)
+    #for jet in clean_jets20_largeEta: stampP(jet)
 
     # ##################################################
     # Now you're ready to count objects
