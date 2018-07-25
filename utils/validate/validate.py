@@ -53,7 +53,7 @@ if __name__ == "__main__":
   parser.add_argument('--doNorm', dest='doNorm', help='do shape comparison', action='store_true', default=False)
   parser.add_argument('--doLog', dest='doLog', help='use Log scale on y axis', action='store_true', default=False)
   parser.add_argument('--doFriend', dest='doFriend', help='do friend trees checks', action='store_true', default=False)
-  parser.add_argument('-s', '--selection', type=str, dest='sel', help='selection for friend tree, example: abs(ht/new.ht-1)>0.05', default='(1)')
+  parser.add_argument('-s', '--selection', type=str, dest='sel', help='selection; in case of friend tree, an example is abs(ht/new.ht-1)>0.05', default='(1)')
 
   options = parser.parse_args()
 
@@ -68,8 +68,8 @@ if __name__ == "__main__":
 
 
     if options.doFriend == False:
-      ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
-      ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'], outhistosmooth=False )
+      ret1,histo1 = RP.makeHistoFromNtuple(infilename=options.fname1, intreename=options.treename1, outhistoname=q['hname'] + '_1', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'] + '&&({})'.format(options.sel), outhistosmooth=False )
+      ret2,histo2 = RP.makeHistoFromNtuple(infilename=options.fname2, intreename=options.treename2, outhistoname=q['hname'] + '_2', outhistobinning=q['binning'], outhistoquantity=q['name'], outhistoweight='(1)', outhistoselection=q['sel'] + '&&({})'.format(options.sel), outhistosmooth=False )
 
     else:
       ret1,ret2,histo1,histo2 = RP.makeHistosFromFriends(infilename1=options.fname1, infilename2=options.fname2, intreename1=options.treename1, intreename2=options.treename2, \

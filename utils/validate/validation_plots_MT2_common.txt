@@ -10,7 +10,7 @@ mht:   mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
 mht_phi:   mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
 deltaPhiMin: deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-diffMetMht: diffMetMht: (1): 50,0,500    : |MET-MHT|
+diffMetMht: diffMetMht: (1): 25,0,500    : |MET-MHT|
 
 deltaPhiMin_had: deltaPhiMin_had: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
 
@@ -33,7 +33,7 @@ nJet20 : nJet20 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,1
 nJet30 : nJet30 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 30)
 nJet40 : nJet40 :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5] : N(jet, p_{T} > 40)
 
-#nJet30FailId : nJet30FailId : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 30)
+nJet30FailId : nJet30FailId : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet Fail ID, p_{T} > 30)
 #nJet100FailId : nJet100FailId : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(jet, p_{T} > 100)
 
 nBJet40 : nBJet40 : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{T} > 40, CSV)
@@ -104,7 +104,7 @@ nBJet20csv : nBJet20csv : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5] : N(b-jet, p_{
 ##### FLAGS
 Flag_HBHENoiseFilter : Flag_HBHENoiseFilter : (1): [-0.5,0.5,1.5]: metFilter
 Flag_HBHENoiseIsoFilter : Flag_HBHENoiseIsoFilter : (1): [-0.5,0.5,1.5]: metFilter
-Flag_EcalDeadCellTriggerPrimitiveFilter : (1): Flag_EcalDeadCellTriggerPrimitiveFilter: [-0.5,0.5,1.5]: metFilter
+Flag_EcalDeadCellTriggerPrimitiveFilter : Flag_EcalDeadCellTriggerPrimitiveFilter: (1):  [-0.5,0.5,1.5]: metFilter
 Flag_goodVertices : Flag_goodVertices: (1): [-0.5,0.5,1.5]: metFilter
 Flag_eeBadScFilter : Flag_eeBadScFilter: (1): [-0.5,0.5,1.5]: metFilter
 Flag_globalTightHalo2016Filter : Flag_globalTightHalo2016Filter:  (1):[-0.5,0.5,1.5]: metFilter
@@ -119,7 +119,7 @@ nJet200MuFrac50DphiMet :nJet200MuFrac50DphiMet :  (1):[-0.5,0.5,1.5,2.5,3.5]: nJ
 
 ##### MT2
 
-mt2:   mt2: (1): 16,0,800    : MT2  [GeV]
+MT2:   mt2: (1): 16,0,800    : MT2  [GeV]
 
 pseudoJet1_pt: pseudoJet1_pt: (1): 16,0,800    : PseJet1  p_{T}  [GeV]
 pseudoJet1_phi: pseudoJet1_phi:  (1):8,-3.15,3.15    : PseJet1 phi
@@ -136,27 +136,40 @@ nPFHad10LowMT: nPFHad10LowMT: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5
 nLepLowMT:  nLepLowMT:  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(Lep(POG+PF), M_{T} < 100)
 
 
-##### JET
+##### JET - in principle these are all the calibrated jets 
+#Jet_pt20 : Jet_pt: (Jet_pt>20): 80,0,800    : jet p_{T} (all jets p_{T}>20)  [GeV]
+#Jet_pt30 : Jet_pt: (Jet_pt>30): 80,0,800    : jet p_{T} (all jets p_{T}>30)  [GeV]
+#Jet_pt40 : Jet_pt: (Jet_pt>40): 80,0,800    : jet p_{T} (all jets p_{T}>40)  [GeV]
+#Jet_pt50 : Jet_pt: (Jet_pt>50): 80,0,800    : jet p_{T} (all jets p_{T}>50)  [GeV]
+#Jet_eta20 : Jet_eta: (Jet_pt>20): 24,-6.0,6.0     : jet #eta (all jets p_{T}>20)
+#Jet_eta30 : Jet_eta: (Jet_pt>30): 24,-6.0,6.0     : jet #eta (all jets p_{T}>30)
+#Jet_eta40 : Jet_eta: (Jet_pt>40): 24,-6.0,6.0     : jet #eta (all jets p_{T}>40)
+#Jet_eta50 : Jet_eta: (Jet_pt>50): 24,-6.0,6.0     : jet #eta (all jets p_{T}>50)
+#Jet_phi20: Jet_phi: (Jet_pt>20): 32,-3.2,3.2      : jet phi  (all jets p_{T}>20)
+#Jet_phi30: Jet_phi: (Jet_pt>30): 32,-3.2,3.2      : jet phi  (all jets p_{T}>30)
+#Jet_phi40: Jet_phi: (Jet_pt>40): 32,-3.2,3.2      : jet phi  (all jets p_{T}>40)
+#Jet_phi50: Jet_phi: (Jet_pt>50): 32,-3.2,3.2      : jet phi  (all jets p_{T}>50)
+
 
 jet_njet : njet :  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,28.5,29.5,30.5] : N(jet, p_{T} > 10, |#eta| < 5.2 )
-jet_pt: jet_pt: (1): 100, 0, 500    : jet p_{T}  [GeV]
-jet_phi: jet_phi: (1): 32,-3.2,3.2    : jet phi
-jet_eta: jet_eta: (1): 24,-6.0,6.0    : jet eta
-jet_mass: jet_mass: (1): 20,0,400.    : jet mass [GeV]
-jet_csv: jet_btagCSV:  (1):110,-0.1,1.    : jet csv
+jet_pt: jet_pt: (1): 40,0,800    : jet p_{T} [GeV] clean_jets20_largeEta
+jet_phi: jet_phi: (1): 32,-3.2,3.2    : jet phi clean_jets20_largeEta
+jet_eta: jet_eta: (1): 24,-6.0,6.0    : jet eta clean_jets20_largeEta
+jet_mass: jet_mass: (1): 20,0,400.    : jet mass [GeV] clean_jets20_largeEta
+jet_csv: jet_btagCSV:  (1):110,-0.1,1.    : jet csv clean_jets20_largeEta
 
-jet_rawPt: jet_rawPt: (1): 200, 0, 200     : jet raw pt
+jet_rawPt: jet_rawPt: (1): 200, 0, 200     : jet raw pt clean_jets20_largeEta
 #jet_mcPt: jet_mcPt: (1): 200, 0, 200     : jet mc pt
 
 #jet_mcFlavour: jet_mcFlavour:  (1):25, 0,25 : jet mc flavour
 jet_area: jet_area:  (1):100, 0,100 : jet mc area
 
-jet_id: jet_id: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] : jet id
-jet_puId: jet_puId: (1): [-0.5,0.5,1.5] : jet PU id
-jet_qgl: jet_qgl:  (1):60,-0.5,1.0 : jet qgl
+jet_id: jet_id: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5] : jet id clean_jets20_largeEta
+jet_puId: jet_puId: (1): [-0.5,0.5,1.5] : jet PU id clean_jets20_largeEta
+jet_qgl: jet_qgl:  (1):60,-0.5,1.0 : jet qgl clean_jets20_largeEta
 
-jet1_pt: jet1_pt: (1): 80,0,800    : jet1  p_{T}  [GeV]
-jet2_pt: jet2_pt: (1): 80,0,800    : jet2  p_{T}  [GeV]
+jet1_pt: jet1_pt: (1): 40,0,800    : jet1  p_{T} (clean jets 20) [GeV]
+jet2_pt: jet2_pt: (1): 40,0,800    : jet2  p_{T} (clean jets 20) [GeV]
 
 ##### ISO TRACK
 
@@ -235,41 +248,41 @@ cr_gamma_jet2_pt: gamma_jet2_pt: (1): 16,0,800    : gamma jet2  p_{T}  [GeV]
 
 ##### ZLL control variables
 
-cr_zll_mt2:   zll_mt2:  (1):16,0,800    : Zll MT2  [GeV]
+zll_mt2:   zll_mt2:  (1):16,0,800    : Zll MT2  [GeV]
 
-cr_zll_met:   zll_met_pt: (1): 16,0,800    : Zll E_{T}^{miss}  [GeV]
-cr_zll_met_phi:   zll_met_phi: (1): 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
+zll_met:   zll_met_pt: (1): 16,0,800    : Zll E_{T}^{miss}  [GeV]
+zll_met_phi:   zll_met_phi: (1): 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
 
-cr_zll_ht: zll_ht:  (1):  16,0,800    : Zll H_{T}  [GeV]
+zll_ht: zll_ht:  (1):  16,0,800    : Zll H_{T}  [GeV]
 
-cr_zll_mht:   zll_mht_pt:  (1):16,0,800    : Zll H_{T}^{miss}  [GeV]
-cr_zll_mht_phi:   zll_mht_phi:  (1): 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
+zll_mht:   zll_mht_pt:  (1):16,0,800    : Zll H_{T}^{miss}  [GeV]
+zll_mht_phi:   zll_mht_phi:  (1): 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
 
-cr_zll_deltaPhiMin: zll_deltaPhiMin:  (1):32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
-cr_zll_diffMetMht: zll_diffMetMht: (1): 50,0,500    : Zll |MET-MHT|
+zll_deltaPhiMin: zll_deltaPhiMin:  (1):32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
+zll_diffMetMht: zll_diffMetMht: (1): 50,0,500    : Zll |MET-MHT|
 
-cr_zll_pt: zll_pt:  (1):16,0,600    : Z p_{T}  [GeV]
-cr_zll_phi: zll_phi: (1): 8,-3.15,3.15    : Z phi
-cr_zll_eta: zll_eta:  (1):10,-5.,5.    : Z eta
-cr_zll_mass: zll_mass:  (1):20,0,400.    : Z mass [GeV]
+zll_pt: zll_pt:  (1):16,0,600    : Z p_{T}  [GeV]
+zll_phi: zll_phi: (1): 8,-3.15,3.15    : Z phi
+zll_eta: zll_eta:  (1):10,-5.,5.    : Z eta
+zll_mass: zll_mass:  (1):20,0,400.    : Z mass [GeV]
 
 
 ##### ZLL mt control variables (?)
 
-cr_zllmt_mt2:   zllmt_mt2: (1): 16,0,800    : MT2  [GeV]
+zllmt_mt2:   zllmt_mt2: (1): 16,0,800    : MT2  [GeV]
 
-cr_zllmt_met:   zllmt_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
-cr_zllmt_met_phi:   zllmt_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
+zllmt_met:   zllmt_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
+zllmt_met_phi:   zllmt_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_zllmt_ht: zllmt_ht:  (1): 16,0,800    : H_{T}  [GeV]
+zllmt_ht: zllmt_ht:  (1): 16,0,800    : H_{T}  [GeV]
 
-cr_zllmt_mht:   zllmt_mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
-cr_zllmt_mht_phi:   zllmt_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
+zllmt_mht:   zllmt_mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
+zllmt_mht_phi:   zllmt_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-cr_zllmt_deltaPhiMin: zllmt_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
-cr_zllmt_diffMetMht: zllmt_diffMetMht: (1): 50,0,500    : |MET-MHT|
+zllmt_deltaPhiMin: zllmt_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+zllmt_diffMetMht: zllmt_diffMetMht: (1): 50,0,500    : |MET-MHT|
 
-cr_zllmt_mt: zllmt_mt: (1): 16,0,600    : M_{T}  [GeV]
+zllmt_mt: zllmt_mt: (1): 16,0,600    : M_{T}  [GeV]
 
 
 ##### lepton removed plots
@@ -309,7 +322,7 @@ lep_dz: fabs(lep_dz):(1): 40,0,0.4    : lep |dz|  [cm]
 
 lep_relIso03:  lep_relIso03: (1):15,0,.5:  lep relIso03
 #lep_relIso04:  lep_relIso04:(1): 15,0,.5:  lep relIso04
-lep_miniRelIso: lep_miniRelIso/lep_pt:(1): 15,0,.5:  lep minireliso
+lep_miniRelIso: lep_miniRelIso:(1): 15,0,.5:  lep minireliso
 lep_tightId:  lep_tightId:(1): [-0.5,0.5,1.5,2.5,3.5]:  lep tightId
 
 lep_lostHits:lep_lostHits: (1):  [-0.5,0.5,1.5,2.5,3.5,4.5,5.5]:  lep_lostHits
@@ -318,26 +331,27 @@ lep_tightCharge:lep_tightCharge:  (1): [-1.5,-0.5,0.5,1.5]:  lep_tightCharge
 
 ## electrons
 
-ele_pt: (lep_pt):(fabs(lep_pdgId)==11): 16,0,800    : ele p_{T}  [GeV]
-ele_phi: (lep_phi):(fabs(lep_pdgId)==11): 8,-3.15,3.15    : ele phi
-ele_eta: (lep_eta):(fabs(lep_pdgId)==11): 10,-5.,5.    : ele eta
+ele_pt: lep_pt:(fabs(lep_pdgId)==11): 40,0,800    : ele p_{T}  [GeV]
+ele_pt_varBinning: lep_pt:(fabs(lep_pdgId)==11): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : ele p_{T}  [GeV]
+ele_phi: (lep_phi):(fabs(lep_pdgId)==11): 32,-3.15,3.15    : ele phi
+ele_eta: (lep_eta):(fabs(lep_pdgId)==11): 30,-5.,5.    : ele eta
 ele_mass: (lep_mass):(fabs(lep_pdgId)==11): 20,0,400.    : ele mass [GeV]
 ele_pdgId : (lep_pdgId):(fabs(lep_pdgId)==11): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : ele PDG_ID
 ele_dxy: fabs(lep_dxy):(fabs(lep_pdgId)==11): 40,0,0.4    : ele |dxy|  [cm]
 ele_dz: fabs(lep_dz):(fabs(lep_pdgId)==11):40,0,0.4    : ele |dz|  [cm]
-ele_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==11): 15,0,.5:  ele minireliso
+ele_miniRelIso: (lep_miniRelIso):(fabs(lep_pdgId)==11): 15,0,.5:  ele minireliso
 
 
 ## muons
 
-mu_pt: (lep_pt):(fabs(lep_pdgId)==13): 16,0,800    : mu p_{T}  [GeV]
-mu_phi: (lep_phi):(fabs(lep_pdgId)==13): 8,-3.15,3.15    : mu phi
-mu_eta: (lep_eta):(fabs(lep_pdgId)==13): 10,-5.,5.    : mu eta
-mu_mass: (lep_mass):(fabs(lep_pdgId)==13):20,0,400.    : mu mass [GeV]
+mu_pt: lep_pt:(fabs(lep_pdgId)==13): 40,0,800    : mu p_{T}  [GeV]
+mu_phi: lep_phi:(fabs(lep_pdgId)==13): 32,-3.15,3.15    : mu phi
+mu_eta: lep_eta:(fabs(lep_pdgId)==13): 30,-5.,5.    : mu eta
+mu_mass: lep_mass:(fabs(lep_pdgId)==13):20,0,400.    : mu mass [GeV]
 mu_pdgId : (lep_pdgId):(fabs(lep_pdgId)==13): [10.5,11.5,12.5,13.5,14.5,15.5,16.5] : mu
 mu_dxy: fabs(lep_dxy):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dxy|  [cm]
 mu_dz: fabs(lep_dz):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dz|  [cm]
-mu_miniRelIso: (lep_miniRelIso/lep_pt):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso
+mu_miniRelIso: (lep_miniRelIso):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso
 
 
 
