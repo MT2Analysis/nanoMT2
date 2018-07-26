@@ -6,16 +6,16 @@ met_phi:   met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 rawmet: met_rawPt: (1): 16,0,800    : E_{T}^{miss}  [GeV]
 rawmet_phi: met_rawPhi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-mht:   mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
+mht:   mht_pt: (1): 25,0,1000   : H_{T}^{miss}  [GeV]
 mht_phi:   mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
-deltaPhiMin: deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
+deltaPhiMin: deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(obj,E_{T}^{miss})
 diffMetMht: diffMetMht: (1): 25,0,500    : |MET-MHT|
 
 deltaPhiMin_had: deltaPhiMin_had: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
 
 
-ht: ht: (1):  15,0,1500    : H_{T}  [GeV]
+ht: ht: (1):  25,0,1000    : H_{T}  [GeV]
 
 rho: rho: (1): 10,0,1  : rho
 nTrueInt: nTrueInt: (1): 50,0,50  : nTrueInt
@@ -132,11 +132,13 @@ pseudoJet2_eta: pseudoJet2_eta:  (1):10,-5.,5.    : PseJet2 eta
 pseudoJet2_mass: pseudoJet2_mass:  (1):24,0,1200.    : PseJet2 mass [GeV]
 
 nPFLep5LowMT:  nPFLep5LowMT: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFLep, p_{T} > 5, M_{T} < 100)
+nPFLep5LowMTclean:  nPFLep5LowMTclean: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFLep, p_{T} > 5, M_{T} < 100) after x-cleaning
 nPFHad10LowMT: nPFHad10LowMT: (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(PFHad, p_{T} > 10, M_{T} < 100)
 nLepLowMT:  nLepLowMT:  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(Lep(POG+PF), M_{T} < 100)
+nRecoLepLowMT:  nRecoLepLowMT:  (1):[-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5] : N(Lep(POG), M_{T} < 100)
 
 
-##### JET - in principle these are all the calibrated jets 
+##### JET - in principle these are all the calibrated jets
 #Jet_pt20 : Jet_pt: (Jet_pt>20): 80,0,800    : jet p_{T} (all jets p_{T}>20)  [GeV]
 #Jet_pt30 : Jet_pt: (Jet_pt>30): 80,0,800    : jet p_{T} (all jets p_{T}>30)  [GeV]
 #Jet_pt40 : Jet_pt: (Jet_pt>40): 80,0,800    : jet p_{T} (all jets p_{T}>40)  [GeV]
@@ -228,7 +230,7 @@ cr_gamma_mt2:   gamma_mt2:  (1):16,0,800    : MT2  [GeV]
 cr_gamma_met:   gamma_met_pt: (1): 16,0,800    : E_{T}^{miss}  [GeV]
 cr_gamma_met_phi:   gamma_met_phi:  (1):8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_gamma_mht:   gamma_mht_pt:  (1):16,0,800    : H_{T}^{miss}  [GeV]
+cr_gamma_mht:   gamma_mht_pt:  (1):25,0,1000    : H_{T}^{miss}  [GeV]
 cr_gamma_mht_phi:   gamma_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
 cr_gamma_deltaPhiMin: gamma_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
@@ -253,9 +255,9 @@ zll_mt2:   zll_mt2:  (1):16,0,800    : Zll MT2  [GeV]
 zll_met:   zll_met_pt: (1): 16,0,800    : Zll E_{T}^{miss}  [GeV]
 zll_met_phi:   zll_met_phi: (1): 8,-3.15,3.15    : phi of Zll E_{T}^{miss}
 
-zll_ht: zll_ht:  (1):  16,0,800    : Zll H_{T}  [GeV]
+zll_ht: zll_ht:  (1):  25,0,1000    : Zll H_{T}  [GeV]
 
-zll_mht:   zll_mht_pt:  (1):16,0,800    : Zll H_{T}^{miss}  [GeV]
+zll_mht:   zll_mht_pt:  (1):25,0,1000    : Zll H_{T}^{miss}  [GeV]
 zll_mht_phi:   zll_mht_phi:  (1): 8,-3.15,3.15    : phi of Zll H_{T}^{miss}
 
 zll_deltaPhiMin: zll_deltaPhiMin:  (1):32,0,3.2    : dphi_{min}(jet,Zll E_{T}^{miss})
@@ -274,9 +276,9 @@ zllmt_mt2:   zllmt_mt2: (1): 16,0,800    : MT2  [GeV]
 zllmt_met:   zllmt_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
 zllmt_met_phi:   zllmt_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-zllmt_ht: zllmt_ht:  (1): 16,0,800    : H_{T}  [GeV]
+zllmt_ht: zllmt_ht:  (1): 25,0,1000   : H_{T}  [GeV]
 
-zllmt_mht:   zllmt_mht_pt: (1): 16,0,800    : H_{T}^{miss}  [GeV]
+zllmt_mht:   zllmt_mht_pt: (1): 25,0,1000    : H_{T}^{miss}  [GeV]
 zllmt_mht_phi:   zllmt_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
 zllmt_deltaPhiMin: zllmt_deltaPhiMin: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
@@ -292,9 +294,9 @@ cr_rl_mt2:   rl_mt2:  (1):16,0,800    : MT2  [GeV]
 cr_rl_met:   rl_met_pt:  (1):16,0,800    : E_{T}^{miss}  [GeV]
 cr_rl_met_phi:   rl_met_phi: (1): 8,-3.15,3.15    : phi of E_{T}^{miss}
 
-cr_rl_ht: rl_ht:  (1): 16,0,800    : H_{T}  [GeV]
+cr_rl_ht: rl_ht:  (1): 25,0,1000   : H_{T}  [GeV]
 
-cr_rl_mht:   rl_mht_pt:  (1):16,0,800    : H_{T}^{miss}  [GeV]
+cr_rl_mht:   rl_mht_pt:  (1):25,0,1000   : H_{T}^{miss}  [GeV]
 cr_rl_mht_phi:   rl_mht_phi: (1): 8,-3.15,3.15    : phi of H_{T}^{miss}
 
 cr_rl_deltaPhiMin: rl_deltaPhiMin:(1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss})
