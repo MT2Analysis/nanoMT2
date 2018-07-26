@@ -2,6 +2,8 @@
 # It will be a long code, but let's try to keep it simple and at least you won't have to search for objets defined in other packages!
 # Please note the space convention rather than tab convention wrt other nanoAOD modules
 
+# TODO: please put most numerical values in a config file
+
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
@@ -101,8 +103,10 @@ class mt2VarsProducer(Module):
     self.out.branch("nElectrons10", "I")
     self.out.branch("nMuons10", "I")
     self.out.branch("nPFLep5LowMT", "I")
+    self.out.branch("nPFLep5LowMTclean", "I")
     self.out.branch("nPFHad10LowMT", "I")
     self.out.branch("nLepLowMT", "I")
+    self.out.branch("nRecoLepLowMT", "I")
     self.out.branch("ht", "F")
     self.out.branch("mht_pt", "F")
     self.out.branch("mht_phi", "F")
@@ -111,7 +115,7 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_mht_phi", "F")
     self.out.branch("diffMetMht", "F")
     self.out.branch("deltaPhiMin", "F")
-    self.out.branch("deltaPhiMin_had", "F")
+    #self.out.branch("deltaPhiMin_had", "F")
     self.out.branch("zll_diffMetMht", "F")
     self.out.branch("zll_deltaPhiMin", "F")
     self.out.branch("jet1_pt", "F")
@@ -168,25 +172,11 @@ class mt2VarsProducer(Module):
     baseline_jets = []
     baseline_jets_noId = []
 
-    # Want to loop explicitly on the objects to add the isToRemove flag -
-    # - which I need to check for overlaps between objects efficiently
-    # otherwise I could do it with filter(lambda x: blabla)
-    #print '*****************'
-    #print 'NEW EVENT'
-    #print 'Before selection'
-    #print 'Number of electrons, ', len(electrons)
-    #for i,el in enumerate(electrons):
-    #  print i, 'pt=',el.pt, 'eta=', el.eta, 'phi=', el.phi, 'dxy=',el.dxy, 'dz=',el.dz, 'losthits=',el.lostHits,'minireliso=', el.miniPFRelIso_all, 'convVeto=', el.convVeto, 'ecorr=', el.eCorr
-    #  print 'sigmaIetaIeta=', el.sieie
-    #  print 'H/E=', el.hoe
-    #  print 'eInvMinusPInv=', el.eInvMinusPInv
-
-
     for electron in electrons:
       electron.pt /= electron.eCorr # FIXME: for the moment uncalibrated pt to match with heppy, but prefer to have it calibrated
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
+      #if electron.cutBased == 0: continue # does not include d0, dz, conv veto FIXME: for the moment removed electron ID
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
       if abs(electron.eta + electron.deltaEtaSC) < 1.479:
@@ -202,12 +192,6 @@ class mt2VarsProducer(Module):
       if electron.miniPFRelIso_all > 0.1: continue
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
-
-
-    #print 'After selection'
-    #print 'Number of selected electrons, ', len(selected_recoelectrons)
-    #for i,el in enumerate(selected_recoelectrons):
-    #  print i, 'pt=',el.pt, 'eta=', el.eta, 'phi=', el.phi, 'dxy=',el.dxy, 'dz=',el.dz, 'losthits=',el.lostHits,'minireliso=', el.miniPFRelIso_all
 
 
     # loop to look for the low pt pf candidates
@@ -273,15 +257,7 @@ class mt2VarsProducer(Module):
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
-    #print '************************'
-    #print 'NEW EVENT'
-    #print '\nBefore cleaning stage 1'
-    #print 'Selected reco electrons', len(selected_recoelectrons)
-    #for ele in selected_recoelectrons: stampP(ele)
-    #print 'Selected reco muons', len(selected_recomuons)
-    #for mu in selected_recomuons: stampP(mu)
-    #print 'Selected pf leptons', len(selected_pfleptons)
-    #for it in selected_pfleptons: stampP(it)
+
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 1
@@ -297,29 +273,20 @@ class mt2VarsProducer(Module):
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBased>1] # require electrons also to be loose
+    clean_recoelectrons_CR = [el for el in clean_recoelectrons] # FIXME: for the moment removed loose id requirement if el.cutBased>1] # require electrons also to be loose
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
     clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if mtw(x.pt, x.phi, met.pt, met.phi)<100]
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
-    clean_pfelectrons =  [lep for lep in clean_pfleptons if abs(it.pdgId) == 11]
-    clean_pfmuons =      [lep for lep in clean_pfleptons if abs(it.pdgId) == 13]
+    #clean_pfelectrons =  [x for x in clean_pfleptons if abs(x.pdgId) == 11]
+    #clean_pfmuons =      [x for x in clean_pfleptons if abs(x.pdgId) == 13]
     clean_pfhadrons =    selected_pfhadrons
     clean_leptons =      clean_pfleptons + clean_recoleptons
 
-    #print '\nAfter cleaning stage 1'
-    #print 'Clean reco electrons', len(clean_recoelectrons)
-    #for ele in clean_recoelectrons: stampP(ele)
-    #print 'Clean reco muons', len(clean_recomuons)
-    #for mu in clean_recomuons: stampP(mu)
-    #print 'Clean pf leptons', len(clean_pfleptons)
-    #for it in clean_pfleptons: stampP(it)
-
-    #print '\nBefore cleaning stage 2'
-    #print 'Clean leptons', len(clean_leptons)
-    #for lep in clean_leptons: stampP(lep)
-    #print 'Baseline jets', len(baseline_jets)
-    #for jet in baseline_jets: stampP(jet)
+    #print '************************'
+    #print 'NEW EVENT'
+    #print 'Size of clean leptons aka selectedIsoCleanTrack: ', len(clean_pfleptons)
+    #for x in clean_pfleptons: stampP(x)
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 2, remove closest jet to lepton within given DeltaR
@@ -334,7 +301,7 @@ class mt2VarsProducer(Module):
         #print ijet, 'is to remove', baseline_jets[ijet].isToRemove
 
 
-    # repeat x-cleaning for all jets including those that pass the id # FIXME: personally I think we should remove this x-cleaning
+    # repeat x-cleaning for all jets including those that pass the id # TODO: personally I think we should remove this x-cleaning
     for lep in clean_leptons:
       (ijet,dRmin) = closest(lep,baseline_jets_noId)
       if self.verbose: print ijet,dRmin
@@ -342,25 +309,25 @@ class mt2VarsProducer(Module):
         baseline_jets_noId[ijet].isToRemove = True
 
     clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False]
-    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] # FIXME: 2.5 in heppy
-    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # FIXME: 2.5 in heppy
-    clean_jets30_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and getBitDecision(jet.jetId, 2) == False]
+    clean_jets30_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30]
+    clean_jets40_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 40]
+    clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] # TODO: check 2.5 heppy
+    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # TODO: check 2.5 heppy
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
 
-    objects_std =        clean_jets30 + clean_leptons  #  # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT?. TODO: check
-    objects_zll =        clean_jets30 # FIXME: 20 GeV cut in heppy / 30 GeV cut for SnT????
+    objects_std =            clean_jets30 + clean_leptons
+    objects_std_deltaPhi =   clean_jets30_largeEta + clean_leptons
+    zll_objects_std =        clean_jets30
+    zll_objects_deltaPhi =   clean_jets30_largeEta
 
     ####
     # Additional sorting should happen here
-    objects_std.sort(key=lambda obj: obj.pt, reverse = True)
-    objects_zll.sort(key=lambda obj: obj.pt, reverse = True)
-
-
-    #print '\nAfter cleaning stage 2'
-    #print 'Clean leptons', len(clean_leptons)
-    #for lep in clean_leptons: stampP(lep)
-    #print 'Clean jets20 largeeta', len(clean_jets20_largeEta)
-    #for jet in clean_jets20_largeEta: stampP(jet)
+    #objects_std.sort(key=lambda obj: obj.pt, reverse = True)
+    objects_std_deltaPhi.sort(key=lambda obj: obj.pt, reverse = True)
+    clean_jets40_largeEta.sort(key=lambda obj: obj.pt, reverse = True)
+    clean_jets30.sort(key=lambda obj: obj.pt, reverse = True)
+    #zll_objects_std.sort(key=lambda obj: obj.pt, reverse = True)
 
     # ##################################################
     # Now you're ready to count objects
@@ -368,12 +335,14 @@ class mt2VarsProducer(Module):
     nJet20 = len(clean_jets20)
     nJet30 = len(clean_jets30)
     nBJet20 = len(clean_bjets20)
-    nJet30FailId = len(clean_jets30_FailId)
+    nJet30FailId = len(clean_jets30_largeEta_FailId)
     nElectrons10 = len(selected_recoelectrons) # for vetoing I do not care about x-cleaning
     nMuons10 = len(selected_recomuons) # for vetoing I do not care about x-cleaning
     nPFLep5LowMT = len(selected_pfleptons) # for vetoing I do not care about x-cleaning
+    nPFLep5LowMTclean = len(clean_pfleptons)
     nPFHad10LowMT = len(selected_pfhadrons) # for vetoing I do not care about x-cleaning
     nLepLowMT = len(clean_recoleptons_CR_lowMT) + len(clean_pfleptons)
+    nRecoLepLowMT = len(clean_recoleptons_CR_lowMT)
 
     self.out.fillBranch("nJet20", nJet20)
     self.out.fillBranch("nJet30", nJet30)
@@ -382,8 +351,10 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("nElectrons10", nElectrons10)
     self.out.fillBranch("nMuons10", nMuons10)
     self.out.fillBranch("nPFLep5LowMT", nPFLep5LowMT)
+    self.out.fillBranch("nPFLep5LowMTclean", nPFLep5LowMTclean)
     self.out.fillBranch("nPFHad10LowMT", nPFHad10LowMT)
     self.out.fillBranch("nLepLowMT", nLepLowMT)
+    self.out.fillBranch("nRecoLepLowMT", nRecoLepLowMT)
 
     ###################################################
     # MET computations
@@ -418,26 +389,29 @@ class mt2VarsProducer(Module):
     ####################################################
     # Ht
     ht =      getHt(objects_std)
-    zll_ht =  getHt(objects_zll) if len(clean_recoleptons)==2 else -99 # I don't like this initialization, but that's life
+    zll_ht =  getHt(zll_objects_std) if len(clean_recoleptons)==2 else -99 # I don't like this initialization, but that's life
 
     # Mht
     mht4vec = getMht4vec(objects_std)
     mht_pt =  mht4vec.Pt() if len(objects_std)>0 else -99
     mht_phi = mht4vec.Phi() if len(objects_std)>0 else -99
-    zll_mht_pt = mht_pt if len(clean_recoleptons)==2 else -99
-    zll_mht_phi = mht_phi if len(clean_recoleptons)==2 else -99
+    zll_mht4vec = getMht4vec(zll_objects_std)
+    #zll_mht_pt = mht_pt if len(clean_recoleptons)==2 else -99
+    #zll_mht_phi = mht_phi if len(clean_recoleptons)==2 else -99
+    zll_mht_pt = zll_mht4vec.Pt() if len(clean_recoleptons)==2 else -99
+    zll_mht_phi = zll_mht4vec.Phi() if len(clean_recoleptons)==2 else -99
 
     # Diff MET MHT
     diffMetMht4vec = ROOT.TLorentzVector(mht4vec-met4vec)
-    zll_diffMetMht4vec = ROOT.TLorentzVector(mht4vec-zll_met4vec)
+    zll_diffMetMht4vec = ROOT.TLorentzVector(zll_mht4vec-zll_met4vec)
 
     diffMetMht =     ROOT.TMath.Sqrt( diffMetMht4vec.Px()*diffMetMht4vec.Px()         + diffMetMht4vec.Py()*diffMetMht4vec.Py() )         if len(objects_std)>0 else -99
-    zll_diffMetMht = ROOT.TMath.Sqrt( zll_diffMetMht4vec.Px()*zll_diffMetMht4vec.Px() + zll_diffMetMht4vec.Py()*zll_diffMetMht4vec.Py() ) if len(objects_zll)>0 and len(clean_recoleptons)==2 else -99
+    zll_diffMetMht = ROOT.TMath.Sqrt( zll_diffMetMht4vec.Px()*zll_diffMetMht4vec.Px() + zll_diffMetMht4vec.Py()*zll_diffMetMht4vec.Py() ) if len(zll_objects_std)>0 and len(clean_recoleptons)==2 else -99
 
     # DeltaPhi
-    deltaPhiMin = getDeltaPhiMin(objects_std, met4vec)
-    deltaPhiMin_had = getDeltaPhiMin(clean_jets30, met4vec)
-    zll_deltaPhiMin = getDeltaPhiMin(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
+    deltaPhiMin = getDeltaPhiMin(objects_std_deltaPhi, met4vec)
+    #deltaPhiMin_had = getDeltaPhiMin(clean_jets40_largeEta, met4vec)
+    zll_deltaPhiMin = getDeltaPhiMin(zll_objects_deltaPhi, zll_met4vec) if len(clean_recoleptons)==2 else -99
 
     jet1_pt = clean_jets20[0].pt if len(clean_jets20)>0 else -99 # for a reson that only the MINDS of the previous MT2 analysis can understand, these jets start from pt > 20 GeV : FUCK YOU!
     jet2_pt = clean_jets20[1].pt if len(clean_jets20)>1 else -99 # same goes for the second leading jet pt
@@ -450,7 +424,7 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("zll_mht_phi", zll_mht_phi)
     self.out.fillBranch("diffMetMht", diffMetMht)
     self.out.fillBranch("deltaPhiMin", deltaPhiMin)
-    self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
+    #self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
     self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
     self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
     self.out.fillBranch("jet1_pt", jet1_pt)
@@ -461,7 +435,7 @@ class mt2VarsProducer(Module):
     # MT2
     ####################################################
     mt2 = getMT2(objects_std, met4vec)
-    zll_mt2 = getMT2(objects_zll, zll_met4vec) if len(clean_recoleptons)==2 else -99
+    zll_mt2 = getMT2(zll_objects_std, zll_met4vec) if len(clean_recoleptons)==2 else -99
     #if len(selected_jets)>=2: print getMT2(selected_jets, metTV2 ), met.pt, len(selected_jets)
     self.out.fillBranch("mt2", mt2)
     self.out.fillBranch("zll_mt2", zll_mt2)
