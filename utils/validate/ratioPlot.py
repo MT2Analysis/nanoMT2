@@ -1,9 +1,17 @@
-from ROOT import gROOT, TH1F, TH1, kBlack, kRed, kBlue, TCanvas, gStyle, TLegend, TLatex, TFile, TChain, TPad, kWhite
+from ROOT import gROOT, TH1F, TH1, kBlack, kRed, kBlue, TCanvas, gStyle, TLegend, TLatex, TFile, TChain, TPad, kWhite, TMath
 import ROOT
 import os.path
 
+def getOverflowedHisto(h):
+  htemp = h.Clone()
+  nbins = htemp.GetNbinsX()
+  last_plus_overflow = htemp.GetBinContent(nbins) + htemp.GetBinContent(nbins+1)
+  last_plus_overflow_error = TMath.Sqrt( htemp.GetBinError(nbins)*htemp.GetBinError(nbins)  + htemp.GetBinError(nbins+1)*htemp.GetBinError(nbins+1))
+  htemp.SetBinContent(nbins,last_plus_overflow )
+  htemp.SetBinError(nbins,last_plus_overflow_error)
+  return htemp
 
-def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=False):
+def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=False, addOverflow=True):
 
   TH1.SetDefaultSumw2()
 
@@ -18,7 +26,12 @@ def makeHistoFromNtuple(infilename, intreename, outhistoname, outhistobinning, o
   if outhistosmooth:
     histo.Scale(1, 'width')
 
-  return ret,histo
+  if addOverflow:
+    hret = getOverflowedHisto(histo)
+  else:
+    hret = histo
+
+  return ret,hret
 
 def makeHistosFromFriends(infilename1, infilename2, intreename1, intreename2, outhistoname, outhistobinning, outhistoquantity, outhistoweight, outhistoselection="(1)", outhistosmooth=False, index='evt', friendname='new'):
 
