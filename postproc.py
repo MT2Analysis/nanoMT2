@@ -32,23 +32,29 @@ from argparse import ArgumentParser
 import os
 parser = ArgumentParser(description='', add_help=True)
 parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='name of the output dir', default='output/out')
-parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events to run on', default=1001)
-parser.add_argument('-w', '--what', type=str, dest='what', help='what sample to run on: Wlv, Zll', default='Wlv')
+parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events to run on', default=-1)
+parser.add_argument('-w', '--what', type=str, dest='what', help='what sample to run on: Wlv, Zll when doLocal is activated', default='Wlv')
+parser.add_argument('-y','--year', type=str, dest='year', help='year of data taking / MC taking :)', default='2017')
+
+parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
+parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+
 options = parser.parse_args()
 
+options.doMC = True
+options.year = '2017'
+
+print options
 
 from PhysicsTools.NanoAODTools.postprocessing.examples.mhtjuProducerCpp import mhtjuProducerCpp
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.lepSFProducer import lepSFProducer
 from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import btagSFProducer
 from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import puWeightProducer
-
-#from PhysicsTools.NanoAODTools.postprocessing.modules.jme.mht import mhtProducer
-#from PhysicsTools.NanoAODTools.postprocessing.modules.mt2.mht_deltaR import mhtProducer
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2VarsProducer import mt2VarsProducer
 
 #modules = [mhtjuProducerCpp(), lepSFProducer('LooseWP_2016', 'GPMVA90_2016')]
 #modules = [mhtjuProducerCpp()]
-modules = [mt2VarsProducer(isMC=True, year=2017)]
+modules = [mt2VarsProducer(isMC=options.doMC, year=options.year)]
             #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
             #btagSFProducer(era='2017', algo = 'csvv2'),
             #puWeightProducer("auto","%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/PileupData_GoldenJSON_Full2016.root" % os.environ['CMSSW_BASE'],"pu_mc","pileup",verbose=False)]
@@ -75,18 +81,25 @@ preselection = ''
 #'root://cms-xrd-global.cern.ch//store/data/Run2017D/MET/NANOAOD/31Mar2018-v1/210000/D064F6E9-DC46-E811-AF6D-008CFAF28DCE.root']
 #files = ['/scratch/mratti/MT2_test_nanoAODs/ZJetsToNuNu_HT-600To800__RunIIFall17NanoAOD/A8548111-275A-E811-A7C4-A0369FC5E71C.root']
 #files=[' root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/40000/2CE738F9-C212-E811-BD0E-EC0D9A8222CE.root']
-if options.what == 'Wlv':
-  #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
-  #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
-  files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
-elif options.what == 'Zll':
-  #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
-  files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT.root']
+if options.doLocal:
+  print 'Running in local'
+  dofwkJobReport = False
+  haddFileName = None
+  if options.what == 'Wlv':
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
+    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+  elif options.what == 'Zll':
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
+    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT.root']
+else:
+  print 'Running on the grid'
+  dofwkJobReport = True
+  haddFileName = 'mt2.root'
+  #this takes care of converting the input files from CRAB
+  import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
+  files = CH.inputFiles()
 
-#p=PostProcessor(outputdir,files,cbranchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=1000
-
-
-#p=PostProcessor(outputdir,files,cbranchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=100000)
-p=PostProcessor(options.outdirname,files,cut=preselection,branchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=options.nevents)
+p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='branchSel.txt', outputbranchsel='branchSel.txt',modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True)
 
 p.run()

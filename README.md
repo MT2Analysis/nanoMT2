@@ -1,5 +1,5 @@
 # nanoMT2
-Package to be run on top of nanoAOD-tools 
+Package to be run on top of nanoAOD-tools
 
 Installation instructions can be found at
 https://twiki.cern.ch/twiki/bin/view/SusyMECCA/SusyMT2cernETHLegacy
@@ -7,8 +7,17 @@ https://twiki.cern.ch/twiki/bin/view/SusyMECCA/SusyMT2cernETHLegacy
 
 # Run-time
 
-## Latest command
-python postproc.py -o output/testmc_94X_nano_std -N 5001 -w Wlv
+## Local: Command for nano vs mini validation
+python postproc.py -o output/testmc_94X_nano_std -N 5001 -w Wlv --doLocal --doMC
 
-python postproc.py -o output/testmc_94X_nano_std_Zll -N 5001 -w Zll
+python postproc.py -o output/testmc_94X_nano_std_Zll -N 5001 -w Zll --doLocal --doMC
+
+
+## Local: Latest command 
+python postproc.py --year 2017 --doMC -o output/test -w Wlv --doLocal
+
+## Grid:
+cd crab
+# edit productionLabel in crab_mt2.py 
+python crab_mt2.py ../samples/mc_bkg_2017.txt
 
