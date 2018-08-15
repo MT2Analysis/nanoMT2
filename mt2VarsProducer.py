@@ -84,7 +84,6 @@ class mt2VarsProducer(Module):
   def __init__(self, isMC=True, year=2017):
     self.year = year
     self.isMC = isMC
-    pass
   def beginJob(self):
     pass
   def endJob(self):
