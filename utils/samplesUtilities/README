@@ -1,0 +1,7 @@
+# Utilities for checking availability of samples for the mt2 analysis
+
+# Use checkDatasetsMT2.py 	for MC samples: 
+python checkDatasetsMT2.py --help
+# Use checkDataMT2.py	  	for data samples
+# edit according to needs and
+python checkDataMT2.py
