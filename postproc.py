@@ -3,16 +3,15 @@
 
 
 def getSampleName(files, isMC):
-# this is ugly but it's not my fault
+# this is ugly (and not very safe (?)) but it's not my fault
 # this sample name will be used to search for the cross-sections
-
   first = files[0]
-  redirector = 'root://cms-xrd-global.cern.ch/'
-
-  if first.startswith(redirector): first.replace(redirector, '')
-  elements = first.split('/')
+  import re
+  new = re.sub(r'.*/store', '/store', first)
+  #redirector = 'root://cms-xrd-global.cern.ch/'
+  #if first.startswith(redirector): first.replace(redirector, '')
+  elements = new.split('/')
   elements = filter(lambda x: x != '', elements) # for safety reasons, remove empty strings
-
   if isMC:
     return elements[3]
   else:
@@ -69,7 +68,7 @@ else:
   import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
   files = CH.inputFiles() # it is aweful that the input files are obtained in a such a confused way, but crab doesn't seem to support anything better than that!
   #sampleName = CH.inputSampleName() # FIXME: must define the sampleName in this case
-  sampleName = getSampleName(files=files, isMC=isMC) # This is really poor, but CMS hasn't thought of any sample handler, which is a bit of a shame
+  sampleName = getSampleName(files=files, isMC=options.doMC) # This is really poor, but CMS hasn't thought of any sample handler, which is a bit of a shame
   #print sampleName
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor

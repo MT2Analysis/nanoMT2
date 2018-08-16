@@ -33,7 +33,7 @@ config.JobType.sendPythonFolder	 = True # unfortunately this is crucial, but can
 config.Data.inputDataset = exampleSample
 config.Data.inputDBS = 'global' # should be changed only in case you are running over privately produced samples
 config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'
-config.Data.unitsPerJob = 10 # FIXME: 10 is too much, something around 4-5 is better
+config.Data.unitsPerJob = 10 if options.doMC else 20000000 # FIXME: 10 is too much, something around 4-5 is better, 20000 is too much, something around 1000-2000 should be ok
 #config.Data.splitting = 'EventAwareLumiBased'
 # The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/datasetname_decided_by_crab_crazily/datasetNickName/timestamp/counter/mt2_bla.root
 config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code

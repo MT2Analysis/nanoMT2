@@ -18,7 +18,7 @@ python postproc.py --year 2017 --doMC -o output/test -w Wlv --doLocal
 
 ## Grid: Latest command
 cd crab
-python crab_mt2.py -p TEST4 -l ../samples/mc_bkg_2017.txt -y 2017 --doMC
-python crab_mt2.py -p TEST4 -l ../samples/data_2017.txt -y 2017
+python crab_mt2.py -p TEST9 -l ../samples/mc_bkg_2017.txt -y 2017 --doMC
+python crab_mt2.py -p TEST9 -l ../samples/data_2017.txt -y 2017
 
 

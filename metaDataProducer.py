@@ -17,6 +17,9 @@ def idData(name):
   elif 'SinglePhoton' in name: return 7
   elif 'SingleMuon' in name: return 8
   elif 'SingleElectron' in name: return 9
+  else:
+    print 'ERROR, no id found for this dataset'
+    return -1
 
 class metaDataProducer(Module):
   def __init__(self,xSecFile,sampleName,isMC):
