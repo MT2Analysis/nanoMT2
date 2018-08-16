@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 #Script to launch the post-processing of nanoAODs
 
+import os, sys
+import ROOT
+ROOT.PyConfig.IgnoreCommandLineOptions = True
+from importlib import import_module
+import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
+
 
 def getSampleName(files, isMC):
 # this is ugly (and not very safe (?)) but it's not my fault
@@ -28,15 +34,10 @@ parser.add_argument('-y','--year', type=int, dest='year', help='year of data tak
 parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
 parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
+parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
 
 options = parser.parse_args()
 print options
-
-
-import os, sys
-import ROOT
-ROOT.PyConfig.IgnoreCommandLineOptions = True
-from importlib import import_module
 
 
 ## Preselection
@@ -49,6 +50,7 @@ if options.doLocal:
   print 'Running in local'
   dofwkJobReport = False
   haddFileName = None
+  jsonInput = None
   if options.what == 'Wlv':
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
@@ -65,8 +67,11 @@ else:
   print 'Running on the grid'
   dofwkJobReport = True
   haddFileName = 'mt2.root'
+  if not options.doMC and not options.doSkipJSON:
+    jsonInput = CH.runsAndLumis()
+  else:
+    jsonInput = None
   #this takes care of converting the input files from CRAB
-  import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
   files = CH.inputFiles() # it is aweful that the input files are obtained in a such a confused way, but crab doesn't seem to support anything better than that!
   #sampleName = CH.inputSampleName() # FIXME: must define the sampleName in this case
   sampleName = getSampleName(files=files, isMC=options.doMC) # This is really poor, but CMS hasn't thought of any sample handler, which is a bit of a shame
@@ -90,6 +95,6 @@ modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options
 
 
 p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/branchSel.txt', outputbranchsel='data/branchSel/branchSel.txt',
-                modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True)
+                modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True, jsonInput=jsonInput)
 
 p.run()

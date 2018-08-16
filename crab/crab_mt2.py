@@ -6,12 +6,23 @@ from argparse import ArgumentParser
 import os
 parser = ArgumentParser(description='Crab submission options', add_help=True)
 parser.add_argument('-p','--productionLabel', type=str, dest='productionLabel', help='name of the production, please make sure it was not used before', default='TEST0')
-parser.add_argument('-l', '--list', type=str, dest='inputFile', help='a txt file containing datasets, one per line', metavar='list', default='../samples/mc_bkg_2017.txt')
+parser.add_argument('-l', '--list', type=str, dest='inputList', help='a txt file containing datasets, one per line', metavar='list', default='../samples/mc_bkg_2017.txt')
 parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
 parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
+parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
 
 options = parser.parse_args()
+
+# json configuration
+if not options.doMC and not options.doSkipJSON:
+  jsonFile = '../data/json/current_%s.txt' % (str(options.year))
+
+# checks here
+if not os.path.isfile(options.inputList): raise RuntimeError('Sample list not available')
+if not options.doMC and not options.doSkipJSON and not os.path.isfile(jsonFile): raise RuntimeError('Json file not available')
+
+
 
 # Change only if you know what you're doing
 # CRAB Configurations
@@ -43,10 +54,12 @@ config.Data.publication = True
 config.Data.allowNonValidInputDataset = True
 config.Site.storageSite = 'T3_CH_PSI' # T3_CH_PSI # T2_CH_CSCS
 
+if not options.doMC and not options.doSkipJSON:
+  config.Data.lumiMask = jsonFile
+
 
 # Actually send crab commands
-
-f=open(options.inputFile) # first argument is the filename containing the samples to be run
+f=open(options.inputList) # first argument is the filename containing the samples to be run
 datasets = f.readlines()
 datasets = [x.strip() for x in datasets]
 datasets = filter(lambda x: '#' not in x, datasets) # remove commented lines
