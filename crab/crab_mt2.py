@@ -7,8 +7,9 @@ import os
 parser = ArgumentParser(description='Crab submission options', add_help=True)
 parser.add_argument('-p','--productionLabel', type=str, dest='productionLabel', help='name of the production, please make sure it was not used before', default='TEST0')
 parser.add_argument('-l', '--list', type=str, dest='inputFile', help='a txt file containing datasets, one per line', metavar='list', default='../samples/mc_bkg_2017.txt')
-parser.add_argument('-y','--year', type=str, dest='year', help='year of data taking / MC taking :)', default='2017')
+parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
 
 options = parser.parse_args()
 
@@ -35,9 +36,9 @@ config.Data.inputDBS = 'global' # should be changed only in case you are running
 config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'
 config.Data.unitsPerJob = 10 if options.doMC else 20000000 # FIXME: 10 is too much, something around 4-5 is better, 20000 is too much, something around 1000-2000 should be ok
 #config.Data.splitting = 'EventAwareLumiBased'
-# The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/datasetname_decided_by_crab_crazily/datasetNickName/timestamp/counter/mt2_bla.root
+# The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/PD/campaign/timestamp/counter/mt2_bla.root
 config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code
-config.Data.outputDatasetTag = 'WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8' #exampleSample.split('/')[1] # only gen sample name
+config.Data.outputDatasetTag = exampleSample.split('/')[2]  #  campaign
 config.Data.publication = True
 config.Data.allowNonValidInputDataset = True
 config.Site.storageSite = 'T3_CH_PSI' # T3_CH_PSI # T2_CH_CSCS
@@ -61,9 +62,10 @@ for dataset in datasets :
 
   if options.doMC: dataset_nickName = dataset.split('/')[1]
   else: dataset_nickName = dataset.split('/')[1] + '_' + dataset.split('/')[2]
-
   config.General.requestName = options.productionLabel + '_' + dataset_nickName
-  config.Data.outputDatasetTag = dataset_nickName
+
+  config.Data.outputDatasetTag = dataset.split('/')[2] # campaign
+
   config.Data.inputDataset = dataset
 
   crabCommand('submit', config = config)

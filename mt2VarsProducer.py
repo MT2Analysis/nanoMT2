@@ -1,7 +1,8 @@
-# This module is meant to produce all mt2Analysis-specific variables
+# This module is meant to produce all mt2Analysis-specific variables and to perform skimming based on them
 # It will be a long code, but let's try to keep it simple and at least you won't have to search for objets defined in other packages!
 # Please note the space convention rather than tab convention wrt other nanoAOD modules
 
+# NOTE: not possible to separate skimming from variables production because the branches are filled in this very same module
 # TODO: please put most numerical values in a config file
 
 import ROOT
@@ -81,9 +82,10 @@ def passEleId(electron):
   return passId
 
 class mt2VarsProducer(Module):
-  def __init__(self, isMC=True, year=2017):
+  def __init__(self, isMC=True, year=2017, doSkim=False):
     self.year = year
     self.isMC = isMC
+    self.doSkim = doSkim
   def beginJob(self):
     pass
   def endJob(self):
@@ -150,6 +152,9 @@ class mt2VarsProducer(Module):
     pass
   def analyze(self, event):
     """process event, return True (go to next module) or False (fail, go to next event)"""
+
+    ret = True
+
     electrons = Collection(event, "Electron")
     muons = Collection(event, "Muon")
     jets = Collection(event, "Jet")
@@ -158,8 +163,6 @@ class mt2VarsProducer(Module):
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
     #evt = Object(event, "event")
-
-    #self.out.fillBranch("evt", evt)
 
     # Perform SELECTIONS
     selected_recoelectrons = []
@@ -343,17 +346,6 @@ class mt2VarsProducer(Module):
     nLepLowMT = len(clean_recoleptons_CR_lowMT) + len(clean_pfleptons)
     nRecoLepLowMT = len(clean_recoleptons_CR_lowMT)
 
-    self.out.fillBranch("nJet20", nJet20)
-    self.out.fillBranch("nJet30", nJet30)
-    self.out.fillBranch("nJet30FailId", nJet30FailId)
-    self.out.fillBranch("nBJet20", nBJet20)
-    self.out.fillBranch("nElectrons10", nElectrons10)
-    self.out.fillBranch("nMuons10", nMuons10)
-    self.out.fillBranch("nPFLep5LowMT", nPFLep5LowMT)
-    self.out.fillBranch("nPFLep5LowMTclean", nPFLep5LowMTclean)
-    self.out.fillBranch("nPFHad10LowMT", nPFHad10LowMT)
-    self.out.fillBranch("nLepLowMT", nLepLowMT)
-    self.out.fillBranch("nRecoLepLowMT", nRecoLepLowMT)
 
     ###################################################
     # MET computations
@@ -377,11 +369,6 @@ class mt2VarsProducer(Module):
       zll_met4vec = ROOT.TLorentzVector(px, py, 0, 0)
       zll_met_pt = zll_met4vec.Pt()
       zll_met_phi = zll_met4vec.Phi()
-
-    self.out.fillBranch("met_pt", met_pt)
-    self.out.fillBranch("met_phi", met_phi)
-    self.out.fillBranch("zll_met_pt", zll_met_pt)
-    self.out.fillBranch("zll_met_phi", zll_met_phi)
 
     ####################################################
     # HT and MHT computations, hadronic variables
@@ -415,20 +402,6 @@ class mt2VarsProducer(Module):
     jet1_pt = clean_jets20[0].pt if len(clean_jets20)>0 else -99 # for a reson that only the MINDS of the previous MT2 analysis can understand, these jets start from pt > 20 GeV : FUCK YOU!
     jet2_pt = clean_jets20[1].pt if len(clean_jets20)>1 else -99 # same goes for the second leading jet pt
 
-    self.out.fillBranch("ht", ht)
-    self.out.fillBranch("mht_pt", mht_pt)
-    self.out.fillBranch("mht_phi", mht_phi)
-    self.out.fillBranch("zll_ht", zll_ht)
-    self.out.fillBranch("zll_mht_pt", zll_mht_pt)
-    self.out.fillBranch("zll_mht_phi", zll_mht_phi)
-    self.out.fillBranch("diffMetMht", diffMetMht)
-    self.out.fillBranch("deltaPhiMin", deltaPhiMin)
-    #self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
-    self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
-    self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
-    self.out.fillBranch("jet1_pt", jet1_pt)
-    self.out.fillBranch("jet2_pt", jet2_pt)
-
 
     ####################################################
     # MT2
@@ -436,9 +409,6 @@ class mt2VarsProducer(Module):
     mt2 = getMT2(objects_std, met4vec)
     zll_mt2 = getMT2(zll_objects_std, zll_met4vec) if len(clean_recoleptons)==2 else -99
     #if len(selected_jets)>=2: print getMT2(selected_jets, metTV2 ), met.pt, len(selected_jets)
-    self.out.fillBranch("mt2", mt2)
-    self.out.fillBranch("zll_mt2", zll_mt2)
-
 
     ####################################################
     # Lepton quantities
@@ -471,21 +441,7 @@ class mt2VarsProducer(Module):
       #[i] = ilep.
 
 
-    self.out.fillBranch("lep_pt", lep_pt)
-    self.out.fillBranch("lep_eta", lep_eta)
-    self.out.fillBranch("lep_phi", lep_phi)
-    self.out.fillBranch("lep_mass", lep_mass)
-    self.out.fillBranch("lep_charge", lep_charge)
-    self.out.fillBranch("lep_pdgId", lep_pdgId)
-    self.out.fillBranch("lep_dxy", lep_dxy)
-    self.out.fillBranch("lep_dz", lep_dz)
-    #self.out.fillBranch("lep_tightId", lep_tightId)
-    self.out.fillBranch("lep_miniRelIso", lep_miniRelIso)
-    #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
-    #self.out.fillBranch("lep_lostHits", lep_lostHits)
-    #self.out.fillBranch("lep_convVeto", lep_convVeto)
-    #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
-    # variables for ele id (?)
+
 
 
     ####################################################
@@ -502,10 +458,7 @@ class mt2VarsProducer(Module):
       jet_eta[i] = ijet.eta
       jet_id[i] = int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
 
-    self.out.fillBranch("jet_pt", jet_pt)
-    self.out.fillBranch("jet_eta", jet_eta)
-    self.out.fillBranch("jet_phi", jet_phi)
-    self.out.fillBranch("jet_id", jet_id)
+
 
     #####
     # Zll
@@ -518,10 +471,7 @@ class mt2VarsProducer(Module):
     zll_phi = zll4vec.Phi() if len(clean_recoleptons)==2 else -99
     zll_mass = zll4vec.M() if len(clean_recoleptons)==2 else -99
 
-    self.out.fillBranch("zll_pt", zll_pt)
-    self.out.fillBranch("zll_eta", zll_eta)
-    self.out.fillBranch("zll_phi", zll_phi)
-    self.out.fillBranch("zll_mass", zll_mass)
+
 
 
     ''''# make gamma met , not including overlap removal with jets
@@ -537,7 +487,87 @@ class mt2VarsProducer(Module):
     self.out.fillBranch("gamma_MET_pt", gamma_met.Mod())
     self.out.fillBranch("gamma_MET_phi", gamma_met.Phi())'''
 
-    return True
+    ####################################################
+    # Skimming
+    ###################################################
+    doSkim = self.doSkim
+    passSkim = False
+
+    signalSkim = (   (  ht > 200 and nJet30 >= 1 and ((nJet30>=2 and mt2>200.) or nJet30==1)  )  and  (  (ht<1000. and met_pt>200.) or (ht>1000 and  met_pt>30)  )   )
+    zllSkim =    ( zll_ht > 200. and nJet30 >= 1 and ((nJet30==1 and zll_ht>200.) or (nJet30>1  and zll_mt2>200.)) and ((zll_ht<1000. and zll_met_pt>200.) or (zll_ht>1000 and  zll_met_pt>30)) )
+    #nLep = nElectrons10 + nMuons10 + nPFLep5LowMT + nPFHad10LowMT
+    #qcdSkim =    ( (nJet30>1 and nLep==0 and met_pt > 30. and  (diffMetMht < 0.5*met_pt) and mt2>50. ) or  (nJet30==2 and met_pt>200. and ht>200. and nLep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin<0.3) )
+
+    passSkim = signalSkim or zllSkim # for the moment not running qcd skim
+    ####################################################
+    # Fill the tree if needed
+    ###################################################
+    if(passSkim or not doSkim):
+      self.out.fillBranch("nJet20", nJet20)
+      self.out.fillBranch("nJet30", nJet30)
+      self.out.fillBranch("nJet30FailId", nJet30FailId)
+      self.out.fillBranch("nBJet20", nBJet20)
+      self.out.fillBranch("nElectrons10", nElectrons10)
+      self.out.fillBranch("nMuons10", nMuons10)
+      self.out.fillBranch("nPFLep5LowMT", nPFLep5LowMT)
+      self.out.fillBranch("nPFLep5LowMTclean", nPFLep5LowMTclean)
+      self.out.fillBranch("nPFHad10LowMT", nPFHad10LowMT)
+      self.out.fillBranch("nLepLowMT", nLepLowMT)
+      self.out.fillBranch("nRecoLepLowMT", nRecoLepLowMT)
+
+      self.out.fillBranch("met_pt", met_pt)
+      self.out.fillBranch("met_phi", met_phi)
+      self.out.fillBranch("zll_met_pt", zll_met_pt)
+      self.out.fillBranch("zll_met_phi", zll_met_phi)
+
+      self.out.fillBranch("ht", ht)
+      self.out.fillBranch("mht_pt", mht_pt)
+      self.out.fillBranch("mht_phi", mht_phi)
+      self.out.fillBranch("zll_ht", zll_ht)
+      self.out.fillBranch("zll_mht_pt", zll_mht_pt)
+      self.out.fillBranch("zll_mht_phi", zll_mht_phi)
+      self.out.fillBranch("diffMetMht", diffMetMht)
+      self.out.fillBranch("deltaPhiMin", deltaPhiMin)
+      #self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
+      self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
+      self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
+      self.out.fillBranch("jet1_pt", jet1_pt)
+      self.out.fillBranch("jet2_pt", jet2_pt)
+
+      self.out.fillBranch("mt2", mt2)
+      self.out.fillBranch("zll_mt2", zll_mt2)
+
+      self.out.fillBranch("lep_pt", lep_pt)
+      self.out.fillBranch("lep_eta", lep_eta)
+      self.out.fillBranch("lep_phi", lep_phi)
+      self.out.fillBranch("lep_mass", lep_mass)
+      self.out.fillBranch("lep_charge", lep_charge)
+      self.out.fillBranch("lep_pdgId", lep_pdgId)
+      self.out.fillBranch("lep_dxy", lep_dxy)
+      self.out.fillBranch("lep_dz", lep_dz)
+      #self.out.fillBranch("lep_tightId", lep_tightId)
+      self.out.fillBranch("lep_miniRelIso", lep_miniRelIso)
+      #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
+      #self.out.fillBranch("lep_lostHits", lep_lostHits)
+      #self.out.fillBranch("lep_convVeto", lep_convVeto)
+      #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
+      # variables for ele id (?)
+      self.out.fillBranch("jet_pt", jet_pt)
+      self.out.fillBranch("jet_eta", jet_eta)
+      self.out.fillBranch("jet_phi", jet_phi)
+      self.out.fillBranch("jet_id", jet_id)
+
+      self.out.fillBranch("zll_pt", zll_pt)
+      self.out.fillBranch("zll_eta", zll_eta)
+      self.out.fillBranch("zll_phi", zll_phi)
+      self.out.fillBranch("zll_mass", zll_mass)
+
+    ####################################################
+    # Return
+    ###################################################
+    if(doSkim and not passSkim): ret = False
+
+    return ret
 
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed

@@ -27,5 +27,5 @@ echo Found Proxy in: $X509_USER_PROXY
 
 #echo Using arguments $1 $2
 #python postproc.py --jobNum=$1 --$2 --$3 --$4
-python postproc.py --doMC --year="2017"
+python postproc.py --doMC --year 2017 --doSkim
 fi

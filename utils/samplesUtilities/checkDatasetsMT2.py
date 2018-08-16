@@ -17,7 +17,7 @@ def checkMT2Datasets(inputFile, campaign, dataFormat, status, groups, info, doGr
   if not os.path.isfile(inputFile): raise RuntimeError('Provided input list does not exist')
 
   for group in groups:
-    print '****\nSummary for:  group =', group.expr,  ' campaign =' , campaign, ' datatier =', dataFormat, ' status =', status, '\n****\n'
+    print '****\n# Summary for:  group =', group.expr,  ' campaign =' , campaign, ' datatier =', dataFormat, ' status =', status, '\n****\n'
     f = open(inputFile, "r")
     
     for line in f:
@@ -32,7 +32,7 @@ def checkMT2Datasets(inputFile, campaign, dataFormat, status, groups, info, doGr
         dataset = '/' + line.split('\n')[0] + '/' + campaign + '/' + dataFormat
         command = 'dasgoclient --query="dataset dataset= {d} status={s}"'.format(d=dataset, s=status)
         if info: print 'Going to run command:     ' , command
-        print 'Gen sample: ', line.split('\n')[0]
+        print '# Gen sample: ', line.split('\n')[0]
         os.system(command)
         print ''
 
@@ -40,7 +40,7 @@ def checkMT2Datasets(inputFile, campaign, dataFormat, status, groups, info, doGr
     if doGroupQuery:
       dataset = '/' + group.expr + '*/' + campaign + '/' + dataFormat
       command = 'dasgoclient --query="dataset dataset = {d} status={s}"'.format(d=dataset, s=status)
-      print 'Query for group: ', group.name, '  expr: ', group.expr
+      print '# Query for group: ', group.name, '  expr: ', group.expr
       os.system(command)
       print ''
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
   parser.add_argument('-f', '--format', type=str, dest='dataFormat', help='datatier', choices=allowed_formats, default='MINIAOD*')
   parser.add_argument('-s', '--status', type=str, dest='status', help='das status', choices=allowed_status, default='VALID')
   parser.add_argument('-g', '--group', type=str, dest='group', help='sample group', choices=allowed_groups, default='QCD_LO')
-  parser.add_argument('-l', '--inputlist', type=str, dest='inputFile', help='a txt file containing file paths, one per line', metavar='list', default='./genSamples/mc_bkgs_mt2_initial.txt')
+  parser.add_argument('-l', '--inputlist', type=str, dest='inputFile', help='a txt file containing file paths, one per line', metavar='list', default='./PDsamples/mc_bkgs_mt2_initial.txt')
   parser.add_argument('--info', dest='info', help='show das commands', action='store_true', default=False)
   parser.add_argument('--dogroupquery', dest='doGroupQuery', help='also perform the group query', action='store_true', default=False)
   

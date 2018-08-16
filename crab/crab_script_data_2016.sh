@@ -26,5 +26,5 @@ mv python $CMSSW_BASE/python
 echo Found Proxy in: $X509_USER_PROXY
 
 #echo Using arguments $1 $2
-python postproc.py  --year="2016"
+python postproc.py  --year 2016 --doSkim
 fi

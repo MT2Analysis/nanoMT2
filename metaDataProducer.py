@@ -22,10 +22,11 @@ def idData(name):
     return -1
 
 class metaDataProducer(Module):
-  def __init__(self,xSecFile,sampleName,isMC):
+  def __init__(self,xSecFile,sampleName,isMC,year):
     self.xSecFile = xSecFile
     self.sampleName = sampleName
     self.isMC = isMC
+    self.year = year
   def beginJob(self):
     pass
   def endJob(self):
@@ -57,7 +58,7 @@ class metaDataProducer(Module):
     self.filterEff = filterEff
     self.kFac = kFac
 
-    print 'Metadata for this sample: id={}, xSec={}, filterEff={}, kFac={}'.format(id,xSec,filterEff,kFac)
+    print 'Metadata for this sample: id={}, year={}, xSec={}, filterEff={}, kFac={}'.format(self.id,self.year,self.xSec,self.filterEff,self.kFac)
 
     # create output branches with proper name, following previous convention
     self.out = wrappedOutputTree
@@ -65,6 +66,7 @@ class metaDataProducer(Module):
     self.out.branch("evt_xsec", "F")
     self.out.branch("evt_filter", "F")
     self.out.branch("evt_kfactor", "F")
+    self.out.branch("evt_year", "I")
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
@@ -75,6 +77,7 @@ class metaDataProducer(Module):
     self.out.fillBranch("evt_xsec", self.xSec)
     self.out.fillBranch("evt_filter", self.filterEff)
     self.out.fillBranch("evt_kfactor", self.kFac)
+    self.out.fillBranch("evt_year", self.year)
 
     return True
 

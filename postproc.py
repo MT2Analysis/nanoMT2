@@ -17,16 +17,17 @@ def getSampleName(files, isMC):
   else:
     return elements[3] + '_' + elements[2]
 
-
+# TODO: please add the allowed options !
 from argparse import ArgumentParser
 parser = ArgumentParser(description='', add_help=True)
 parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='name of the output dir', default='output/out')
 parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events to run on', default=-1)
 parser.add_argument('-w', '--what', type=str, dest='what', help='what sample to run on: Wlv, Zll when doLocal is activated', default='Wlv')
-parser.add_argument('-y','--year', type=str, dest='year', help='year of data taking / MC taking :)', default='2017')
+parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 
 parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
 
 options = parser.parse_args()
 print options
@@ -81,8 +82,8 @@ from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer impo
 
 #modules = [mhtjuProducerCpp(), lepSFProducer('LooseWP_2016', 'GPMVA90_2016')]
 #modules = [mhtjuProducerCpp()]
-modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year),
-            metaDataProducer(xSecFile='data/xSec/xSecs_2016.txt', sampleName=sampleName, isMC=options.doMC) ]
+modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim),
+            metaDataProducer(xSecFile='data/xSec/xSecs_2016.txt', sampleName=sampleName, isMC=options.doMC, year=options.year) ]
             #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
             #btagSFProducer(era='2017', algo = 'csvv2'),
             #puWeightProducer("auto","%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/PileupData_GoldenJSON_Full2016.root" % os.environ['CMSSW_BASE'],"pu_mc","pileup",verbose=False)]
