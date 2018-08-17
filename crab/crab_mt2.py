@@ -2,11 +2,12 @@
 
 # python crab_mt2.py -p TEST1 -l ../samples/mc_bkg_2017.txt -y 2017 --doMC
 
+## Options
 from argparse import ArgumentParser
 import os
 parser = ArgumentParser(description='Crab submission options', add_help=True)
 parser.add_argument('-p','--productionLabel', type=str, dest='productionLabel', help='name of the production, please make sure it was not used before', default='TEST0')
-parser.add_argument('-l', '--list', type=str, dest='inputList', help='a txt file containing datasets, one per line', metavar='list', default='../samples/mc_bkg_2017.txt')
+parser.add_argument('-l', '--list', type=str, dest='inputList', help='a txt file containing datasets, one per line', metavar='list', default='../data/samples/mc_bkg_2017.txt')
 parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
 parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
@@ -14,18 +15,24 @@ parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoi
 
 options = parser.parse_args()
 
-# json configuration
+## Json configuration
 if not options.doMC and not options.doSkipJSON:
   jsonFile = '../data/json/current_%s.txt' % (str(options.year))
 
-# checks here
+## Checks here
 if not os.path.isfile(options.inputList): raise RuntimeError('Sample list not available')
 if not options.doMC and not options.doSkipJSON and not os.path.isfile(jsonFile): raise RuntimeError('Json file not available')
 
+## Read samples
+f=open(options.inputList) # first argument is the filename containing the samples to be run
+datasets = f.readlines()
+datasets = [x.strip() for x in datasets]
+datasets = filter(lambda x: '#' not in x, datasets) # remove commented lines
+datasets = filter(lambda x: x!='\n', datasets) # remove empty lines
+datasets = filter(lambda x: x!='', datasets) # remove empty lines
 
-
+## CRAB Configurations
 # Change only if you know what you're doing
-# CRAB Configurations
 import sys
 import os
 from CRABClient.UserUtilities import config, getUsernameFromSiteDB
@@ -44,8 +51,8 @@ config.JobType.inputFiles = ['../data','../postproc.py','../../../../../scripts/
 config.JobType.sendPythonFolder	 = True # unfortunately this is crucial, but can become at times problematic
 config.Data.inputDataset = exampleSample
 config.Data.inputDBS = 'global' # should be changed only in case you are running over privately produced samples
-config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'
-config.Data.unitsPerJob = 10 if options.doMC else 20000000 # FIXME: 10 is too much, something around 4-5 is better, 20000 is too much, something around 1000-2000 should be ok
+config.Data.splitting = 'FileBased' if options.doMC else 'Automatic'
+config.Data.unitsPerJob = 5 if options.doMC else 360 
 #config.Data.splitting = 'EventAwareLumiBased'
 # The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/PD/campaign/timestamp/counter/mt2_bla.root
 config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code
@@ -58,14 +65,7 @@ if not options.doMC and not options.doSkipJSON:
   config.Data.lumiMask = jsonFile
 
 
-# Actually send crab commands
-f=open(options.inputList) # first argument is the filename containing the samples to be run
-datasets = f.readlines()
-datasets = [x.strip() for x in datasets]
-datasets = filter(lambda x: '#' not in x, datasets) # remove commented lines
-datasets = filter(lambda x: x!='\n', datasets) # remove empty lines
-datasets = filter(lambda x: x!='', datasets) # remove empty lines
-
+## Actually send crab commands
 from CRABAPI.RawCommand import crabCommand
 
 for dataset in datasets :

@@ -1,3 +1,7 @@
+# metaDataProducer.py - Maria Giulia Ratti, ETH Zurich
+
+# Module to run attach metadata to the mt2 trees
+
 import os
 import numpy as np
 import re

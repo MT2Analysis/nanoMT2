@@ -1,3 +1,5 @@
+# mt2VarsProducer.py - Maria Giulia Ratti, ETH Zurich
+
 # This module is meant to produce all mt2Analysis-specific variables and to perform skimming based on them
 # It will be a long code, but let's try to keep it simple and at least you won't have to search for objets defined in other packages!
 # Please note the space convention rather than tab convention wrt other nanoAOD modules
