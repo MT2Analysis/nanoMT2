@@ -1,0 +1,10 @@
+# this txt file has the same format as the file that is used to launch jobs on the grid
+# you're supposed to edit it according to which samples you actually want to run the merger on
+# for example: you launched all periods, but only want to run on a subset because a period was not finished
+
+/MET/Run2017B-31Mar2018-v1/NANOAOD
+#/MET/Run2017C-31Mar2018-v1/NANOAOD
+
+# /JETHT/ .. bla bla
+
+# /DYJetsToLL_M-50_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM

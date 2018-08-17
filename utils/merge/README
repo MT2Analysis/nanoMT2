@@ -1,0 +1,6 @@
+# Utility to merge output of crab into one file per group of samples
+# Thought to work on the PSI tier3
+
+
+# Run-time
+python merge.py
