@@ -42,8 +42,9 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
 
 class GroupMerger(object):
 
-  def __init__(self, groupName, inputPath, outputPath, doForceMerging=False):
+  def __init__(self, groupName, groupExpr, inputPath, outputPath, doForceMerging=False):
     self.groupName = groupName
+    self.groupExpr = groupExpr
     self.inputPath = inputPath
     self.outputPath = outputPath
     self.groupMembers = [] # una lista di stringhe indicanti i sample del gruppo
@@ -60,7 +61,7 @@ class GroupMerger(object):
     for line in f:
       if '#' in line: continue
       if line == '\n': continue
-      if self.groupName in line:
+      if self.groupExpr in line:
         #els = dataset.split('/')
         sample = '%s/%s' %(line.split('/')[1], line.split('/')[2]) # don't care about last bit , the datatier
         #print sample
