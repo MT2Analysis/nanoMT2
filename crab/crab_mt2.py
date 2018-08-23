@@ -51,8 +51,8 @@ config.JobType.inputFiles = ['../data','../postproc.py','../../../../../scripts/
 config.JobType.sendPythonFolder	 = True # unfortunately this is crucial, but can become at times problematic
 config.Data.inputDataset = exampleSample
 config.Data.inputDBS = 'global' # should be changed only in case you are running over privately produced samples
-config.Data.splitting = 'FileBased' if options.doMC else 'Automatic'
-config.Data.unitsPerJob = 5 if options.doMC else 360 
+config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'
+config.Data.unitsPerJob = 5 if options.doMC else 1000000 # 1M events per job, 115 M in period B of MET pd
 #config.Data.splitting = 'EventAwareLumiBased'
 # The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/PD/campaign/timestamp/counter/mt2_bla.root
 config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code

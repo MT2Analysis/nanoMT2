@@ -318,7 +318,8 @@ class mt2VarsProducer(Module):
     clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] # TODO: check 2.5 heppy
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # TODO: check 2.5 heppy
-    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838]
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838] # Medium WP for 94X
+    # NOTE: this you will have to change it yourself when the recommendation change / depending on the year
 
     objects_std =            clean_jets30 + clean_leptons
     objects_std_deltaPhi =   clean_jets30_largeEta + clean_leptons

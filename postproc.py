@@ -6,7 +6,6 @@ import os, sys
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 from importlib import import_module
-import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
 
 
 def getSampleName(files, isMC):
@@ -72,6 +71,7 @@ if __name__ == '__main__':
     print 'Running on the grid'
     dofwkJobReport = True
     haddFileName = 'mt2.root'
+    import PhysicsTools.NanoAODTools.postprocessing.framework.crabhelper as CH # inputFiles,runsAndLumis
     if not options.doMC and not options.doSkipJSON:
       jsonInput = CH.runsAndLumis()
     #this takes care of converting the input files from CRAB
@@ -91,7 +91,7 @@ if __name__ == '__main__':
   modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim),
               metaDataProducer(xSecFile='data/xSec/xSecs_2016.txt', sampleName=sampleName, isMC=options.doMC, year=options.year) ]
               #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
-              #btagSFProducer(era='2017', algo = 'csvv2'),
+              #btagSFProducer(era=str(options.year), algo='csvv2')]
               #puWeightProducer("auto","%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/PileupData_GoldenJSON_Full2016.root" % os.environ['CMSSW_BASE'],"pu_mc","pileup",verbose=False)]
 
   ## Define the post-processor
