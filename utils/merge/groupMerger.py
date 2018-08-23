@@ -42,13 +42,14 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
 
 class GroupMerger(object):
 
-  def __init__(self, groupName, groupExpr, inputPath, outputPath, doForceMerging=False):
+  def __init__(self, groupName, groupExpr, inputPath, outputPath, doMC, doForceMerging=False):
     self.groupName = groupName
     self.groupExpr = groupExpr
     self.inputPath = inputPath
     self.outputPath = outputPath
     self.groupMembers = [] # una lista di stringhe indicanti i sample del gruppo
     self.groupMembersMerged = [] #
+    self.doMC = doMC
     self.doForceMerging = doForceMerging
 
     print 'Initialized groupmerger with groupName={}, inputPath={}, outputPath={}'.format(self.groupName,self.inputPath,self.outputPath )
@@ -106,24 +107,27 @@ class GroupMerger(object):
           self.clean()
           return False
 
-    # now merge the merged files
+    # now copy the merged files
     if len(self.groupMembersMerged)==0:
-      print 'No members in group %s, exiting' % self.groupName
+      print 'No members in group %s, nothing to copy, exiting' % self.groupName
       return 1
     else:
-      hadd_command = '{hadd} {outp} {inp}'.format(hadd='../../../../../../scripts/haddnano.py',
-                                              outp='{}/{}.root'.format(self.outputPath, self.groupName),# full output will have the name of the group
-                                              inp=' '.join(self.groupMembersMerged))
+      for i,sample in enumerate(self.groupMembersMerged):
+        if self.doMC: # if it's MC, use only the PD name - not the campaign please
+          outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '.root'
+        else: # if it's data, also call based on the period
+          outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '_' + self.groupMembers[i].split('/')[1] + '.root'
 
-      try:
-        subprocess.call(hadd_command, shell=True)
-      except subprocess.CalledProcessError as e:
-        print 'ERROR in merging the members together', e
-        print 'Group merging for group %s did not work, cleaning and exiting' % self.groupName
-        self.clean()
-        return 1
+        cp_command = 'cp {inp} {outp}'.format(inp=sample, outp=outp)
+        print 'Going to copy sample ', sample, 'to output ', outp
+        ret = subprocess.call(cp_command, shell=True)
+        if ret:
+          print 'ERROR in copying to outputpath', e
+          print 'Copying for sample %s did not work, cleaning and exiting' % self.groupMembersMerged
+          self.clean()
+          return ret
 
       self.clean() # when you have finished clean the intermediate steps
-      print 'Successfully merged samples for group=%s, outputPath=%s' %(self.groupName, '{}/{}.root'.format(self.outputPath, self.groupName))
+      print 'Successfully merged samples in group=%s, copied them in outputPath=%s' % (self.groupName, self.outputPath)
 
       return 0

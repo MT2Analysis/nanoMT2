@@ -2,5 +2,10 @@
 # Thought to work on the PSI tier3
 
 
-# Run-time
-python merge.py
+# Run-time - latest command
+python merge.py -p TEST14 -v v1 -g Wlv -y 2017 --doMC
+python merge.py -p TEST14 -v v1 -g data -y 2017
+
+
+# Commands for full production
+

@@ -13,7 +13,6 @@ def getOptions(MT2groups):
   parser = ArgumentParser(description='Merging  options', add_help=True)
   parser.add_argument('-p','--productionLabel', type=str, dest='productionLabel', help='name of the crab production', default='TEST0')
   parser.add_argument('-v','--version', type=str, dest='version', help='suffix for post-processing version', default='v0')
-  parser.add_argument('-l', '--list', type=str, dest='inputList', help='a txt file containing datasets to merge, one per line', metavar='list', default='cfg/data_2017_merge.txt')
   parser.add_argument('-g', '--group', type=str, dest='group', help='sample group', choices=allowed_groups, default='QCD_LO')
   parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 
@@ -57,7 +56,19 @@ def getMT2groups():
   MT2groups['Gjets'] = [Gjets]
   MT2groups['bkg'] = [Zvv, Wlv, Zll, QCD, Gjets]#Top, Gjets]
   MT2groups['sig'] = []
-  MT2groups['data'] = ['MET', 'JetHT', 'HTMHT', 'SingleElectron', 'SingleMuon', 'DoubleEG', 'DoubleMuon', 'MuonEG', 'SinglePhoton', 'DoublePhoton'] # ...
+  MT2groups['data'] = [MET, JetHT, HTMHT, SingleElectron, SingleMuon, DoubleEG, DoubleMuon, MuonEG, SinglePhoton, DoublePhoton] # ...
+
+  MT2groups['MET'] = [MET]
+  MT2groups['JetHT'] = [JetHT]
+  MT2groups['HTMHT'] = [HTMHT]
+  MT2groups['SingleElectron'] = [SingleElectron]
+  MT2groups['SingleMuon'] = [SingleMuon]
+  MT2groups['DoubleEG'] = [DoubleEG]
+  MT2groups['DoubleMuon'] = [DoubleMuon]
+  MT2groups['MuonEG'] = [MuonEG]
+  MT2groups['SinglePhoton'] = [SinglePhoton]
+  MT2groups['DoublePhoton'] = [DoublePhoton]
+
 
   return MT2groups
 
@@ -78,7 +89,7 @@ if __name__ == "__main__":
   from groupMerger import GroupMerger
 
   for MT2Group in MT2groups[options.group]:
-    g = GroupMerger(groupName=MT2Group.name, groupExpr=MT2Group.expr, inputPath=inputPath, outputPath=outputPath)
+    g = GroupMerger(groupName=MT2Group.name, groupExpr=MT2Group.expr, inputPath=inputPath, outputPath=outputPath, doMC=options.doMC)
     g.configGroupMembers(cfgFile=cfgFile)
     g.configOutput()
     ret = g.process()
