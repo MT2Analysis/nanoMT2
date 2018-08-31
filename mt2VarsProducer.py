@@ -1,10 +1,12 @@
 # mt2VarsProducer.py - Maria Giulia Ratti, ETH Zurich
 
 # This module is meant to produce all mt2Analysis-specific variables and to perform skimming based on them
-# It will be a long code, but let's try to keep it simple and at least you won't have to search for objets defined in other packages!
+# It will be a long code, but let's try to keep it simple
 # Please note the space convention rather than tab convention wrt other nanoAOD modules
 
 # NOTE: not possible to separate skimming from variables production because the branches are filled in this very same module
+# NOTE: this module implicitly shares the naming conventions defined in PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties
+#       this is bad, but unfortunately there is no better way to do this, unless I have time to rewrite the jetmet module to suit my needs
 # TODO: please put most numerical values in a config file
 
 import ROOT
@@ -58,36 +60,15 @@ def getMht4vec(objects):
   else:
     return ROOT.TLorentzVector(0, 0, 0, 0)
 
-
-def passEleId(electron):
-  passId = True
-  if abs(electron.eta + electron.deltaEtaSC) < 1.479:
-    if electron.sieie > 0.01114: passId = False
-    # delta eta ieta cut
-    # delta phi ieta cut
-    if electron.hoe > 0.181: passId = False
-    if abs(electron.eInvMinusPInv) > 0.207: passId = False
-    if abs(electron.dxy) > 0.0564: passId = False
-    if abs(electron.dz) > 0.472: passId = False
-    if electron.lostHits > 2: passId = False
-    if electron.convVeto == False: passId = False
-  else:
-    if electron.sieie > 0.0352: passId = False
-    # delta eta ieta cut
-    # delta phi ieta cut
-    if electron.hoe > 0.116: passId = False
-    if abs(electron.eInvMinusPInv) > 0.174: passId = False
-    if abs(electron.dxy) > 0.222: rpassId = False
-    if abs(electron.dz) > 0.921: passId = False
-    if electron.lostHits > 3: passId = False
-    if electron.convVeto == False: passId = False
-  return passId
-
 class mt2VarsProducer(Module):
-  def __init__(self, isMC=True, year=2017, doSkim=False):
+  def __init__(self, isMC=True, year=2017, doSkim=False, doSyst=False, systVar=None): # 'jesTotalUp', 'jesTotalDown'
     self.year = year
     self.isMC = isMC
     self.doSkim = doSkim
+    self.doSyst = doSyst
+    self.systVar = systVar
+    self.systSuffix = '_sys_' + self.systVar if self.doSyst else ''
+
   def beginJob(self):
     pass
   def endJob(self):
@@ -96,59 +77,57 @@ class mt2VarsProducer(Module):
     self.verbose = False
     self.out = wrappedOutputTree
 
-    #self.out.branch("evt", "L")
-
-
-    self.out.branch("nJet20", "I")
-    self.out.branch("nJet30", "I")
-    self.out.branch("nJet30FailId", "I")
-    self.out.branch("nBJet20", "I")
-    self.out.branch("nElectrons10", "I")
-    self.out.branch("nMuons10", "I")
-    self.out.branch("nPFLep5LowMT", "I")
-    self.out.branch("nPFLep5LowMTclean", "I")
-    self.out.branch("nPFHad10LowMT", "I")
-    self.out.branch("nLepLowMT", "I")
-    self.out.branch("nRecoLepLowMT", "I")
-    self.out.branch("ht", "F")
-    self.out.branch("mht_pt", "F")
-    self.out.branch("mht_phi", "F")
-    self.out.branch("zll_ht", "F")
-    self.out.branch("zll_mht_pt", "F")
-    self.out.branch("zll_mht_phi", "F")
-    self.out.branch("diffMetMht", "F")
-    self.out.branch("deltaPhiMin", "F")
+    self.out.branch("nJet20{}".format(self.systSuffix), "I")
+    self.out.branch("nJet30{}".format(self.systSuffix), "I")
+    self.out.branch("nJet30FailId{}".format(self.systSuffix), "I")
+    self.out.branch("nBJet20{}".format(self.systSuffix), "I")
+    self.out.branch("nElectrons10{}".format(self.systSuffix), "I")
+    self.out.branch("nMuons10{}".format(self.systSuffix), "I")
+    self.out.branch("nPFLep5LowMT{}".format(self.systSuffix), "I")
+    self.out.branch("nPFLep5LowMTclean{}".format(self.systSuffix), "I")
+    self.out.branch("nPFHad10LowMT{}".format(self.systSuffix), "I")
+    self.out.branch("nLepLowMT{}".format(self.systSuffix), "I")
+    self.out.branch("nRecoLepLowMT{}".format(self.systSuffix), "I")
+    self.out.branch("ht{}".format(self.systSuffix), "F")
+    self.out.branch("mht_pt{}".format(self.systSuffix), "F")
+    self.out.branch("mht_phi{}".format(self.systSuffix), "F")
+    self.out.branch("zll_ht{}".format(self.systSuffix), "F")
+    self.out.branch("zll_mht_pt{}".format(self.systSuffix), "F")
+    self.out.branch("zll_mht_phi{}".format(self.systSuffix), "F")
+    self.out.branch("diffMetMht{}".format(self.systSuffix), "F")
+    self.out.branch("deltaPhiMin{}".format(self.systSuffix), "F")
     #self.out.branch("deltaPhiMin_had", "F")
-    self.out.branch("zll_diffMetMht", "F")
-    self.out.branch("zll_deltaPhiMin", "F")
-    self.out.branch("jet1_pt", "F")
-    self.out.branch("jet2_pt", "F")
-    self.out.branch("mt2", "F")
-    self.out.branch("met_pt", "F")
-    self.out.branch("met_phi", "F")
-    self.out.branch("zll_mt2", "F")
-    self.out.branch("zll_met_pt", "F")
-    self.out.branch("zll_met_phi", "F")
+    self.out.branch("zll_diffMetMht{}".format(self.systSuffix), "F")
+    self.out.branch("zll_deltaPhiMin{}".format(self.systSuffix), "F")
+    self.out.branch("jet1_pt{}".format(self.systSuffix), "F")
+    self.out.branch("jet2_pt{}".format(self.systSuffix), "F")
+    self.out.branch("mt2{}".format(self.systSuffix), "F")
+    self.out.branch("met_pt{}".format(self.systSuffix), "F")
+    self.out.branch("met_phi{}".format(self.systSuffix), "F")
+    self.out.branch("zll_mt2{}".format(self.systSuffix), "F")
+    self.out.branch("zll_met_pt{}".format(self.systSuffix), "F")
+    self.out.branch("zll_met_phi{}".format(self.systSuffix), "F")
 
-    self.out.branch("lep_pt", "F", 1, "nLep") # TODO: understand what is the size at the end what is 1 and what is nLep ?
-    self.out.branch("lep_eta", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_phi", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_mass", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_charge", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_pdgId", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_dxy", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_dz", "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_miniRelIso", "F", 1, "nLep") # what is 1 and what is nLep ?
+    # vector variables
+    self.out.branch("lep_pt{}".format(self.systSuffix), "F", 1, "nLep") # TODO: understand what is the size at the end what is 1 and what is nLep ?
+    self.out.branch("lep_eta{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_pdgId{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
 
-    self.out.branch("jet_pt", "F", 1, "nJet") #
-    self.out.branch("jet_eta", "F", 1, "nJet") #
-    self.out.branch("jet_phi", "F", 1, "nJet")
-    self.out.branch("jet_id", "I", 1, "nJet")
+    self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
+    self.out.branch("jet_eta{}".format(self.systSuffix), "F", 1, "nJet") #
+    self.out.branch("jet_phi{}".format(self.systSuffix), "F", 1, "nJet")
+    self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "nJet")
 
-    self.out.branch("zll_pt", "F")
-    self.out.branch("zll_eta", "F")
-    self.out.branch("zll_phi", "F")
-    self.out.branch("zll_mass", "F")
+    self.out.branch("zll_pt{}".format(self.systSuffix), "F")
+    self.out.branch("zll_eta{}".format(self.systSuffix), "F")
+    self.out.branch("zll_phi{}".format(self.systSuffix), "F")
+    self.out.branch("zll_mass{}".format(self.systSuffix), "F")
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
@@ -164,7 +143,26 @@ class mt2VarsProducer(Module):
     met = Object(event, "MET")
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
-    #evt = Object(event, "event")
+
+    # access variated quantities
+    # and modify the collections with syst variations if needed
+    if self.doSyst:
+      var_jet_pts = getattr(event, "Jet_pt_{}".format(self.systVar), None)
+      var_met_pt = getattr(event, "MET_pt_{}".format(self.systVar), None)
+      var_met_phi = getattr(event, "MET_phi_{}".format(self.systVar), None)
+
+      if var_jet_pts:
+        for i,jet in enumerate(jets):
+          jet.pt = var_jet_pts[i]
+      else: print 'ERROR: jet pts with variation {} not available, using the nominal value'.format(self.systVar)
+
+      if var_met_pt:
+        met.pt = var_met_pt
+      else: print 'ERROR: MET pt with variation {} not available, using the nominal value'.format(self.systVar)
+      if var_met_phi:
+        met.phi = var_met_phi
+      else: print 'ERROR: MET phi with variation {} not available, using the nominal value'.format(self.systVar)
+    # from now on, met.pt, met.phi and jet.pt are variated
 
     # Perform SELECTIONS
     selected_recoelectrons = []
@@ -443,10 +441,6 @@ class mt2VarsProducer(Module):
       lep_miniRelIso[i] = ilep.miniPFRelIso_all
       #[i] = ilep.
 
-
-
-
-
     ####################################################
     # Clean jets
     ###################################################
@@ -506,64 +500,64 @@ class mt2VarsProducer(Module):
     # Fill the tree if needed
     ###################################################
     if(passSkim or not doSkim):
-      self.out.fillBranch("nJet20", nJet20)
-      self.out.fillBranch("nJet30", nJet30)
-      self.out.fillBranch("nJet30FailId", nJet30FailId)
-      self.out.fillBranch("nBJet20", nBJet20)
-      self.out.fillBranch("nElectrons10", nElectrons10)
-      self.out.fillBranch("nMuons10", nMuons10)
-      self.out.fillBranch("nPFLep5LowMT", nPFLep5LowMT)
-      self.out.fillBranch("nPFLep5LowMTclean", nPFLep5LowMTclean)
-      self.out.fillBranch("nPFHad10LowMT", nPFHad10LowMT)
-      self.out.fillBranch("nLepLowMT", nLepLowMT)
-      self.out.fillBranch("nRecoLepLowMT", nRecoLepLowMT)
+      self.out.fillBranch("nJet20{}".format(self.systSuffix), nJet20)
+      self.out.fillBranch("nJet30{}".format(self.systSuffix), nJet30)
+      self.out.fillBranch("nJet30FailId{}".format(self.systSuffix), nJet30FailId)
+      self.out.fillBranch("nBJet20{}".format(self.systSuffix), nBJet20)
+      self.out.fillBranch("nElectrons10{}".format(self.systSuffix), nElectrons10)
+      self.out.fillBranch("nMuons10{}".format(self.systSuffix), nMuons10)
+      self.out.fillBranch("nPFLep5LowMT{}".format(self.systSuffix), nPFLep5LowMT)
+      self.out.fillBranch("nPFLep5LowMTclean{}".format(self.systSuffix), nPFLep5LowMTclean)
+      self.out.fillBranch("nPFHad10LowMT{}".format(self.systSuffix), nPFHad10LowMT)
+      self.out.fillBranch("nLepLowMT{}".format(self.systSuffix), nLepLowMT)
+      self.out.fillBranch("nRecoLepLowMT{}".format(self.systSuffix), nRecoLepLowMT)
 
-      self.out.fillBranch("met_pt", met_pt)
-      self.out.fillBranch("met_phi", met_phi)
-      self.out.fillBranch("zll_met_pt", zll_met_pt)
-      self.out.fillBranch("zll_met_phi", zll_met_phi)
+      self.out.fillBranch("met_pt{}".format(self.systSuffix), met_pt)
+      self.out.fillBranch("met_phi{}".format(self.systSuffix), met_phi)
+      self.out.fillBranch("zll_met_pt{}".format(self.systSuffix), zll_met_pt)
+      self.out.fillBranch("zll_met_phi{}".format(self.systSuffix), zll_met_phi)
 
-      self.out.fillBranch("ht", ht)
-      self.out.fillBranch("mht_pt", mht_pt)
-      self.out.fillBranch("mht_phi", mht_phi)
-      self.out.fillBranch("zll_ht", zll_ht)
-      self.out.fillBranch("zll_mht_pt", zll_mht_pt)
-      self.out.fillBranch("zll_mht_phi", zll_mht_phi)
-      self.out.fillBranch("diffMetMht", diffMetMht)
-      self.out.fillBranch("deltaPhiMin", deltaPhiMin)
+      self.out.fillBranch("ht{}".format(self.systSuffix), ht)
+      self.out.fillBranch("mht_pt{}".format(self.systSuffix), mht_pt)
+      self.out.fillBranch("mht_phi{}".format(self.systSuffix), mht_phi)
+      self.out.fillBranch("zll_ht{}".format(self.systSuffix), zll_ht)
+      self.out.fillBranch("zll_mht_pt{}".format(self.systSuffix), zll_mht_pt)
+      self.out.fillBranch("zll_mht_phi{}".format(self.systSuffix), zll_mht_phi)
+      self.out.fillBranch("diffMetMht{}".format(self.systSuffix), diffMetMht)
+      self.out.fillBranch("deltaPhiMin{}".format(self.systSuffix), deltaPhiMin)
       #self.out.fillBranch("deltaPhiMin_had", deltaPhiMin_had)
-      self.out.fillBranch("zll_diffMetMht", zll_diffMetMht)
-      self.out.fillBranch("zll_deltaPhiMin", zll_deltaPhiMin)
-      self.out.fillBranch("jet1_pt", jet1_pt)
-      self.out.fillBranch("jet2_pt", jet2_pt)
+      self.out.fillBranch("zll_diffMetMht{}".format(self.systSuffix), zll_diffMetMht)
+      self.out.fillBranch("zll_deltaPhiMin{}".format(self.systSuffix), zll_deltaPhiMin)
+      self.out.fillBranch("jet1_pt{}".format(self.systSuffix), jet1_pt)
+      self.out.fillBranch("jet2_pt{}".format(self.systSuffix), jet2_pt)
 
-      self.out.fillBranch("mt2", mt2)
-      self.out.fillBranch("zll_mt2", zll_mt2)
+      self.out.fillBranch("mt2{}".format(self.systSuffix), mt2)
+      self.out.fillBranch("zll_mt2{}".format(self.systSuffix), zll_mt2)
 
-      self.out.fillBranch("lep_pt", lep_pt)
-      self.out.fillBranch("lep_eta", lep_eta)
-      self.out.fillBranch("lep_phi", lep_phi)
-      self.out.fillBranch("lep_mass", lep_mass)
-      self.out.fillBranch("lep_charge", lep_charge)
-      self.out.fillBranch("lep_pdgId", lep_pdgId)
-      self.out.fillBranch("lep_dxy", lep_dxy)
-      self.out.fillBranch("lep_dz", lep_dz)
+      self.out.fillBranch("lep_pt{}".format(self.systSuffix), lep_pt)
+      self.out.fillBranch("lep_eta{}".format(self.systSuffix), lep_eta)
+      self.out.fillBranch("lep_phi{}".format(self.systSuffix), lep_phi)
+      self.out.fillBranch("lep_mass{}".format(self.systSuffix), lep_mass)
+      self.out.fillBranch("lep_charge{}".format(self.systSuffix), lep_charge)
+      self.out.fillBranch("lep_pdgId{}".format(self.systSuffix), lep_pdgId)
+      self.out.fillBranch("lep_dxy{}".format(self.systSuffix), lep_dxy)
+      self.out.fillBranch("lep_dz{}".format(self.systSuffix), lep_dz)
       #self.out.fillBranch("lep_tightId", lep_tightId)
-      self.out.fillBranch("lep_miniRelIso", lep_miniRelIso)
+      self.out.fillBranch("lep_miniRelIso{}".format(self.systSuffix), lep_miniRelIso)
       #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
       #self.out.fillBranch("lep_lostHits", lep_lostHits)
       #self.out.fillBranch("lep_convVeto", lep_convVeto)
       #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
       # variables for ele id (?)
-      self.out.fillBranch("jet_pt", jet_pt)
-      self.out.fillBranch("jet_eta", jet_eta)
-      self.out.fillBranch("jet_phi", jet_phi)
-      self.out.fillBranch("jet_id", jet_id)
+      self.out.fillBranch("jet_pt{}".format(self.systSuffix), jet_pt)
+      self.out.fillBranch("jet_eta{}".format(self.systSuffix), jet_eta)
+      self.out.fillBranch("jet_phi{}".format(self.systSuffix), jet_phi)
+      self.out.fillBranch("jet_id{}".format(self.systSuffix), jet_id)
 
-      self.out.fillBranch("zll_pt", zll_pt)
-      self.out.fillBranch("zll_eta", zll_eta)
-      self.out.fillBranch("zll_phi", zll_phi)
-      self.out.fillBranch("zll_mass", zll_mass)
+      self.out.fillBranch("zll_pt{}".format(self.systSuffix), zll_pt)
+      self.out.fillBranch("zll_eta{}".format(self.systSuffix), zll_eta)
+      self.out.fillBranch("zll_phi{}".format(self.systSuffix), zll_phi)
+      self.out.fillBranch("zll_mass{}".format(self.systSuffix), zll_mass)
 
     ####################################################
     # Return

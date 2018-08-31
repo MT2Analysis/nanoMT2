@@ -2,6 +2,8 @@
 
 # Script to setup and launch the post-processing of nanoAODs for the MT2 analysis
 
+# FIXME:  2016 is not really supported currently, due to missing isotracks
+
 import os, sys
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
@@ -35,6 +37,7 @@ def getOptions():
 
   parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
   parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+  parser.add_argument('--doSyst', dest='doSyst', help='do you want to run syst variations?', action='store_true', default=False)
   parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
   parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
 
@@ -58,7 +61,10 @@ if __name__ == '__main__':
     if options.what == 'Wlv':
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
-      files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+      if options.year == 2017:
+        files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+      elif options.year == 2016:
+        files = ['root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v2/90000/5C7D09C9-5E42-E811-8A15-0025905A497A.root']
       sampleName = 'WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'
     elif options.what == 'Zll':
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
@@ -81,18 +87,24 @@ if __name__ == '__main__':
 
   ## Modules to be run
   from PhysicsTools.NanoAODTools.postprocessing.framework.postprocessor import PostProcessor
-  from PhysicsTools.NanoAODTools.postprocessing.examples.mhtjuProducerCpp import mhtjuProducerCpp
+  #from PhysicsTools.NanoAODTools.postprocessing.examples.mhtjuProducerCpp import mhtjuProducerCpp
   from PhysicsTools.NanoAODTools.postprocessing.modules.common.lepSFProducer import lepSFProducer
   from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import btagSFProducer
   from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import puWeightProducer
+  from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import *
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2VarsProducer import mt2VarsProducer
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer import metaDataProducer
 
-  modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim),
+  modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
               metaDataProducer(xSecFile='data/xSec/xSecs_2016.txt', sampleName=sampleName, isMC=options.doMC, year=options.year) ]
               #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
               #btagSFProducer(era=str(options.year), algo='csvv2')]
               #puWeightProducer("auto","%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/PileupData_GoldenJSON_Full2016.root" % os.environ['CMSSW_BASE'],"pu_mc","pileup",verbose=False)]
+  if options.doSyst:
+    modules.insert(0,jetmetUncertaintiesProducer(str(options.year), "Fall17_17Nov2017_V6_MC", [ "Total" ], redoJEC=True, attachToEvt=True, attachToTree=False))
+    modules.insert(1,mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalUp'))
+    modules.insert(2,mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalDown'))
+
 
   ## Define the post-processor
   p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/branchSel.txt', outputbranchsel='data/branchSel/branchSel.txt',
