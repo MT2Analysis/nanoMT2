@@ -3,6 +3,7 @@
 # Script to setup and launch the post-processing of nanoAODs for the MT2 analysis
 
 # FIXME:  2016 is not really supported currently, due to missing isotracks
+# NOTE: Please check the xsection file to make sure that the naming is correct !
 
 import os, sys
 import ROOT

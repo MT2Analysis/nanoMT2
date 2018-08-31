@@ -33,6 +33,27 @@ for line in file:
 file.close
 
 
+def getRelDiff(n1, n2):
+  if n2!= 0:
+    res = float(n1)/float(n2) - 1
+  elif n2==0 and n1==0 :
+    res = 0
+  else:
+    print 'Cannot compute rel diff wrt 0, skipping'
+    res = None
+  return res
+
+def getBinDiff(h1, h2):
+  ROOT.TH1.SetDefaultSumw2()
+  #if ROOT.TH1.CheckConsistency(h1, h2): # if they're consistent check difference between the two
+  # currently a protected member, cannot be used
+  for iBin in range(1,h1.GetNbinsX()):
+    diff = getRelDiff(h1.GetBinContent(iBin), h2.GetBinContent(iBin))
+    if diff!=None: print 'Bin={}, evts1={}, evts2={}, rel diff={:.4f}%'.format(iBin, h1.GetBinContent(iBin), h2.GetBinContent(iBin), diff*100)
+
+  totdiff = getRelDiff(h1.GetEntries(), h2.GetEntries())
+  print 'Tot diff, evts1={}, evts2={}, rel diff={:.2f}%'.format(h1.GetEntries(), h2.GetEntries(), totdiff)
+
 if __name__ == "__main__":
   # add style please
   ROOT.gROOT.ProcessLine('.L ~/CMS_style/tdrstyle.C')
@@ -77,9 +98,17 @@ if __name__ == "__main__":
                                                          outhistoselection=q['sel'] + '*({})'.format(options.sel), outhistosmooth=False, index='evt', friendname='new')
     # now you should have the histograms
     if ret1 != -1 and ret2 != -1:
+      # do the ratio plot
       RP.makeRatioPlot(hNum=histo1, hDen=histo2, nameNum=options.label1, nameDen=options.label2, xtitle=q['title'],ytitle="Entries", ratiotitle="Ratio", norm=options.doNorm, log=options.doLog, outDir=options.outdirname, plotName=q['hname'])
       print 'Entries histo1', histo1.GetEntries(), ' histo2', histo2.GetEntries()
+
+      # catch bin-by-bin differences
+      print 'Analyzing bin differences'
+      getBinDiff(h1=histo1, h2=histo2)
+      print '\n'
     else:
       print 'Skipping ', q['name']
+
+
 
       # do the friend tree buisness

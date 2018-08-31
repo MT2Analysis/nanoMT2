@@ -17,7 +17,7 @@ def checkMT2Datasets(inputFile, campaign, dataFormat, status, groups, info, doGr
   if not os.path.isfile(inputFile): raise RuntimeError('Provided input list does not exist')
 
   for group in groups:
-    print '****\n# Summary for:  group =', group.expr,  ' campaign =' , campaign, ' datatier =', dataFormat, ' status =', status, '\n****\n'
+    print '#****\n# Summary for:  group =', group.expr,  ' campaign =' , campaign, ' datatier =', dataFormat, ' status =', status, '\n#****\n'
     f = open(inputFile, "r")
     
     for line in f:
