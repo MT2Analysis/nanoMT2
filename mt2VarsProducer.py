@@ -8,6 +8,8 @@
 # NOTE: this module implicitly shares the naming conventions defined in PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties
 #       this is bad, but unfortunately there is no better way to do this, unless I have time to rewrite the jetmet module to suit my needs
 # TODO: please put most numerical values in a config file
+# FIXME: electron id currently supported only for year=2017
+# TODO: add some truth information
 
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
@@ -16,6 +18,8 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collect
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
+
+import electronIdUtils as eleUtils
 
 def stampP(obj):
   print 'pt={:>8} eta={:>8} phi={:>8}'.format(obj.pt, obj.eta, obj.phi)
@@ -175,23 +179,24 @@ class mt2VarsProducer(Module):
     baseline_jets_noId = []
 
     for electron in electrons:
-      electron.pt /= electron.eCorr # FIXME: for the moment uncalibrated pt to match with heppy, but prefer to have it calibrated
+      electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      #if electron.cutBased == 0: continue # does not include d0, dz, conv veto FIXME: for the moment removed electron ID
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune='Fall17')
+      if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
+      #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
       if abs(electron.eta + electron.deltaEtaSC) < 1.479:
-      #  if electron.dxy > 0.05: continue
-      #  if electron.dz > 0.10: continue
-         if electron.lostHits > 2: continue
-      #else:
-      #  if electron.dxy > 0.10: continue
-      #  if electron.dz > 0.20: continue
-         if electron.lostHits > 3: continue
-      # try to use the cuts exactly how stated in the int note
-      #if not passEleId(electron): continue
-      if electron.miniPFRelIso_all > 0.1: continue
+        if electron.dxy > 0.05: continue
+        if electron.dz > 0.10: continue
+        #if electron.lostHits > 2: continue # included in id
+      else:
+        if electron.dxy > 0.10: continue
+        if electron.dz > 0.20: continue
+        #if electron.lostHits > 3: continue # included in id
+
+      if electron.miniPFRelIso_all > 0.1: continue # is cut
       electron.isToRemove = False
       selected_recoelectrons.append(electron)
 
@@ -275,7 +280,7 @@ class mt2VarsProducer(Module):
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_recoelectrons_CR = [el for el in clean_recoelectrons] # FIXME: for the moment removed loose id requirement if el.cutBased>1] # require electrons also to be loose
+    clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
     clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if mtw(x.pt, x.phi, met.pt, met.phi)<100]
@@ -314,8 +319,8 @@ class mt2VarsProducer(Module):
     clean_jets30_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30]
     clean_jets40_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 40]
     clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
-    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] # TODO: check 2.5 heppy
-    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4] # TODO: check 2.5 heppy
+    clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
+    clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838] # Medium WP for 94X
     # NOTE: this you will have to change it yourself when the recommendation change / depending on the year
 
@@ -468,21 +473,6 @@ class mt2VarsProducer(Module):
     zll_phi = zll4vec.Phi() if len(clean_recoleptons)==2 else -99
     zll_mass = zll4vec.M() if len(clean_recoleptons)==2 else -99
 
-
-
-
-    ''''# make gamma met , not including overlap removal with jets
-    gamma_met = ROOT.TVector2()
-    lead_gamma = ROOT.TVector2()
-    # remove leading photon with given cuts
-    # collections are sorted in pt - take leading photon
-    gamma_met.SetMagPhi(met.pt, met.phi)
-    if len(photons)>0:
-      lead_gamma.SetMagPhi(photons[0].pt, photons[0].phi)
-      gamma_met += lead_gamma
-
-    self.out.fillBranch("gamma_MET_pt", gamma_met.Mod())
-    self.out.fillBranch("gamma_MET_phi", gamma_met.Phi())'''
 
     ####################################################
     # Skimming
