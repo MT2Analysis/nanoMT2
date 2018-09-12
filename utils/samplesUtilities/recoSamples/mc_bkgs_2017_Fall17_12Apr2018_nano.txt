@@ -1,3 +1,5 @@
+# python checkDatasetsMT2.py -c RunIIFall17*12Apr2018* -f NANOAOD* -s "*" -g all -l PDsamples/mc_bkgs_greedy.txt
+
 #****
 # Summary for:  group = ZJetsToNuNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
 #****

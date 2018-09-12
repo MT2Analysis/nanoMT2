@@ -1,3 +1,8 @@
+# This list is intended to cover the bkg samples that
+# that we would like to use for all years
+# excluding diboson samples, which are not included
+# it is possible that not all samples will be available in all years
+# this is intended to be a wide list, used to search for existing samples
 
 #####################
 ### Drell Yan
@@ -52,6 +57,7 @@ QCD_HT2000toInf*
 ### Top
 #####################
 
+TJets_*
 TTJets_SingleLeptFromTbar*
 TTJets_SingleLeptFromT*
 TTJets_DiLept*
@@ -60,13 +66,12 @@ ST_t-channel_antitop_4f_leptonDecays*
 ST_s-channel_4f_leptonDecays*
 ST_tW_antitop_5f_NoFullyHadronicDecays*
 ST_tW_top_5f_NoFullyHadronicDecays*
-ttbb_4FS_ckm_amcatnlo_madspin_pythia8*
-
 ttWJets_13TeV_madgraphMLM*
 ttZJets_13TeV_madgraphMLM*
 ttHToNonbb_M125_13TeV_powheg_pythia8*
 ttHTobb_M125_13TeV_powheg_pythia8*
 TTTT_TuneCUETP8M1_13TeV-amcatnlo-pythia8*
+#ttbb_4FS_ckm_amcatnlo_madspin_pythia8*
 
 
 
@@ -80,7 +85,6 @@ GJets_HT-400To600*
 GJets_HT-600ToInf*
 
 #####################
-## Di-boson (?) 
+## Di-boson (?)
 #####################
 # It is not clear whether these samples were used or not
-

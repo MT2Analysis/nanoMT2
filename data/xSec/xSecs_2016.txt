@@ -2,6 +2,7 @@
 # We have used a different format to avoid relying on the ill-defined heppy nicknames
 # Id    # dataset name  cross-section (pb)       #  filter eff. # k-factor  # notes
 
+# This list is compatible only with the gen+sim samples (PDs) used in 2016
 
 #####################
 ### Drell Yan
