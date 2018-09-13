@@ -1,1 +1,9 @@
-.pyc
+*.root
+*.log
+*.tar
+*.eps
+*.pdf
+*.png
+*fuse_hidden*
+*~
+*.pyc
