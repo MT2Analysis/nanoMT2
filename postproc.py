@@ -22,9 +22,11 @@ def getSampleName(files, isMC):
   elements = new.split('/')
   elements = filter(lambda x: x != '', elements) # for safety reasons, remove empty strings
   if isMC:
-    return elements[3]
+    sampleName = elements[3]
   else:
-    return elements[3] + '_' + elements[2]
+    sampleName = elements[3] + '_' + elements[2]
+  print 'Determined sampleName ', sampleName
+  return sampleName
 
 def getOptions():
 # TODO: please add the allowed choices !
@@ -54,7 +56,7 @@ if __name__ == '__main__':
   preselection = None
   sampleName = 'dummy'
   dofwkJobReport = False
-  haddFileName = None
+  haddFileName = '{}/{}'.format(options.outdirname, 'mt2.root')
   jsonInput = None
 
   if options.doLocal:
@@ -63,10 +65,11 @@ if __name__ == '__main__':
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
       if options.year == 2017:
-        files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+        # used only for nano vs mini files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+        files = ['root://cms-xrd-global.cern.ch//store/mc/RunIIFall17NanoAOD/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/70000/5CD5289E-5856-E811-A5DB-A0369FD0B22A.root']
       elif options.year == 2016:
         files = ['root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v2/90000/5C7D09C9-5E42-E811-8A15-0025905A497A.root']
-      sampleName = 'WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8'
+      sampleName = 'WJetsToLNu_HT-600To800'
     elif options.what == 'Zll':
       #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
       files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT.root']
@@ -97,7 +100,7 @@ if __name__ == '__main__':
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer import metaDataProducer
 
   modules = [ mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
-              metaDataProducer(xSecFile='data/xSec/xSecs_2016.txt', sampleName=sampleName, isMC=options.doMC, year=options.year) ]
+              metaDataProducer(xSecFile='data/xSec/xSecs_{}.txt'.format(str(options.year)), sampleName=sampleName, isMC=options.doMC, year=options.year) ]
               #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
               #btagSFProducer(era=str(options.year), algo='csvv2')]
               #puWeightProducer("auto","%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/pileup/PileupData_GoldenJSON_Full2016.root" % os.environ['CMSSW_BASE'],"pu_mc","pileup",verbose=False)]
