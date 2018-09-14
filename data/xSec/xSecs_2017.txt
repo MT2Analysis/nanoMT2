@@ -1,4 +1,4 @@
-# These cross sections were obtained with the calculateXSection tool on 14/09/2018 running on 1M events, except for last slice of W+jets
+# These cross sections were obtained with the calculateXSection tool on 14/09/2018 running on 1M events (supposedly), except for last slice of W+jets
 # Id    # dataset name  cross-section (pb)       #  filter eff. # k-factor  # notes
 
 # This list does not contain currently diboson samples
