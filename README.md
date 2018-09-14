@@ -6,7 +6,7 @@ https://twiki.cern.ch/twiki/bin/view/SusyMECCA/SusyMT2cernETHLegacy
 
 To run on the grid:
 ```
-voms-proxy-init --voms cms --valid 96:00
+voms-proxy-init --voms cms --valid 168:00
 ```
 
 ## Run-time
@@ -34,7 +34,7 @@ python crab_mt2.py -p TEST15 -l ../data/samples/data_2017.txt -y 2017
 Please remember to save the pre-production tests with the same production label PL as the one used for production
 
 ```
-python postproc.py --year 2017 --doMC -o output/test_preProd_${PL}_MC  -w Wlv --doLocal -N 50001 --doSkim
+python postproc.py --year 2017 --doMC -o output/test_preProd_${PL}_MC  -w Wlv --doLocal -N 50001 --doSkim --doSyst
 
 python postproc.py --year 2017        -o output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
 ``` 
@@ -43,9 +43,9 @@ python postproc.py --year 2017        -o output/test_preProd_${PL}_data -w data 
 
 #### Grid: launch production
 ```
-python crab_mt2.py -p ${PL} -l ../data/samples/mc_bkg_2017.txt -y 2017 --doMC --doSyst
+python crab_mt2.py -p ${PL} -l ../data/samples/mc_bkg_2017.txt -y 2017 --doSkim --doMC --doSyst
 
-python crab_mt2.py -p ${PL} -l ../data/samples/data_2017.txt -y 2017
+python crab_mt2.py -p ${PL} -l ../data/samples/data_2017.txt -y 2017 --doSkim
 ```
 
 #### Versions of productions

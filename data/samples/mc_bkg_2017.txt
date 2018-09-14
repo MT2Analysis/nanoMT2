@@ -1,3 +1,6 @@
+# This list was obtained on 12/Sep/2018 
+# Samples with generator filters were removed from the list 
+
 #****
 # Summary for:  group = ZJetsToNuNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
 #****
