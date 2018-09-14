@@ -482,10 +482,10 @@ class mt2VarsProducer(Module):
 
     signalSkim = (   (  ht > 200 and nJet30 >= 1 and ((nJet30>=2 and mt2>200.) or nJet30==1)  )  and  (  (ht<1000. and met_pt>200.) or (ht>1000 and  met_pt>30)  )   )
     zllSkim =    ( zll_ht > 200. and nJet30 >= 1 and ((nJet30==1 and zll_ht>200.) or (nJet30>1  and zll_mt2>200.)) and ((zll_ht<1000. and zll_met_pt>200.) or (zll_ht>1000 and  zll_met_pt>30)) )
-    #nLep = nElectrons10 + nMuons10 + nPFLep5LowMT + nPFHad10LowMT
-    #qcdSkim =    ( (nJet30>1 and nLep==0 and met_pt > 30. and  (diffMetMht < 0.5*met_pt) and mt2>50. ) or  (nJet30==2 and met_pt>200. and ht>200. and nLep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin<0.3) )
+    nlep = nElectrons10 + nMuons10 + nPFLep5LowMT + nPFHad10LowMT
+    qcdSkim =    ( (nJet30>1 and nlep==0 and met_pt > 30. and  (diffMetMht < 0.5*met_pt) and mt2>50. ) or  (nJet30==2 and met_pt>200. and ht>200. and nlep==0 and diffMetMht < 0.5*met_pt and deltaPhiMin<0.3) )
 
-    passSkim = signalSkim or zllSkim # for the moment not running qcd skim
+    passSkim = signalSkim or zllSkim or qcdSkim # for the moment not running gammaSkim
     ####################################################
     # Fill the tree if needed
     ###################################################
