@@ -57,7 +57,7 @@ QCD_HT2000toInf*
 ### Top
 #####################
 
-TJets_*
+TTJets_Tune*
 TTJets_SingleLeptFromTbar*
 TTJets_SingleLeptFromT*
 TTJets_DiLept*
