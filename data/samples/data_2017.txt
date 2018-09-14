@@ -1,0 +1,85 @@
+# ****
+# Summary for:  PD = SinglePhoton  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/SinglePhoton/Run2017B-31Mar2018-v1/NANOAOD
+/SinglePhoton/Run2017C-31Mar2018-v1/NANOAOD
+/SinglePhoton/Run2017D-31Mar2018-v1/NANOAOD
+/SinglePhoton/Run2017E-31Mar2018-v1/NANOAOD
+/SinglePhoton/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = DoublePhoton  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+# ****
+# Summary for:  PD = JetHT  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/JetHT/Run2017B-31Mar2018-v1/NANOAOD
+/JetHT/Run2017C-31Mar2018-v1/NANOAOD
+/JetHT/Run2017D-31Mar2018-v1/NANOAOD
+/JetHT/Run2017E-31Mar2018-v1/NANOAOD
+/JetHT/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = HTMHT  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/HTMHT/Run2017B-31Mar2018-v1/NANOAOD
+/HTMHT/Run2017C-31Mar2018-v1/NANOAOD
+/HTMHT/Run2017D-31Mar2018-v1/NANOAOD
+/HTMHT/Run2017E-31Mar2018-v1/NANOAOD
+/HTMHT/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = MET  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/MET/Run2017B-31Mar2018-v1/NANOAOD
+/MET/Run2017C-31Mar2018-v1/NANOAOD
+/MET/Run2017D-31Mar2018-v1/NANOAOD
+/MET/Run2017E-31Mar2018-v1/NANOAOD
+/MET/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = SingleElectron  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/SingleElectron/Run2017B-31Mar2018-v1/NANOAOD
+/SingleElectron/Run2017C-31Mar2018-v1/NANOAOD
+/SingleElectron/Run2017D-31Mar2018-v1/NANOAOD
+/SingleElectron/Run2017E-31Mar2018-v1/NANOAOD
+/SingleElectron/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = SingleMuon  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/SingleMuon/Run2017B-31Mar2018-v1/NANOAOD
+/SingleMuon/Run2017C-31Mar2018-v1/NANOAOD
+/SingleMuon/Run2017D-31Mar2018-v1/NANOAOD
+/SingleMuon/Run2017E-31Mar2018-v1/NANOAOD
+/SingleMuon/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = DoubleEG  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/DoubleEG/Run2017B-31Mar2018-v1/NANOAOD
+/DoubleEG/Run2017C-31Mar2018-v1/NANOAOD
+/DoubleEG/Run2017D-31Mar2018-v1/NANOAOD
+/DoubleEG/Run2017E-31Mar2018-v1/NANOAOD
+/DoubleEG/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = DoubleMuon  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/DoubleMuon/Run2017B-31Mar2018-v1/NANOAOD
+/DoubleMuon/Run2017C-31Mar2018-v1/NANOAOD
+/DoubleMuon/Run2017D-31Mar2018-v1/NANOAOD
+/DoubleMuon/Run2017E-31Mar2018-v1/NANOAOD
+/DoubleMuon/Run2017F-31Mar2018-v1/NANOAOD
+# ****
+# Summary for:  PD = MuonEG  campaign = Run2017*  datatier = NANOAOD 
+# ****
+
+/MuonEG/Run2017B-31Mar2018-v1/NANOAOD
+/MuonEG/Run2017C-31Mar2018-v1/NANOAOD
+/MuonEG/Run2017D-31Mar2018-v1/NANOAOD
+/MuonEG/Run2017E-31Mar2018-v1/NANOAOD
+/MuonEG/Run2017F-31Mar2018-v1/NANOAOD
