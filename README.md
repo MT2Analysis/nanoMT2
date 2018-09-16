@@ -52,9 +52,9 @@ python crab_mt2.py -p ${PL} -l ../data/samples/data_2017.txt -y 2017 --doSkim
 We will not version the nanoMT2 code, but please remember to make a commit after launching production and to copy the commit hash below
 
 Production Label: brief description : git commit hash (can be searched)
-
-2017_v00_v04: first production for 2017 data: a5b8b241a3cedd5fb408675ffb5581ca26f075f3
-2017_v00_v05: first production for 2017 mc: aba436783a88e092663da19189ee9d60fc0683a83
-
+```
+2017_v00_v04: first production for 2017 data:		 a5b8b241a3cedd5fb408675ffb5581ca26f075f3
+2017_v00_v05: first production for 2017 mc: 		 aba436783a88e092663da19189ee9d60fc0683a8
+```
 
 
