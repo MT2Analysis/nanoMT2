@@ -127,7 +127,7 @@ class GroupMerger(object):
       print 'Going to copy sample ', sample, 'to output ', outp
       ret = subprocess.call(cp_command, shell=True)
       if ret!=0:
-        print 'ERROR in copying to outputpath, exit code=', ret
+        print 'Possible ERROR in copying to outputpath, exit code=', ret, ' please check the outputfile is not corrupted'
         print 'Copying for sample %s did not work, cleaning and exiting' % self.groupMembersMerged # prefer to exit instead of risking of forgetting a file
         self.clean()
         return ret

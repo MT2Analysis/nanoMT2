@@ -19,15 +19,14 @@ python merge.py -p ${PL} -v v1 -g data -y 2017
 # or split 
 python merge.py -p ${PL} -v v1 -y 2017 -g MET
 python merge.py -p ${PL} -v v1 -y 2017 -g JetHT
-python merge.py -p ${PL} -v v1 -y 2017 -g HTMHT # one period is missing !
+python merge.py -p ${PL} -v v1 -y 2017 -g HTMHT # one period B is missing !
 python merge.py -p ${PL} -v v1 -y 2017 -g SingleElectron 
 python merge.py -p ${PL} -v v1 -y 2017 -g SingleMuon
-#python merge.py -p ${PL} -v v1 -y 2017 -g DoubleEG # did not work
-python merge.py -p ${PL} -v v1 -y 2017 -g DoubleMuon # two periods are missing !
+python merge.py -p ${PL} -v v1 -y 2017 -g DoubleEG 
+python merge.py -p ${PL} -v v1 -y 2017 -g DoubleMuon # three DEF periods are missing !
 #python merge.py -p ${PL} -v v1 -y 2017 -g MuonEG # files where not launched
-
 python merge.py -p ${PL} -v v1 -y 2017 -g SinglePhoton
-# python merge.py -p ${PL} -v v1 -y 2017 -g DoublePhoton # files where not launched
+#python merge.py -p ${PL} -v v1 -y 2017 -g DoublePhoton 
 
 # all together
 #python merge.py -p ${PL} -v v0 -g all -y 2017 --doMC
