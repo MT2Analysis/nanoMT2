@@ -8,6 +8,8 @@ To run on the grid:
 ```
 voms-proxy-init --voms cms --valid 168:00
 ```
+Please note that for no reason, it seems that it's better to issue the above command right before 
+the command to launch the production
 
 ## Run-time
 
@@ -55,6 +57,7 @@ Production Label: brief description : git commit hash (can be searched)
 ```
 2017_V00_V04: first production for 2017 data:		 a5b8b241a3cedd5fb408675ffb5581ca26f075f3
 2017_V00_V05: first production for 2017 mc: 		 aba436783a88e092663da19189ee9d60fc0683a8
+2017_V00_V06: missing data sampples for 2017 data:       7e88eabcca49936feb6212931816a95f170757fe
 ```
 
 
