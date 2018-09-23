@@ -16,7 +16,7 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
     out = subprocess.check_output('ls {}'.format(path), shell=True)
   except subprocess.CalledProcessError as e:
     print 'ERROR in reading the input files', e
-    return False,None
+    return None
 
   list = out.split('\n')
   list = filter(lambda x: x != '', list)
@@ -26,7 +26,7 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
 
   #issue the command haddnano.py out.root joined_string
   try:
-    tmpdir = tempfile.mkdtemp() # it's hard for this to fail, I hope
+    tmpdir = tempfile.mkdtemp(prefix=os.environ['USER']+'_') 
     hadd_command = '{hadd} {outp} {inp}'.format(hadd='../../../../../../scripts/haddnano.py',
                                               outp='{}/{}'.format(tmpdir, fileName),
                                               inp=' '.join(list_new) )
@@ -42,9 +42,9 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
 
 class GroupMerger(object):
 
-  def __init__(self, groupName, groupExpr, inputPath, outputPath, doMC, doForceMerging=False):
+  def __init__(self, groupName, groupExprs, inputPath, outputPath, doMC, doForceMerging=False):
     self.groupName = groupName
-    self.groupExpr = groupExpr
+    self.groupExprs = groupExprs
     self.inputPath = inputPath
     self.outputPath = outputPath
     self.groupMembers = [] # una lista di stringhe indicanti i sample del gruppo
@@ -62,7 +62,9 @@ class GroupMerger(object):
     for line in f:
       if '#' in line: continue
       if line == '\n': continue
-      if self.groupExpr in line:
+      matches = map(lambda x: x in line, self.groupExprs)
+      #if self.groupExpr in line:
+      if True in matches:
         #els = dataset.split('/')
         sample = '%s/%s' %(line.split('/')[1], line.split('/')[2]) # don't care about last bit , the datatier
         #print sample
@@ -71,6 +73,14 @@ class GroupMerger(object):
     if len(self.groupMembers)==0:
       raise RuntimeError('ERROR: this group has no members!')
 
+    print 'Configured group members for group=%s:' % self.groupName
+    print '\n  '.join(self.groupMembers)
+
+    # check if for each group member there is a corresponding valid dir, otherwise exit before it's too late!
+    for sample in self.groupMembers:
+      fullSamplePath = '%s/%s/' %(self.inputPath, sample)
+      if not os.path.isdir(fullSamplePath): 
+        raise RuntimeError('ERROR: sample %s has no associated valid path' % sample)
 
   def configOutput(self):
     # check output path exists , if not create one
@@ -82,52 +92,51 @@ class GroupMerger(object):
   def clean(self):
     ret = 0
     for el in self.groupMembersMerged:
-      ret += subprocess.call('rm {}'.format(el), shell=True)
+      if os.path.isfile(el):
+        ret += subprocess.call('rm {}'.format(el), shell=True)
 
-    if ret==0: print 'Cleaned mergedMembers for group ', self.groupName
+    if ret==0: print 'Cleaned current mergedMembers for group ', self.groupName
     else: print 'Group', self.groupName, 'not fully cleaned, please check', self.groupMembersMerged
 
   def process(self):
   # idea is to do the merging for each sample separately, in a tmp
-  # then make the merge for the group - directly in the outputpath
+  # then copy the merged samples for the group in the outputpath
 
     print 'Started merging for group=', self.groupName
 
     for i,sample in enumerate(self.groupMembers):
-      print 'Start merging for ', sample
+      print 'Start merging for sample', sample
       fullSamplePath = '%s/%s/' %(self.inputPath, sample)
       mergedFileName=mergeMember(fullSamplePath=fullSamplePath)
-      print mergedFileName
-      if mergedFileName:
+      print 'DEBUG', mergedFileName
+      if 'mt2' in mergedFileName: # further protection against problems in mergeMember, should not be needed, but here we are
         print 'Sample successfully merged, tmp path is ', mergedFileName
         self.groupMembersMerged.append(mergedFileName)
       else:
         if not self.doForceMerging:
           print ('Could not merge sample %s,  exiting' % sample) # cleaning
           self.clean()
-          return False
+          return 1
 
-    # now copy the merged files
-    if len(self.groupMembersMerged)==0:
-      print 'No members in group %s, nothing to copy, exiting' % self.groupName
-      return 1
-    else:
-      for i,sample in enumerate(self.groupMembersMerged):
-        if self.doMC: # if it's MC, use only the PD name - not the campaign please
-          outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '.root'
-        else: # if it's data, also call based on the period
-          outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '_' + self.groupMembers[i].split('/')[1] + '.root'
+      # now copy the merged file
+      if self.doMC: # if it's MC, use only the PD name - not the campaign please
+        outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '.root'
+      else: # if it's data, also call based on the period
+        outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '_' + self.groupMembers[i].split('/')[1] + '.root'
+      cp_command = 'cp {inp} {outp}'.format(inp=mergedFileName, outp=outp)
+      print 'Going to copy sample ', sample, 'to output ', outp
+      ret = subprocess.call(cp_command, shell=True)
+      if ret!=0:
+        print 'ERROR in copying to outputpath, exit code=', ret
+        print 'Copying for sample %s did not work, cleaning and exiting' % self.groupMembersMerged # prefer to exit instead of risking of forgetting a file
+        self.clean()
+        return ret
 
-        cp_command = 'cp {inp} {outp}'.format(inp=sample, outp=outp)
-        print 'Going to copy sample ', sample, 'to output ', outp
-        ret = subprocess.call(cp_command, shell=True)
-        if ret:
-          print 'ERROR in copying to outputpath', e
-          print 'Copying for sample %s did not work, cleaning and exiting' % self.groupMembersMerged
-          self.clean()
-          return ret
+      else: 
+        print 'Successfully merged and copied sample=%s in group=%s, copied in outputPath=%s' % (sample, self.groupName, self.outputPath)
+        self.clean()
+ 
+    print 'Merging and copying for group=%s is finished \n' %self.groupName
+    return 0
 
-      self.clean() # when you have finished clean the intermediate steps
-      print 'Successfully merged samples in group=%s, copied them in outputPath=%s' % (self.groupName, self.outputPath)
 
-      return 0

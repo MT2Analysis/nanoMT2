@@ -2,7 +2,6 @@
 # Maria Giulia Ratti - ETH Zurich
 # the script must be simple enough such that we can enable group splitting in batch
 
-# TODO: implement a mechanism for multiple expressions (?) - what are the top samples that we are going to use ?
 # TODO: implement for signal
 
 def getOptions(MT2groups):
@@ -22,39 +21,39 @@ def getOptions(MT2groups):
 
 
 class Group(object):
-  def __init__(self,name,expr):
+  def __init__(self,name,exprs=[]):
     self.name = name
-    self.expr = expr
+    self.exprs = exprs
 
 def getMT2groups():
 
-  Zvv = Group(name='Zvv', expr='ZJetsToNuNu_HT')
-  Wlv  = Group(name='Wlv',  expr='WJetsToLNu_HT')
-  Zll  = Group(name='Zll',  expr='DYJetsToLL_M-50_HT')
-  QCD  = Group(name='QCD',  expr='QCD_HT')
-  #Top     = Group(name='Top',     expr='TT|ST_|tt') # this is still not working
-  Gjets= Group(name='Gjets',expr='GJets_HT')
+  Zvv = Group(name='Zvv', exprs=['ZJetsToNuNu_HT'])
+  Wlv  = Group(name='Wlv',  exprs=['WJetsToLNu_HT'])
+  Zll  = Group(name='Zll',  exprs=['DYJetsToLL_M-50_HT'])
+  QCD  = Group(name='QCD',  exprs=['QCD_HT'])
+  Top  = Group(name='Top',  exprs=['TT','ST_','tt'])
+  Gjets= Group(name='Gjets',exprs=['GJets_HT'])
 
   # data groups
-  MET               = Group(name='MET', expr='MET')
-  JetHT             = Group(name='JetHT', expr='JetHT')
-  HTMHT             = Group(name='HTMHT', expr='HTMHT')
-  SingleElectron    = Group(name='SingleElectron', expr='SingleElectron')
-  SingleMuon        = Group(name='SingleMuon', expr='SingleMuon')
-  DoubleEG          = Group(name='DoubleEG', expr='DoubleEG')
-  DoubleMuon        = Group(name='DoubleMuon', expr='DoubleMuon')
-  MuonEG            = Group(name='MuonEG', expr='MuonEG')
-  SinglePhoton      = Group(name='SinglePhoton', expr='SinglePhoton')
-  DoublePhoton      = Group(name='DoublePhoton', expr='DoublePhoton')
+  MET               = Group(name='MET', exprs=['MET'])
+  JetHT             = Group(name='JetHT', exprs=['JetHT'])
+  HTMHT             = Group(name='HTMHT', exprs=['HTMHT'])
+  SingleElectron    = Group(name='SingleElectron', exprs=['SingleElectron'])
+  SingleMuon        = Group(name='SingleMuon', exprs=['SingleMuon'])
+  DoubleEG          = Group(name='DoubleEG', exprs=['DoubleEG'])
+  DoubleMuon        = Group(name='DoubleMuon', exprs=['DoubleMuon'])
+  MuonEG            = Group(name='MuonEG', exprs=['MuonEG'])
+  SinglePhoton      = Group(name='SinglePhoton', exprs=['SinglePhoton'])
+  DoublePhoton      = Group(name='DoublePhoton', exprs=['DoublePhoton]'])
 
   MT2groups = {}
   MT2groups['Zvv'] = [Zvv]
   MT2groups['Wlv'] = [Wlv]
   MT2groups['Zll'] = [Zll]
   MT2groups['QCD'] = [QCD]
-  #MT2groups['Top'] = [Top]
+  MT2groups['Top'] = [Top]
   MT2groups['Gjets'] = [Gjets]
-  MT2groups['bkg'] = [Zvv, Wlv, Zll, QCD, Gjets]#Top, Gjets]
+  MT2groups['bkg'] = [Zvv, Wlv, Zll, QCD, Top, Gjets]
   MT2groups['sig'] = []
   MT2groups['data'] = [MET, JetHT, HTMHT, SingleElectron, SingleMuon, DoubleEG, DoubleMuon, MuonEG, SinglePhoton, DoublePhoton] # ...
 
@@ -84,12 +83,12 @@ if __name__ == "__main__":
 
   inputPath = '/pnfs/psi.ch/cms/trivcat/store/user/{}/crab/nanoMT2/{}/'.format(os.environ['USER'],  options.productionLabel)
   outputPath = '/scratch/{}/merged_nanoMT2/{}_{}/'.format(os.environ['USER'], options.productionLabel, options.version)
-  cfgFile = 'cfg/{df}_{y}_merge.txt'.format(df='mc_bkg' if options.doMC else 'data', y=str(options.year))
+  cfgFile = 'cfg/{df}_{y}_merge_{pl}.txt'.format(df='mc_bkg' if options.doMC else 'data', y=str(options.year), pl=options.productionLabel)
 
   from groupMerger import GroupMerger
 
   for MT2Group in MT2groups[options.group]:
-    g = GroupMerger(groupName=MT2Group.name, groupExpr=MT2Group.expr, inputPath=inputPath, outputPath=outputPath, doMC=options.doMC)
+    g = GroupMerger(groupName=MT2Group.name, groupExprs=MT2Group.exprs, inputPath=inputPath, outputPath=outputPath, doMC=options.doMC)
     g.configGroupMembers(cfgFile=cfgFile)
     g.configOutput()
     ret = g.process()

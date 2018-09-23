@@ -1,6 +1,11 @@
 # Utility to merge output of crab into one file per group of samples
-# Thought to work on the PSI tier3
+# Works on the PSI tier3
 
+# Add the sample list of the samples you want to merge in cfg/
+# Convention for the the file names:
+# data_<YEAR>_merge_<PL>.txt
+# mc_bkg_<YEAR>_merge_<PL>.txt
+# Please make sure you commit those files
 
 # Run-time - latest command
 python merge.py -p TEST14 -v v1 -g Wlv -y 2017 --doMC
@@ -8,4 +13,30 @@ python merge.py -p TEST14 -v v1 -g data -y 2017
 
 
 # Commands for full production
+# convention is that PL has capital letters, while the merging version has lower case latters
+python merge.py -p ${PL} -v v1 -g data -y 2017
 
+# or split 
+python merge.py -p ${PL} -v v1 -y 2017 -g MET
+python merge.py -p ${PL} -v v1 -y 2017 -g JetHT
+python merge.py -p ${PL} -v v1 -y 2017 -g HTMHT # one period is missing !
+python merge.py -p ${PL} -v v1 -y 2017 -g SingleElectron 
+python merge.py -p ${PL} -v v1 -y 2017 -g SingleMuon
+#python merge.py -p ${PL} -v v1 -y 2017 -g DoubleEG # did not work
+python merge.py -p ${PL} -v v1 -y 2017 -g DoubleMuon # two periods are missing !
+#python merge.py -p ${PL} -v v1 -y 2017 -g MuonEG # files where not launched
+
+python merge.py -p ${PL} -v v1 -y 2017 -g SinglePhoton
+# python merge.py -p ${PL} -v v1 -y 2017 -g DoublePhoton # files where not launched
+
+# all together
+#python merge.py -p ${PL} -v v0 -g all -y 2017 --doMC
+
+# split by sample group
+# 2017_v00_v05
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Zvv
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Wlv
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Zll
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Top
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g QCD
+python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Gjets
