@@ -71,6 +71,7 @@ class metaDataProducer(Module):
     self.out.branch("evt_filter", "F")
     self.out.branch("evt_kfactor", "F")
     self.out.branch("evt_year", "I")
+    self.out.branch("isData", "I")
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
@@ -82,6 +83,10 @@ class metaDataProducer(Module):
     self.out.fillBranch("evt_filter", self.filterEff)
     self.out.fillBranch("evt_kfactor", self.kFac)
     self.out.fillBranch("evt_year", self.year)
+
+    isData = not self.isMC
+    isData_int = int(isData)
+    self.out.fillBranch("isData", isData_int )
 
     return True
 
