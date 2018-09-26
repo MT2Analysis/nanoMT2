@@ -27,8 +27,8 @@ mc_bkg_<YEAR>_merge_<PL>.txt
 ### Run-time
 #### Testing
 ```
-python merge.py -p TEST14 -v v1 -g Wlv -y 2017 --doMC
-python merge.py -p TEST14 -v v1 -g data -y 2017
+python merge.py -p TEST14 -v ${ML} -g Wlv -y 2017 --doMC
+python merge.py -p TEST14 -v ${ML} -g data -y 2017
 ```
 
 #### Full production
@@ -41,30 +41,30 @@ python merge.py -p ${PL} -v ${ML} -g all -y 2017 --doMC
 ##### Some recent examples
 Data:
 ```
-python merge.py -p ${PL} -v v1 -y 2017 -g MET
-python merge.py -p ${PL} -v v1 -y 2017 -g JetHT
-python merge.py -p ${PL} -v v1 -y 2017 -g HTMHT # one period B is missing !
-python merge.py -p ${PL} -v v1 -y 2017 -g SingleElectron
-python merge.py -p ${PL} -v v1 -y 2017 -g SingleMuon
-python merge.py -p ${PL} -v v1 -y 2017 -g DoubleEG
-python merge.py -p ${PL} -v v1 -y 2017 -g DoubleMuon # three DEF periods are missing !
-#python merge.py -p ${PL} -v v1 -y 2017 -g MuonEG # files where not launched
-python merge.py -p ${PL} -v v1 -y 2017 -g SinglePhoton
-#python merge.py -p ${PL} -v v1 -y 2017 -g DoublePhoton
+python merge.py -p ${PL} -v ${ML} -y 2017 -g MET
+python merge.py -p ${PL} -v ${ML} -y 2017 -g JetHT
+python merge.py -p ${PL} -v ${ML} -y 2017 -g HTMHT # one period B is missing !
+python merge.py -p ${PL} -v ${ML} -y 2017 -g SingleElectron
+python merge.py -p ${PL} -v ${ML} -y 2017 -g SingleMuon
+python merge.py -p ${PL} -v ${ML} -y 2017 -g DoubleEG
+python merge.py -p ${PL} -v ${ML} -y 2017 -g DoubleMuon # three DEF periods are missing !
+#python merge.py -p ${PL} -v ${ML} -y 2017 -g MuonEG # files where not launched
+python merge.py -p ${PL} -v ${ML} -y 2017 -g SinglePhoton
+#python merge.py -p ${PL} -v ${ML} -y 2017 -g DoublePhoton
 ```
 
 MC:
 ```
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Zvv
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Wlv
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Zll
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Top
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g QCD
-python merge.py -p ${PL} -v v1 -y 2017 --doMC -g Gjets
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Zvv
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Wlv
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Zll
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Top
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g QCD
+python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Gjets
 ```
 
 
-#### Further treatment for data
+## Further treatment for data
 Since for data we are running on different primary datasets, it is important to remove the duplicated events across them.
 
 First, all PDs of the same period will be merged, then the duplicates will be removed
