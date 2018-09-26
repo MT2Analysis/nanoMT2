@@ -458,7 +458,7 @@ class mt2VarsProducer(Module):
       jet_pt[i] = ijet.pt
       jet_phi[i] = ijet.phi
       jet_eta[i] = ijet.eta
-      jet_id[i] = int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
+      jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
 
 
 
