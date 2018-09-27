@@ -46,6 +46,9 @@ def checkMT2Datasets(inputFile, campaign, dataFormat, status, groups, info, doGr
 
 if __name__ == "__main__":
 
+  import time
+  print '# This list was generated on ', time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime())
+
   # define all MT2 groups you might be interested in
   # Be sure that this group exists in the sample list input file
   # TODO: implement signals and data
