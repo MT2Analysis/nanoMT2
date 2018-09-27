@@ -81,8 +81,14 @@ if __name__ == "__main__":
   allowed_groups = MT2groups.keys()
   allowed_formats = ['MINIAOD*', 'NANOAOD*']
   allowed_status = ['*', 'VALID', 'PRODUCTION', 'INVALID']
-  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*']
-  #                     nano 2017 and mini 2017   nano 2016 
+  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*', 'RunIISummer16NanoAODv3*']
+
+  # description of the campaigns
+  # RunIIFall17*12Apr2018*    			2017 baseline nano (and mini) production
+  # RunIISummer16NanoAOD*05Feb2018*             2016 first nano production
+  # RunIISummer16NanoAODv3*                     2016 legacy nano 
+  # 
+
   parser.add_argument('-c', '--campaign', type=str, dest='campaign', help='production campaign expression, allows for *', choices=allowed_campaigns, default='RunIIFall17*12Apr2018*')
   parser.add_argument('-f', '--format', type=str, dest='dataFormat', help='datatier', choices=allowed_formats, default='MINIAOD*')
   parser.add_argument('-s', '--status', type=str, dest='status', help='das status', choices=allowed_status, default='VALID')
