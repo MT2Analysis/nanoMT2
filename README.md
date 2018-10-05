@@ -59,7 +59,7 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V00_V05: first production for 2017 mc: 		 aba436783a88e092663da19189ee9d60fc0683a8
 2017_V00_V06: missing data samples for 2017 data:        7e88eabcca49936feb6212931816a95f170757fe
 2017_V00_V07: more missing data samples for 2017 data:   895311e5cf2e397cac3d6bd472b2eee4916e7021
-2016_V00_V00: first production for 2016 data: 
+2016_V00_V00: first production for 2016 data:            209a1f248cc105c8950d8534cbc66ac38dc28bba
 ```
 
 
