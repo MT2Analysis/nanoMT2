@@ -75,11 +75,11 @@ class mt2VarsProducer(Module):
 
     # possible year-dependent configurations
     if self.year == 2016:
-      eleIdTune = 'Summer16'
+      self.eleIdTune = 'Summer16'
     elif self.year == 2017: 
-      eleIdTune = 'Fall17'
+      self.eleIdTune = 'Fall17'
     elif self.year == 2018:
-      eleIdTune = 'Fall17'
+      self.eleIdTune = 'Fall17'
 
   def beginJob(self):
     pass
@@ -92,6 +92,8 @@ class mt2VarsProducer(Module):
     self.out.branch("nJet20{}".format(self.systSuffix), "I")
     self.out.branch("nJet30{}".format(self.systSuffix), "I")
     self.out.branch("nJet30FailId{}".format(self.systSuffix), "I")
+    self.out.branch("nJet15HEMFail{}".format(self.systSuffix), "I")
+    self.out.branch("nJet30HEMFail{}".format(self.systSuffix), "I")
     self.out.branch("nBJet20{}".format(self.systSuffix), "I")
     self.out.branch("nElectrons10{}".format(self.systSuffix), "I")
     self.out.branch("nMuons10{}".format(self.systSuffix), "I")
@@ -190,7 +192,7 @@ class mt2VarsProducer(Module):
       electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=eleIdTune)
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
       if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
@@ -331,6 +333,7 @@ class mt2VarsProducer(Module):
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838] # Medium WP for 94X
     # NOTE: this you will have to change it yourself when the recommendation change / depending on the year
+    jets_HEMfail =          [jet for jet in jets if jet.eta > -3 and jet.eta < -1.4 and jet.phi > -1.57 and jet.phi < -0.87]
 
     objects_std =            clean_jets30 + clean_leptons
     objects_std_deltaPhi =   clean_jets30_largeEta + clean_leptons
@@ -352,6 +355,8 @@ class mt2VarsProducer(Module):
     nJet30 = len(clean_jets30)
     nBJet20 = len(clean_bjets20)
     nJet30FailId = len(clean_jets30_largeEta_FailId)
+    nJet15HEMFail = len( [jet for jet in jets_HEMfail if jet.pt > 15] ) # for rejecting events with jets in HEM failure region (2018)
+    nJet30HEMFail = len( [jet for jet in jets_HEMfail if jet.pt > 30] )
     nElectrons10 = len(selected_recoelectrons) # for vetoing I do not care about x-cleaning
     nMuons10 = len(selected_recomuons) # for vetoing I do not care about x-cleaning
     nPFLep5LowMT = len(selected_pfleptons) # for vetoing I do not care about x-cleaning
@@ -501,6 +506,8 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("nJet20{}".format(self.systSuffix), nJet20)
       self.out.fillBranch("nJet30{}".format(self.systSuffix), nJet30)
       self.out.fillBranch("nJet30FailId{}".format(self.systSuffix), nJet30FailId)
+      self.out.fillBranch("nJet15HEMFail{}".format(self.systSuffix), nJet15HEMFail)
+      self.out.fillBranch("nJet30HEMFail{}".format(self.systSuffix), nJet30HEMFail)
       self.out.fillBranch("nBJet20{}".format(self.systSuffix), nBJet20)
       self.out.fillBranch("nElectrons10{}".format(self.systSuffix), nElectrons10)
       self.out.fillBranch("nMuons10{}".format(self.systSuffix), nMuons10)

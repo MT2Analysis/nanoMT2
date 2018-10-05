@@ -5,9 +5,9 @@
 NEW_PL='blabla'
 OLD_PL='2017_V0'
 
-python validate.py -f1 ../../output/output/test_preProd_${OLD_PL}_MC/mt2.root -t1 Events -f2 ../../output/output/test_preProd_{NEW_PL}_MC/mt2.root -t2 Events -o out_${NEW_PL}VS${OLD_PL}_MC -l1 ${OLD_PL} -l2 ${NEW_PL}
+python validate.py -f1 ../../output/output/test_preProd_${OLD_PL}_MC/mt2.root -t1 Events -f2 ../../output/output/test_preProd_{NEW_PL}_MC/mt2.root -t2 Events -o out_${NEW_PL}VS${OLD_PL}_MC -l1 ${OLD_PL} -l2 ${NEW_PL} --doLog
 
-python validate.py -f1 ../../output/output/test_preProd_${OLD_PL}_data/mt2.root -t1 Events -f2 ../../output/output/test_preProd_{NEW_PL}_data/mt2.root -t2 Events -o out_${NEW_PL}VS${OLD_PL}_data -l1 ${OLD_PL} -l2 ${NEW_PL}
+python validate.py -f1 ../../output/output/test_preProd_${OLD_PL}_data/mt2.root -t1 Events -f2 ../../output/output/test_preProd_{NEW_PL}_data/mt2.root -t2 Events -o out_${NEW_PL}VS${OLD_PL}_data -l1 ${OLD_PL} -l2 ${NEW_PL} --doLog
 ```
 
 ### Wlv mini vs nano 
