@@ -1,7 +1,9 @@
-# This list was generated on 27/09/2018
-# python checkDataMT2.py -c *Run2016*22Aug2018* -f NANOAOD -s "*"
+# python checkDataMT2.py -c Run2016*22Aug2018* -f NANOAOD -s "VALID"
+# This list was generated on  Fri, 05 Oct 2018 13:59:55 +0000
+# Please note that there are a few missing samples, which also do not appear in production
+###   dasgoclient --query="dataset=/SinglePhoton/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = SinglePhoton  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = SinglePhoton  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /SinglePhoton/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -12,12 +14,14 @@
 /SinglePhoton/Run2016F-22Aug2018-v1/NANOAOD
 /SinglePhoton/Run2016G-22Aug2018-v1/NANOAOD
 /SinglePhoton/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/DoublePhoton/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = DoublePhoton  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = DoublePhoton  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
+###   dasgoclient --query="dataset=/JetHT/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = JetHT  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = JetHT  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /JetHT/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -27,8 +31,9 @@
 /JetHT/Run2016F-22Aug2018-v1/NANOAOD
 /JetHT/Run2016G-22Aug2018-v1/NANOAOD
 /JetHT/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/HTMHT/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = HTMHT  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = HTMHT  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /HTMHT/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -39,8 +44,9 @@
 /HTMHT/Run2016F-22Aug2018-v1/NANOAOD
 /HTMHT/Run2016G-22Aug2018-v1/NANOAOD
 /HTMHT/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/MET/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = MET  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = MET  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /MET/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -49,8 +55,9 @@
 /MET/Run2016E-22Aug2018-v1/NANOAOD
 /MET/Run2016F-22Aug2018-v1/NANOAOD
 /MET/Run2016G-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/SingleElectron/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = SingleElectron  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = SingleElectron  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /SingleElectron/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -61,8 +68,9 @@
 /SingleElectron/Run2016F-22Aug2018-v1/NANOAOD
 /SingleElectron/Run2016G-22Aug2018-v1/NANOAOD
 /SingleElectron/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/SingleMuon/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = SingleMuon  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = SingleMuon  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /SingleMuon/Run2016B-22Aug2018_ver1-v1/NANOAOD
@@ -73,8 +81,39 @@
 /SingleMuon/Run2016F-22Aug2018-v1/NANOAOD
 /SingleMuon/Run2016G-22Aug2018-v1/NANOAOD
 /SingleMuon/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/DoubleEG/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = DoubleEG  campaign = *Run2016*22Aug2018*  datatier = NANOAOD 
+# Summary for:  PD = DoubleEG  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
 # ****
 
+/DoubleEG/Run2016B-22Aug2018_ver1-v1/NANOAOD
+/DoubleEG/Run2016B-22Aug2018_ver2-v1/NANOAOD
+/DoubleEG/Run2016C-22Aug2018-v1/NANOAOD
+/DoubleEG/Run2016D-22Aug2018-v1/NANOAOD
+/DoubleEG/Run2016E-22Aug2018-v1/NANOAOD
+/DoubleEG/Run2016F-22Aug2018-v1/NANOAOD
+/DoubleEG/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/DoubleMuon/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
+# ****
+# Summary for:  PD = DoubleMuon  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
+# ****
 
+/DoubleMuon/Run2016B-22Aug2018_ver1-v1/NANOAOD
+/DoubleMuon/Run2016B-22Aug2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2016C-22Aug2018-v1/NANOAOD
+/DoubleMuon/Run2016D-22Aug2018-v1/NANOAOD
+/DoubleMuon/Run2016E-22Aug2018-v1/NANOAOD
+/DoubleMuon/Run2016F-22Aug2018-v1/NANOAOD
+/DoubleMuon/Run2016G-22Aug2018-v1/NANOAOD
+/DoubleMuon/Run2016H-22Aug2018-v1/NANOAOD
+###   dasgoclient --query="dataset=/MuonEG/Run2016*22Aug2018*/NANOAOD dataset status=VALID"
+# ****
+# Summary for:  PD = MuonEG  campaign = Run2016*22Aug2018*  datatier = NANOAOD  status = VALID 
+# ****
+
+/MuonEG/Run2016B-22Aug2018_ver1-v1/NANOAOD
+/MuonEG/Run2016B-22Aug2018_ver2-v1/NANOAOD
+/MuonEG/Run2016C-22Aug2018-v1/NANOAOD
+/MuonEG/Run2016D-22Aug2018-v1/NANOAOD
+/MuonEG/Run2016G-22Aug2018-v1/NANOAOD
+/MuonEG/Run2016H-22Aug2018-v1/NANOAOD

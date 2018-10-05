@@ -6,7 +6,7 @@ def getOptions():
 
   allowed_formats = ['MINIAOD', 'NANOAOD']
   allowed_status = ['*', 'VALID', 'PRODUCTION', 'INVALID']
-  allowed_campaigns = ['*Run2017*31Mar2018*', '*Run2016*22Aug2018*', '*Run2018*14Sep2018*', 'Run2018*17Sep2018*' ]
+  allowed_campaigns = ['Run2017*31Mar2018*', 'Run2016*22Aug2018*', 'Run2018*14Sep2018*', 'Run2018*17Sep2018*' ]
 
   #   Brief explanations of the campaigns here please !
   #  'Run2017*31Mar2018*' 		     # 2017 94X re-reco 
@@ -36,6 +36,6 @@ if __name__ == "__main__":
 
   for PD in PDs:
     command = 'dasgoclient --query="dataset=/{pd}/{c}/{df} dataset status={s}"'.format(pd=PD,c=options.campaign, df=options.dataFormat, s=options.status)
-    print '###  ', command
+    print '\n\n###  ', command
     print '# ****\n# Summary for:  PD =', PD,  ' campaign =' , options.campaign, ' datatier =', options.dataFormat, ' status =', options.status, '\n# ****\n'
     os.system(command)
