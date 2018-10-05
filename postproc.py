@@ -61,22 +61,9 @@ if __name__ == '__main__':
 
   if options.doLocal:
     print 'Running in local'
-    if options.what == 'Wlv':
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
-      if options.year == 2017:
-        # used only for nano vs mini files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
-        files = ['root://cms-xrd-global.cern.ch//store/mc/RunIIFall17NanoAOD/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/70000/5CD5289E-5856-E811-A5DB-A0369FD0B22A.root']
-      elif options.year == 2016:
-        files = ['root://cms-xrd-global.cern.ch//store/mc/RunIISummer16NanoAOD/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v2/90000/5C7D09C9-5E42-E811-8A15-0025905A497A.root']
-      sampleName = 'WJetsToLNu_HT-600To800'
-    elif options.what == 'Zll':
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
-      files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT.root']
-      sampleName = 'DYJetsToLL_M-50_HT-600to800_TuneCP5_13TeV-madgraphMLM-pythia8'
-    elif options.what == 'data':
-      files = ['root://cms-xrd-global.cern.ch//store/data/Run2017D/MET/NANOAOD/31Mar2018-v1/10000/2891A264-4C45-E811-A30A-C4346BC80410.root']
-      sampleName = 'MET_Run2017D-31Mar2018-v1' #
+    from unitTestFiles import f
+    sampleName = 'test'
+    files = ['root://cms-xrd-global.cern.ch/' + f[options.year][options.what] ]
   else:
     print 'Running on the grid'
     dofwkJobReport = True

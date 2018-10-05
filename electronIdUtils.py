@@ -21,6 +21,18 @@ def getCuts():
   cut_names['Spring15']={
   #FIXME
   }
+  cut_names['Summer16']={
+    0: 'MinPtCut',
+    1: 'GsfEleSCEtaMultiRangeCut',
+    2: 'GsfEleDEtaInSeedCut',
+    3: 'GsfEleDPhiInCut',
+    4: 'GsfEleFull5x5SigmaIEtaIEtaCut',
+    5: 'GsfEleHadronicOverEMCut',
+    6: 'GsfEleEInverseMinusPInverseCut',
+    7: 'GsfEleEffAreaPFIsoCut',
+    8: 'GsfEleConversionVetoCut',
+    9: 'GsfEleMissingHitsCut',
+  }
   return cut_names
 
 def getNbitFromBitMap(bitmap, n, base):
@@ -31,7 +43,7 @@ def getNbitFromBitMap(bitmap, n, base):
 
 def getIdLevelNoIso(bitmap, tune='Fall17', verbose=False):
 
-  if tune=='Fall17':
+  if tune=='Fall17' or tune == 'Summer16':
     nbits=10 # number of bits to determine wp in tune
     ibit_isocut=7 # position of bit corrsponding to the isocut, counting from 0 to 9
     base=3 # number of bits per cut used

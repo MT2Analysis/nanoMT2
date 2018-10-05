@@ -73,6 +73,14 @@ class mt2VarsProducer(Module):
     self.systVar = systVar
     self.systSuffix = '_sys_' + self.systVar if self.doSyst else ''
 
+    # possible year-dependent configurations
+    if self.year == 2016:
+      eleIdTune = 'Summer16'
+    elif self.year == 2017: 
+      eleIdTune = 'Fall17'
+    elif self.year == 2018:
+      eleIdTune = 'Fall17'
+
   def beginJob(self):
     pass
   def endJob(self):
@@ -182,7 +190,7 @@ class mt2VarsProducer(Module):
       electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune='Fall17')
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=eleIdTune)
       if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
