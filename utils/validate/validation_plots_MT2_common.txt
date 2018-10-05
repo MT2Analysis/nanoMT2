@@ -18,9 +18,14 @@ deltaPhiMin_had: deltaPhiMin_had: (1): 32,0,3.2    : dphi_{min}(jet,E_{T}^{miss}
 ht: ht: (1):  25,0,1000    : H_{T}  [GeV]
 
 rho: rho: (1): 10,0,1  : rho
-nTrueInt: nTrueInt: (1): 50,0,50  : nTrueInt
 
-nVert: nVert: (1): 50,0,50  : nVert
+Pileup_nPU: Pileup_nPU: (1): 100, 0, 100 : Number of PU interactions in current bunch x-ing
+Pileup_nTrueInt: Pileup_nTrueInt: (1): 100, 0, 100 : True mean number from which Pileup_nPU has been sampled
+Pileup_sumEOOT: Pileup_sumEOOT: (1): 100, 0, 200 : Number of early out-of-time PU interactions
+Pileup_sumLOOT: Pileup_sumLOOT: (1): 100, 0, 200 : Number of late out-of-time PU interactions
+
+PV_npvs: PV_npvs: (1): 100, 0, 100 : PV_npvs
+PV_npvsGood: PV_npvsGood:  (1): 100, 0, 100 : PV_npvsGood
 
 ######### COUNTER
 
