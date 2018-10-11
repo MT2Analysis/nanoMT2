@@ -8,7 +8,6 @@
 # NOTE: this module implicitly shares the naming conventions defined in PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties
 #       this is bad, but unfortunately there is no better way to do this, unless I have time to rewrite the jetmet module to suit my needs
 # TODO: please put most numerical values in a config file
-# FIXME: electron id currently supported only for year=2017
 # TODO: add some truth information
 
 import ROOT
