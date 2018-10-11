@@ -25,9 +25,9 @@ python postproc.py -o output/testmc_94X_nano_std_Zll -N 5001 -w Zll --doLocal --
 ```
 cd crab
 
-python crab_mt2.py -p TEST15 -l ../data/samples/mc_bkg_2017.txt -y 2017 --doMC --doSyst
+python crab_mt2.py -p TEST15 -l ../data/samples/test_mc_bkg_2017.txt -y 2017 --doMC --doSyst
 
-python crab_mt2.py -p TEST15 -l ../data/samples/data_2017.txt -y 2017
+python crab_mt2.py -p TEST15 -l ../data/samples/test_data_2017.txt -y 2017
 ```
 
 ### Production
