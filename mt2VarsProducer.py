@@ -136,6 +136,8 @@ class mt2VarsProducer(Module):
     self.out.branch("jet_eta{}".format(self.systSuffix), "F", 1, "nJet") #
     self.out.branch("jet_phi{}".format(self.systSuffix), "F", 1, "nJet")
     self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "nJet")
+    self.out.branch("jet_mcFlavour{}".format(self.systSuffix), "I", 1, "nJet")
+    self.out.branch("jet_btagCSV{}".format(self.systSuffix), "F", 1, "nJet")
 
     self.out.branch("zll_pt{}".format(self.systSuffix), "F")
     self.out.branch("zll_eta{}".format(self.systSuffix), "F")
@@ -465,13 +467,16 @@ class mt2VarsProducer(Module):
     jet_eta = [-99.]*len(clean_jets20_largeEta)
     jet_phi =  [-99.]*len(clean_jets20_largeEta)
     jet_id = [-99.]*len(clean_jets20_largeEta)
+    jet_mcFlavour = [-99.]*len(clean_jets20_largeEta)
+    jet_btagCSV = [-99.]*len(clean_jets20_largeEta)
 
     for i,ijet in enumerate(clean_jets20_largeEta):
       jet_pt[i] = ijet.pt
       jet_phi[i] = ijet.phi
       jet_eta[i] = ijet.eta
       jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
-
+      jet_mcFlavour[i] = ijet.hadronFlavour
+      jet_btagCSV[i] = ijet.btagCSVV2
 
 
     #####
@@ -557,6 +562,8 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("jet_eta{}".format(self.systSuffix), jet_eta)
       self.out.fillBranch("jet_phi{}".format(self.systSuffix), jet_phi)
       self.out.fillBranch("jet_id{}".format(self.systSuffix), jet_id)
+      self.out.fillBranch("jet_mcFlavour{}".format(self.systSuffix), jet_mcFlavour)
+      self.out.fillBranch("jet_btagCSV{}".format(self.systSuffix), jet_btagCSV)
 
       self.out.fillBranch("zll_pt{}".format(self.systSuffix), zll_pt)
       self.out.fillBranch("zll_eta{}".format(self.systSuffix), zll_eta)
