@@ -10,6 +10,7 @@ f[2018] = {}
 # legacy
 f[2016]['data'] = '/store/data/Run2016B/MET/NANOAOD/22Aug2018_ver2-v1/10000/C83B52FF-34A9-E811-8D07-1CC1DE19286E.root'
 f[2016]['Wlv'] = ''
+f[2016]['QCD'] = '/store/mc/RunIISummer16NanoAODv3/QCD_HT300to500_BGenFilter_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_94X_mcRun2_asymptotic_v3-v1/100000/782BB8A0-97C7-E811-BA0F-001A648F1C52.root'
 # old 2016
 #f[2016]['Wlv'] = '/store/mc/RunIISummer16NanoAOD/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NANOAODSIM/PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v2/90000/5C7D09C9-5E42-E811-8A15-0025905A497A.root'
 
@@ -20,7 +21,7 @@ f[2017]['data'] = '/store/data/Run2017D/MET/NANOAOD/31Mar2018-v1/10000/2891A264-
 f[2017]['Wlv'] = '/store/mc/RunIIFall17NanoAOD/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/70000/5CD5289E-5856-E811-A5DB-A0369FD0B22A.root'
 
 # old PU
-f[2017]['ttbar'] = '/store/mc/RunIIFall17NanoAOD/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/00000/9035EBEE-7442-E811-AEFB-001E677923F4.root'
+#f[2017]['ttbar'] = '/store/mc/RunIIFall17NanoAOD/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/00000/9035EBEE-7442-E811-AEFB-001E677923F4.root'
 # new PU
 f[2017]['ttbar'] = '/store/mc/RunIIFall17NanoAOD/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/10000/6C3619FF-BFA9-E811-8824-001E6739CFA9.root'
 

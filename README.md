@@ -15,7 +15,7 @@ the command to launch the production
 
 ### Day-to-day testing
 
-#### Local: Command for nano vs mini validation
+#### Local: 
 ```
 python postproc.py -o output/testmc_94X_nano_std -N 5001 -w Wlv --doLocal --doMC
 

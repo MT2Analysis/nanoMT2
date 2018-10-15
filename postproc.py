@@ -38,7 +38,7 @@ def getOptions():
   parser.add_argument('-o', '--outdir', type=str, dest='outdirname', help='name of the output dir', default='output/out')
   parser.add_argument('-N', '--Nevts',  type=int, dest='nevents', help='max events to run on', default=-1)
   parser.add_argument('-w', '--what', type=str, dest='what', help='what sample to run on: Wlv, Zll when doLocal is activated', default='Wlv')
-  parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017, choice=allowedYears)
+  parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017, choices=allowedYears)
 
   parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
   parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
@@ -65,7 +65,7 @@ if __name__ == '__main__':
   if options.year==2016:    
     puFileData = puFilePrefix + 'PileupData_GoldenJSON_Full2016.root' 
     puFileMC =   puFilePrefix + 'pileup_profile_Summer16.root'
-  elif options.year==2017:  i
+  elif options.year==2017:  
     puFileData = puFilePrefix + 'pileup_Cert_294927-306462_13TeV_PromptReco_Collisions17_withVar.root' 
     puFileMC = 'auto'
   elif options.year==2018:  
@@ -103,8 +103,8 @@ if __name__ == '__main__':
    mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
    metaDataProducer(xSecFile='data/xSec/xSecs_{}.txt'.format(str(options.year)), sampleName=sampleName, isMC=options.doMC, year=options.year),
    #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
-   #btagSFProducer(era=str(options.year), algo='csvv2'),
-   puWeightProducer(myfile=pufileMC, targetfile=pufileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True)
+   btagSFProducer(era=str(options.year), algo='csvv2'),
+   puWeightProducer(myfile=puFileMC, targetfile=puFileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True)
   ]
 
   if options.doSyst:
