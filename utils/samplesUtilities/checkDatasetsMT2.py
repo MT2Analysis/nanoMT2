@@ -59,6 +59,12 @@ if __name__ == "__main__":
   Top     = Group(name='Top',     expr='TT|ST_|tt')
   Gjets_LO= Group(name='Gjets_LO',expr='GJets_HT')
 
+  T1qqqq  = Group(name='T1qqqq',  expr='T1qqqq')
+  T1bbbb  = Group(name='T1bbbb',  expr='T1bbbb')
+  T1tttt  = Group(name='T1tttt',  expr='T1tttt')
+  T2qq  = Group(name='T2qq',  expr='T2qq')
+  T2bb  = Group(name='T2bb',  expr='T2bb')
+  T2tt  = Group(name='T2tt',  expr='T2tt')
   #data2017= Group(name='', expr='MET|JetHT|HTMHT|DoubleEG|MuonEG|DoubleMuon|SingleElectron|SingleMuon|SinglePhoton')
 
   MT2groups = {}
@@ -69,7 +75,7 @@ if __name__ == "__main__":
   MT2groups['Top'] = [Top]
   MT2groups['Gjets'] = [Gjets_LO]
   MT2groups['bkg'] = [Zinv_LO, Wlv_LO, Zll_LO, QCD_LO, Top, Gjets_LO]
-  MT2groups['sig'] = []
+  MT2groups['sig'] = [T1qqqq, T1bbbb, T1tttt, T2qq, T2bb, T2tt]
   #MT2groups['data'] = [data2017]
   MT2groups['all'] = MT2groups['bkg'] + MT2groups['sig'] #+ MT2groups['data']
 
@@ -81,13 +87,12 @@ if __name__ == "__main__":
   allowed_groups = MT2groups.keys()
   allowed_formats = ['MINIAOD*', 'NANOAOD*']
   allowed_status = ['*', 'VALID', 'PRODUCTION', 'INVALID']
-  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*', 'RunIISummer16NanoAODv3*']
+  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*', 'RunIISummer16NanoAODv3*', '*']
 
   # description of the campaigns
   # RunIIFall17*12Apr2018*    			2017 baseline nano (and mini) production
   # RunIISummer16NanoAOD*05Feb2018*             2016 first nano production
   # RunIISummer16NanoAODv3*                     2016 legacy nano 
-  # 
 
   parser.add_argument('-c', '--campaign', type=str, dest='campaign', help='production campaign expression, allows for *', choices=allowed_campaigns, default='RunIIFall17*12Apr2018*')
   parser.add_argument('-f', '--format', type=str, dest='dataFormat', help='datatier', choices=allowed_formats, default='MINIAOD*')

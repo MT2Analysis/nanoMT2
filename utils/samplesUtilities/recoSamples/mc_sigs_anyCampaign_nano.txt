@@ -1,0 +1,54 @@
+# python checkDatasetsMT2.py -g sig -f NANOAOD* -l PDsamples/mc_sigs_2016_ForMoriond17.txt -s "*" -c "*" 
+# This list was generated on  Thu, 18 Oct 2018 12:57:59 +0000
+#****
+# Summary for:  group = T1qqqq  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1qqqq_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+#****
+# Summary for:  group = T1bbbb  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1bbbb_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+#****
+# Summary for:  group = T1tttt  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1tttt_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+#****
+# Summary for:  group = T2qq  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2qq_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+#****
+# Summary for:  group = T2bb  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2bb_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+#****
+# Summary for:  group = T2tt  campaign = *  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2tt_mStop-150to250_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+# Gen sample:  SMS-T2tt_mStop-250to350_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+# Gen sample:  SMS-T2tt_mStop-350to400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+# Gen sample:  SMS-T2tt_mStop-400to1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+
+# Gen sample:  SMS-T2tt_mStop-425_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+/SMS-T2tt_mStop-425_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-500_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+/SMS-T2tt_mStop-500_mLSP-325_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-850_mLSP-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8
+/SMS-T2tt_mStop-850_mLSP-100_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM
+
+
