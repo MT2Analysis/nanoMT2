@@ -43,12 +43,12 @@ Data:
 ```
 python merge.py -p ${PL} -v ${ML} -y 2017 -g MET
 python merge.py -p ${PL} -v ${ML} -y 2017 -g JetHT
-python merge.py -p ${PL} -v ${ML} -y 2017 -g HTMHT # one period B is missing !
+python merge.py -p ${PL} -v ${ML} -y 2017 -g HTMHT
 python merge.py -p ${PL} -v ${ML} -y 2017 -g SingleElectron
 python merge.py -p ${PL} -v ${ML} -y 2017 -g SingleMuon
 python merge.py -p ${PL} -v ${ML} -y 2017 -g DoubleEG
-python merge.py -p ${PL} -v ${ML} -y 2017 -g DoubleMuon # three DEF periods are missing !
-#python merge.py -p ${PL} -v ${ML} -y 2017 -g MuonEG # files where not launched
+python merge.py -p ${PL} -v ${ML} -y 2017 -g DoubleMuon
+python merge.py -p ${PL} -v ${ML} -y 2017 -g MuonEG
 python merge.py -p ${PL} -v ${ML} -y 2017 -g SinglePhoton
 #python merge.py -p ${PL} -v ${ML} -y 2017 -g DoublePhoton
 ```

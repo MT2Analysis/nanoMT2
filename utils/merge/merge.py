@@ -55,7 +55,7 @@ def getMT2groups():
   MT2groups['Gjets'] = [Gjets]
   MT2groups['bkg'] = [Zvv, Wlv, Zll, QCD, Top, Gjets]
   MT2groups['sig'] = []
-  MT2groups['data'] = [MET, JetHT, HTMHT, SingleElectron, SingleMuon, DoubleEG, DoubleMuon, MuonEG, SinglePhoton, DoublePhoton] # ...
+  MT2groups['data'] = [MET, JetHT, HTMHT, SingleElectron, SingleMuon, DoubleEG, DoubleMuon, MuonEG, SinglePhoton]# DoublePhoton] 
 
   MT2groups['MET'] = [MET]
   MT2groups['JetHT'] = [JetHT]
