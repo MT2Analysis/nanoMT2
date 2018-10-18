@@ -42,6 +42,7 @@ def getOptions():
 
   parser.add_argument('--doLocal', dest='doLocal', help='do local test, no crab involved', action='store_true', default=False)
   parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+  parser.add_argument('--doSignal', dest='doSignal', help='is it a signal sample?', action='store_true', default=False)
   parser.add_argument('--doSyst', dest='doSyst', help='do you want to run syst variations?', action='store_true', default=False)
   parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
   parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
@@ -100,10 +101,10 @@ if __name__ == '__main__':
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer import metaDataProducer
 
   modules = [ 
-   mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
+   mt2VarsProducer(isMC=options.doMC, isSignal=options.doSignal, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
    metaDataProducer(xSecFile='data/xSec/xSecs_{}.txt'.format(str(options.year)), sampleName=sampleName, isMC=options.doMC, year=options.year),
    #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
-   btagSFProducer(era=str(options.year), algo='csvv2'),
+   #btagSFProducer(era=str(options.year), algo='csvv2'),
    puWeightProducer(myfile=puFileMC, targetfile=puFileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True)
   ]
 

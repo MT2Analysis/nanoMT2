@@ -43,7 +43,7 @@ def mtw(x1_pt, x1_phi, x2_pt, x2_phi):
   return math.sqrt(2*x1_pt*x2_pt*(1-math.cos(x1_phi-x2_phi)))
 
 def getBitDecision(x, n): # x is an integer
-  return x & 2**n != 0
+  return (x & 2**n) != 0
 
 def getDeltaPhiMin(objects, met4vec):
     if len(objects) == 0: return -99
@@ -64,9 +64,10 @@ def getMht4vec(objects):
     return ROOT.TLorentzVector(0, 0, 0, 0)
 
 class mt2VarsProducer(Module):
-  def __init__(self, isMC=True, year=2017, doSkim=False, doSyst=False, systVar=None): # 'jesTotalUp', 'jesTotalDown'
+  def __init__(self, isMC=True, isSignal=False, year=2017, doSkim=False, doSyst=False, systVar=None): # 'jesTotalUp', 'jesTotalDown'
     self.year = year
     self.isMC = isMC
+    self.isSignal = isSignal
     self.doSkim = doSkim
     self.doSyst = doSyst
     self.systVar = systVar
@@ -143,6 +144,10 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_eta{}".format(self.systSuffix), "F")
     self.out.branch("zll_phi{}".format(self.systSuffix), "F")
     self.out.branch("zll_mass{}".format(self.systSuffix), "F")
+    
+    if self.isSignal:
+      self.out.branch("GenSusyMScan1", "I")
+      self.out.branch("GenSusyMScan2", "I")
 
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
