@@ -99,20 +99,24 @@ if __name__ == '__main__':
   from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import *
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2VarsProducer import mt2VarsProducer
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer import metaDataProducer
+  from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.smsAnalyzer import smsAnalyzer
 
   modules = [ 
    mt2VarsProducer(isMC=options.doMC, isSignal=options.doSignal, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
    metaDataProducer(xSecFile='data/xSec/xSecs_{}.txt'.format(str(options.year)), sampleName=sampleName, isMC=options.doMC, year=options.year),
    #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
    #btagSFProducer(era=str(options.year), algo='csvv2'),
-   puWeightProducer(myfile=puFileMC, targetfile=puFileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True)
+   puWeightProducer(myfile=puFileMC, targetfile=puFileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True),
   ]
-
+  ### jet met uncertainties module module needs to be run before mt2VarsProducer
   if options.doSyst:
     modules.insert(0,jetmetUncertaintiesProducer(str(options.year), 'Fall17_17Nov2017_V6_MC', [ 'Total' ], redoJEC=True, attachToEvt=True, attachToTree=False))
     modules.insert(1,mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalUp'))
     modules.insert(2,mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalDown'))
 
+  ### last module is for the signal analysis
+  if options.doSignal:
+    modules.insert(len(modules), smsAnalyzer(sampleName=sampleName,isMC=options.doMC))
 
   ## Define the post-processor
   p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/branchSel.txt', outputbranchsel='data/branchSel/branchSel.txt',

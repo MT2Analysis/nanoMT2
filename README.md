@@ -17,9 +17,11 @@ the command to launch the production
 
 #### Local: 
 ```
-python postproc.py -o output/testmc_94X_nano_std -N 5001 -w Wlv --doLocal --doMC
+python postproc.py -o output/test_Wlv -N 5001 -w Wlv --doLocal --doMC -y 2017
+python postproc.py -o output/test_data -N 5001 -w data --doLocal -y 2017
 
-python postproc.py -o output/testmc_94X_nano_std_Zll -N 5001 -w Zll --doLocal --doMC
+python postproc.py -o output/test_sig -N 5001 -w sig --dolocal --doMC --doSignal -y 2016 
+
 ```
 #### Grid: Latest command - testing
 ```
@@ -44,6 +46,7 @@ python postproc.py --year 2017        -o output/test_preProd_${PL}_data -w data 
 
 
 #### Grid: launch production
+Please remember to clean or move the content of the output directory before launching a production, otherwise all files in it will be copied to the workdir of the job
 ```
 python crab_mt2.py -p ${PL} -l ../data/samples/mc_bkg_2017.txt -y 2017 --doSkim --doMC --doSyst
 

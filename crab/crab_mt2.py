@@ -10,6 +10,7 @@ parser.add_argument('-p','--productionLabel', type=str, dest='productionLabel', 
 parser.add_argument('-l', '--list', type=str, dest='inputList', help='a txt file containing datasets, one per line', metavar='list', default='../data/samples/mc_bkg_2017.txt')
 parser.add_argument('-y','--year', type=int, dest='year', help='year of data taking / MC taking :)', default=2017)
 parser.add_argument('--doMC', dest='doMC', help='is it a monte carlo sample?', action='store_true', default=False)
+parser.add_argument('--doSignal', dest='doSignal', help='is it a signal sample?', action='store_true', default=False)
 parser.add_argument('--doSyst', dest='doSyst', help='do you want to run syst variations?', action='store_true', default=False)
 parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
 parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
