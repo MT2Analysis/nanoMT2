@@ -35,6 +35,18 @@ python crab_mt2.py -p TEST15 -l ../data/samples/test_data_2017.txt -y 2017
 ### Production
 
 #### Local: Pre-production tests
+
+*New procedure is* 
+```
+cd validate/utils/testAndValidate/
+```
+Edit testAndValidate.sh according to the production label, new and old, to test against, then:
+```
+source testAndValidate.sh
+```
+
+*OUTDATED*
+
 Please remember to save the pre-production tests with the same production label PL as the one used for production
 
 ```
@@ -43,7 +55,7 @@ python postproc.py --year 2017 --doMC -o output/test_preProd_${PL}_MC  -w Wlv --
 python postproc.py --year 2017        -o output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
 ``` 
 --> NEXT: perform validation, use utils/validate and follow instructions there
-
+*END OUTDATED*
 
 #### Grid: launch production
 Please remember to clean or move the content of the output directory before launching a production, otherwise all files in it will be copied to the workdir of the job
@@ -64,7 +76,7 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V00_V07: more missing data samples for 2017 data:   895311e5cf2e397cac3d6bd472b2eee4916e7021
 2016_V00_V00: first production for 2016 data:            209a1f248cc105c8950d8534cbc66ac38dc28bba
 2017_V01_V00: 2017 w/ correct json list                  cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
-2017_V01_V01: PUweight, info for btagSF, partial new PMX 
+2017_V01_V01: PUweight, info for btagSF, partial new PMX cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
 ```
 
 
