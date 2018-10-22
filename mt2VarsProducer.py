@@ -145,10 +145,6 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_phi{}".format(self.systSuffix), "F")
     self.out.branch("zll_mass{}".format(self.systSuffix), "F")
     
-    if self.isSignal:
-      self.out.branch("GenSusyMScan1", "I")
-      self.out.branch("GenSusyMScan2", "I")
-
   def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     pass
   def analyze(self, event):
