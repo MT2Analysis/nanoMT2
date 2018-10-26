@@ -131,6 +131,7 @@ class mt2VarsProducer(Module):
     self.out.branch("lep_pdgId{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nLep") # what is 1 and what is nLep ?
     self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
 
     self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
@@ -231,6 +232,7 @@ class mt2VarsProducer(Module):
       #print 'tight id for muon ', muon.tightId
       #if muon.tightId == False: continue # medium working point instead of loose
       # isLooseMuon coincides with loose working point so no cut is needed in principle
+      
       if abs(muon.dz)>0.5: continue
       if abs(muon.dxy)>0.2: continue
       if muon.miniPFRelIso_all > 0.2: continue
@@ -446,6 +448,7 @@ class mt2VarsProducer(Module):
     lep_pdgId = [-99.]*len(clean_recoleptons)
     lep_dxy = [-99.]*len(clean_recoleptons)
     lep_dz = [-99.]*len(clean_recoleptons)
+    lep_id = [-99]*len(clean_recoleptons)
     lep_miniRelIso = [-99.]*len(clean_recoleptons)
     # and this goes for the other variables
 
@@ -458,8 +461,20 @@ class mt2VarsProducer(Module):
       lep_pdgId[i] = ilep.pdgId
       lep_dxy[i] = ilep.dxy
       lep_dz[i] = ilep.dz
+      lep_id[i] = int(ilep.mediumId) + int(ilep.tightId) if abs(ilep.pdgId==13) else ilep.cutBasedNoIso
+      # muons: 0 -> default id, 1 -> mediumId, 2 -> tightId
+      # electrons: 0 -> fail, 1 -> veto, 2 -> loose, 2 -> medium, 3 -> tight
       lep_miniRelIso[i] = ilep.miniPFRelIso_all
-      #[i] = ilep.
+
+    ####################################################
+    # Pf Leptons (+ Pf Hadrons?)
+    ###################################################
+#    isoTrack_pt = [-99.]*len(clean_pfleptons)
+#    isoTrack_eta = [-99.]*len(clean_pfleptons)
+#    isoTrack_phi = [-99.]*len(clean_pfleptons)
+#    isoTrack_mass = [-99.]*len(clean_pfleptons)
+#    isoTrack_dz = [-99.]*len(clean_pfleptons)
+#    isoTrack_pdgId = [-99.]*len(clean_pfleptons)
 
     ####################################################
     # Clean jets
@@ -476,8 +491,9 @@ class mt2VarsProducer(Module):
       jet_phi[i] = ijet.phi
       jet_eta[i] = ijet.eta
       jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
-      jet_mcFlavour[i] = ijet.hadronFlavour
       jet_btagCSV[i] = ijet.btagCSVV2
+      if self.isMC: 
+        jet_mcFlavour[i] = ijet.hadronFlavour
 
 
     #####
@@ -552,6 +568,7 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("lep_pdgId{}".format(self.systSuffix), lep_pdgId)
       self.out.fillBranch("lep_dxy{}".format(self.systSuffix), lep_dxy)
       self.out.fillBranch("lep_dz{}".format(self.systSuffix), lep_dz)
+      self.out.fillBranch("lep_id{}".format(self.systSuffix), lep_id)
       #self.out.fillBranch("lep_tightId", lep_tightId)
       self.out.fillBranch("lep_miniRelIso{}".format(self.systSuffix), lep_miniRelIso)
       #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
