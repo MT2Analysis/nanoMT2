@@ -24,6 +24,11 @@ data_<YEAR>_merge_<PL>.txt
 mc_bkg_<YEAR>_merge_<PL>.txt
 ```
 
+Please also remember to set your proxy:
+```
+voms-proxy-init --voms cms
+```
+
 ### Run-time
 #### Testing
 ```
