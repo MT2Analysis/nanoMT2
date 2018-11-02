@@ -76,7 +76,7 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V00_V07: more missing data samples for 2017 data:   895311e5cf2e397cac3d6bd472b2eee4916e7021
 2016_V00_V00: first production for 2016 data:            209a1f248cc105c8950d8534cbc66ac38dc28bba
 2017_V01_V00: 2017 w/ correct json list                  cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
-2017_V01_V01: PUweight, info for btagSF, partial new PMX cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
+2017_V01_V01: PUweight, info for btagSF,		 cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
 ```
 
 
