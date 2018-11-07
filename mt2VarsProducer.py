@@ -101,6 +101,7 @@ class mt2VarsProducer(Module):
     self.out.branch("nPFLep5LowMTclean{}".format(self.systSuffix), "I")
     self.out.branch("nPFHad10LowMT{}".format(self.systSuffix), "I")
     self.out.branch("nLepLowMT{}".format(self.systSuffix), "I")
+    self.out.branch("nLepHighMT{}".format(self.systSuffix), "I")
     self.out.branch("nRecoLepLowMT{}".format(self.systSuffix), "I")
     self.out.branch("ht{}".format(self.systSuffix), "F")
     self.out.branch("mht_pt{}".format(self.systSuffix), "F")
@@ -318,12 +319,17 @@ class mt2VarsProducer(Module):
     clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
-    clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if x.mtw<100]
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
     #clean_pfelectrons =  [x for x in clean_pfleptons if abs(x.pdgId) == 11]
     #clean_pfmuons =      [x for x in clean_pfleptons if abs(x.pdgId) == 13]
     clean_pfhadrons =    selected_pfhadrons
     clean_leptons =      clean_pfleptons + clean_recoleptons
+    
+    clean_recoleptons_CR_lowMT = []
+    clean_recoleptons_CR_highMT = []
+    for i,x in enumerate(clean_recoleptons_CR):
+      if x.mtw<100: clean_recoleptons_CR_lowMT.append(x)
+      else:  clean_recoleptons_CR_highMT.append(x)
 
     #print '************************'
     #print 'NEW EVENT'
@@ -388,6 +394,7 @@ class mt2VarsProducer(Module):
     nPFLep5LowMTclean = len(clean_pfleptons)
     nPFHad10LowMT = len(selected_pfhadrons) # for vetoing I do not care about x-cleaning
     nLepLowMT = len(clean_recoleptons_CR_lowMT) + len(clean_pfleptons)
+    nLepHighMT = len(clean_recoleptons_CR_highMT)
     nRecoLepLowMT = len(clean_recoleptons_CR_lowMT)
 
 
@@ -573,6 +580,7 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("nPFLep5LowMTclean{}".format(self.systSuffix), nPFLep5LowMTclean)
       self.out.fillBranch("nPFHad10LowMT{}".format(self.systSuffix), nPFHad10LowMT)
       self.out.fillBranch("nLepLowMT{}".format(self.systSuffix), nLepLowMT)
+      self.out.fillBranch("nLepHighMT{}".format(self.systSuffix), nLepHighMT)
       self.out.fillBranch("nRecoLepLowMT{}".format(self.systSuffix), nRecoLepLowMT)
 
       self.out.fillBranch("met_pt{}".format(self.systSuffix), met_pt)
