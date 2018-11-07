@@ -123,17 +123,28 @@ class mt2VarsProducer(Module):
     self.out.branch("zll_met_phi{}".format(self.systSuffix), "F")
 
     # vector variables
-    self.out.branch("lep_pt{}".format(self.systSuffix), "F", 1, "nLep") # TODO: understand what is the size at the end what is 1 and what is nLep ?
-    self.out.branch("lep_eta{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_pdgId{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nLep") # what is 1 and what is nLep ?
-    self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nLep") # what is 1 and what is nLep ?
+    self.out.branch("lep_pt{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_eta{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_pdgId{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") #
+    self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nLep") # 
+    self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nLep") # 
+    self.out.branch("lep_mtw{}".format(self.systSuffix), "F", 1, "nLep") # 
 
+    self.out.branch("isoTrack_pt".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_eta".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_phi".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_mass".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_dz".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_pdgId".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nIt") #
+    
     self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
     self.out.branch("jet_eta{}".format(self.systSuffix), "F", 1, "nJet") #
     self.out.branch("jet_phi{}".format(self.systSuffix), "F", 1, "nJet")
@@ -191,7 +202,10 @@ class mt2VarsProducer(Module):
     baseline_jets = []
     baseline_jets_noId = []
 
+    selected_isoTracks_SnTCompatible = [] # should include 
+
     for electron in electrons:
+      electron.mtw = mtw(electron.pt, electron.phi, met.pt, met.phi)
       electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
@@ -220,11 +234,13 @@ class mt2VarsProducer(Module):
       if electron.isPFcand == False: continue # passa la pf id
       if electron.pfRelIso03_chg > 0.2: continue
       if abs(electron.dz)>0.1: continue
-      if mtw(electron.pt, electron.phi, met.pt, met.phi)>100: continue
+      selected_isoTracks_SnTCompatible.append(electron)
+      if electron.mtw>100: continue
       electron.isToRemove = False
       selected_pfleptons.append(electron)
 
     for muon in muons:
+      muon.mtw = mtw(muon.pt, muon.phi, met.pt, met.phi)
       if muon.pt < 10: continue
       if abs(muon.eta)>2.4: continue
       #if muon.isPFcand: continue
@@ -245,24 +261,29 @@ class mt2VarsProducer(Module):
       if muon.isPFcand == False: continue # passa la pf id
       if muon.pfRelIso03_chg > 0.2: continue
       if abs(muon.dz)>0.1: continue
-      if mtw(muon.pt, muon.phi, met.pt, met.phi)>100: continue
+      selected_isoTracks_SnTCompatible.append(muon)
+      if muon.mtw>100: continue
       muon.isToRemove = False
       selected_pfleptons.append(muon)
 
     # maybe some other pf candidates which failed to enter muon collection
     for it in isotracks:
       it.mass = 0.
+      it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
       if not it.isPFcand: continue # consider only pfcandidates
-      if mtw(it.pt, it.phi, met.pt, met.phi)>100: continue
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
         if it.pfRelIso03_chg > 0.2: continue
+        selected_isoTracks_SnTCompatible.append(it)
+        if it.mtw>100: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
       elif abs(it.pdgId == 211):
         if it.pt<10: continue
         if it.pfRelIso03_chg > 0.1: continue
+        selected_isoTracks_SnTCompatible.append(it)
+        if it.mtw>100: continue
         it.isToRemove = False
         selected_pfhadrons.append(it)
 
@@ -278,7 +299,7 @@ class mt2VarsProducer(Module):
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
-
+    selected_isoTracks_SnTCompatible.sort(key=lambda it: it.pt, reverse = True))
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 1
@@ -297,7 +318,7 @@ class mt2VarsProducer(Module):
     clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
-    clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if mtw(x.pt, x.phi, met.pt, met.phi)<100]
+    clean_recoleptons_CR_lowMT = [x for x in clean_recoleptons_CR if x.mtw<100]
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
     #clean_pfelectrons =  [x for x in clean_pfleptons if abs(x.pdgId) == 11]
     #clean_pfmuons =      [x for x in clean_pfleptons if abs(x.pdgId) == 13]
@@ -450,6 +471,7 @@ class mt2VarsProducer(Module):
     lep_dz = [-99.]*len(clean_recoleptons)
     lep_id = [-99]*len(clean_recoleptons)
     lep_miniRelIso = [-99.]*len(clean_recoleptons)
+    lep_mtw = [-99.]*len(clean_recoleptons)
     # and this goes for the other variables
 
     for i,ilep in enumerate(clean_recoleptons):
@@ -465,16 +487,31 @@ class mt2VarsProducer(Module):
       # muons: 0 -> default id, 1 -> mediumId, 2 -> tightId
       # electrons: 0 -> fail, 1 -> veto, 2 -> loose, 2 -> medium, 3 -> tight
       lep_miniRelIso[i] = ilep.miniPFRelIso_all
+      lep_mtw[i] = ilep.mtw
 
     ####################################################
-    # Pf Leptons (+ Pf Hadrons?)
+    # Pf Leptons isolated + charged PF hadrons isolated + any remaining isolated tracks
     ###################################################
-#    isoTrack_pt = [-99.]*len(clean_pfleptons)
-#    isoTrack_eta = [-99.]*len(clean_pfleptons)
-#    isoTrack_phi = [-99.]*len(clean_pfleptons)
-#    isoTrack_mass = [-99.]*len(clean_pfleptons)
-#    isoTrack_dz = [-99.]*len(clean_pfleptons)
-#    isoTrack_pdgId = [-99.]*len(clean_pfleptons)
+    isoTrack_pt = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_eta = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_phi = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_mass = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_dz = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_dxy = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_pdgId = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_absIso = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_mtw = [-99.]*len(selected_isoTracks_SnTCompatible)
+
+    for i,it in enumerate(selected_isoTracks_SnTCompatible):
+      isoTrack_pt = it.pt
+      isoTrack_eta = it.eta
+      isoTrack_phi = it.phi
+      isoTrack_mass = it.mass
+      isoTrack_dz = it.dz
+      isoTrack_dxy = it.dxy                         
+      isoTrack_pdgId = it.pdgId
+      isoTrack_absIso = it.pfRelIso03_chg*it.pt
+      isoTrack_mtw = it.mtw
 
     ####################################################
     # Clean jets
@@ -571,11 +608,23 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("lep_id{}".format(self.systSuffix), lep_id)
       #self.out.fillBranch("lep_tightId", lep_tightId)
       self.out.fillBranch("lep_miniRelIso{}".format(self.systSuffix), lep_miniRelIso)
+      self.out.fillBranch("lep_mtw{}".format(self.systSuffix), lep_mtw)
       #self.out.fillBranch("lep_mcMatchId", lep_mcMatchId)
       #self.out.fillBranch("lep_lostHits", lep_lostHits)
       #self.out.fillBranch("lep_convVeto", lep_convVeto)
       #self.out.fillBranch("lep_tightCharge", lep_tightCharge)
       # variables for ele id (?)
+
+      self.out.fillBranch("isoTrack_pt{}".format(self.systSuffix), isoTrack_pt)
+      self.out.fillBranch("isoTrack_eta{}".format(self.systSuffix), isoTrack_eta)
+      self.out.fillBranch("isoTrack_phi{}".format(self.systSuffix), isoTrack_phi)
+      self.out.fillBranch("isoTrack_mass{}".format(self.systSuffix), isoTrack_mass)
+      self.out.fillBranch("isoTrack_dz{}".format(self.systSuffix), isoTrack_dz)
+      self.out.fillBranch("isoTrack_dxy{}".format(self.systSuffix), isoTrack_dxy)
+      self.out.fillBranch("isoTrack_pdgId{}".format(self.systSuffix), isoTrack_pdgId)
+      self.out.fillBranch("isoTrack_absIso{}".format(self.systSuffix), isoTrack_absIso)
+      self.out.fillBranch("isoTrack_mtw{}".format(self.systSuffix), isoTrack_mtw)
+
       self.out.fillBranch("jet_pt{}".format(self.systSuffix), jet_pt)
       self.out.fillBranch("jet_eta{}".format(self.systSuffix), jet_eta)
       self.out.fillBranch("jet_phi{}".format(self.systSuffix), jet_phi)
