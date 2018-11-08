@@ -216,13 +216,13 @@ class mt2VarsProducer(Module):
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
       if abs(electron.eta + electron.deltaEtaSC) < 1.479:
-        if electron.dxy > 0.05: continue
-        if electron.dz > 0.10: continue
-        #if electron.lostHits > 2: continue # included in id
+        #if electron.dxy > 0.05: continue FIXME
+        #if electron.dz > 0.10: continue FIXME
+        if electron.lostHits > 2: continue # included in id FIXME
       else:
-        if electron.dxy > 0.10: continue
-        if electron.dz > 0.20: continue
-        #if electron.lostHits > 3: continue # included in id
+        #if electron.dxy > 0.10: continue FXME
+        #if electron.dz > 0.20: continue FIXME
+        if electron.lostHits > 3: continue # included in id FIXME
 
       if electron.miniPFRelIso_all > 0.1: continue # is cut
       electron.isToRemove = False
@@ -233,10 +233,13 @@ class mt2VarsProducer(Module):
     for electron in electrons:
       if electron.pt < 5: continue
       if electron.isPFcand == False: continue # passa la pf id
-      if electron.pfRelIso03_chg > 0.2: continue
+      #if electron.pfRelIso03_chg > 0.2: continue
+      if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
+      #if electron.pfRelIso03_chg*electron.pt > 8: continue
       if abs(electron.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(electron)
       if electron.mtw>100: continue
+      if electron.pfRelIso03_chg > 0.2: continue
       electron.isToRemove = False
       selected_pfleptons.append(electron)
 
@@ -260,10 +263,13 @@ class mt2VarsProducer(Module):
     for muon in muons:
       if muon.pt < 5: continue
       if muon.isPFcand == False: continue # passa la pf id
-      if muon.pfRelIso03_chg > 0.2: continue
+      #if muon.pfRelIso03_chg > 0.2: continue
+      if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
+      #if muon.pfRelIso03_chg*muon.pt > 8: continue
       if abs(muon.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(muon)
       if muon.mtw>100: continue
+      if muon.pfRelIso03_chg > 0.2: continue
       muon.isToRemove = False
       selected_pfleptons.append(muon)
 
@@ -275,16 +281,23 @@ class mt2VarsProducer(Module):
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
-        if it.pfRelIso03_chg > 0.2: continue
+        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
+        #if it.pfRelIso03_chg*it.pt > 8: continue
+        #if it.pfRelIso03_chg > 0.2: continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
+        if it.pfRelIso03_chg > 0.2: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
-      elif abs(it.pdgId == 211):
-        if it.pt<10: continue
-        if it.pfRelIso03_chg > 0.1: continue
+      elif abs(it.pdgId) == 211:
+        if it.pt<5: continue
+        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
+        #if it.pfRelIso03_chg*it.pt > 8: continue
+        #if it.pfRelIso03_chg > 0.1: continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
+        if it.pfRelIso03_chg > 0.1: continue
+        if it.pt<10: continue
         it.isToRemove = False
         selected_pfhadrons.append(it)
 
@@ -392,7 +405,7 @@ class mt2VarsProducer(Module):
     nMuons10 = len(selected_recomuons) # for vetoing I do not care about x-cleaning
     nPFLep5LowMT = len(selected_pfleptons) # for vetoing I do not care about x-cleaning
     nPFLep5LowMTclean = len(clean_pfleptons)
-    nPFHad10LowMT = len(selected_pfhadrons) # for vetoing I do not care about x-cleaning
+    nPFHad10LowMT = len(clean_pfhadrons) # 
     nLepLowMT = len(clean_recoleptons_CR_lowMT) + len(clean_pfleptons)
     nLepHighMT = len(clean_recoleptons_CR_highMT)
     nRecoLepLowMT = len(clean_recoleptons_CR_lowMT)
