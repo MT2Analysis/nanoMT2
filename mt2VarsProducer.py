@@ -211,7 +211,7 @@ class mt2VarsProducer(Module):
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
-      if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
+   #FIXME   if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
@@ -300,7 +300,7 @@ class mt2VarsProducer(Module):
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
-    selected_isoTracks_SnTCompatible.sort(key=lambda it: it.pt, reverse = True))
+    selected_isoTracks_SnTCompatible.sort(key=lambda it: it.pt, reverse = True)
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 1
@@ -316,7 +316,7 @@ class mt2VarsProducer(Module):
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
+    clean_recoelectrons_CR = clean_recoelectrons  # FIXME [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
@@ -490,7 +490,7 @@ class mt2VarsProducer(Module):
       lep_pdgId[i] = ilep.pdgId
       lep_dxy[i] = ilep.dxy
       lep_dz[i] = ilep.dz
-      lep_id[i] = int(ilep.mediumId) + int(ilep.tightId) if abs(ilep.pdgId==13) else ilep.cutBasedNoIso
+      lep_id[i] = int(ilep.mediumId) + int(ilep.tightId) if abs(ilep.pdgId)==13 else ilep.cutBasedNoIso
       # muons: 0 -> default id, 1 -> mediumId, 2 -> tightId
       # electrons: 0 -> fail, 1 -> veto, 2 -> loose, 2 -> medium, 3 -> tight
       lep_miniRelIso[i] = ilep.miniPFRelIso_all
@@ -510,15 +510,15 @@ class mt2VarsProducer(Module):
     isoTrack_mtw = [-99.]*len(selected_isoTracks_SnTCompatible)
 
     for i,it in enumerate(selected_isoTracks_SnTCompatible):
-      isoTrack_pt = it.pt
-      isoTrack_eta = it.eta
-      isoTrack_phi = it.phi
-      isoTrack_mass = it.mass
-      isoTrack_dz = it.dz
-      isoTrack_dxy = it.dxy                         
-      isoTrack_pdgId = it.pdgId
-      isoTrack_absIso = it.pfRelIso03_chg*it.pt
-      isoTrack_mtw = it.mtw
+      isoTrack_pt[i] = it.pt
+      isoTrack_eta[i] = it.eta
+      isoTrack_phi[i] = it.phi
+      isoTrack_mass[i] = it.mass
+      isoTrack_dz[i] = it.dz
+      isoTrack_dxy[i] = it.dxy                         
+      isoTrack_pdgId[i] = it.pdgId
+      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt
+      isoTrack_mtw[i] = it.mtw
 
     ####################################################
     # Clean jets
