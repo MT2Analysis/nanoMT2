@@ -181,20 +181,6 @@ jet_qgl: jet_qgl:  (1):60,-0.5,1.0 : jet qgl clean_jets20_largeEta
 jet1_pt: jet1_pt: (1): 40,0,800    : jet1  p_{T} (clean jets 20) [GeV]
 jet2_pt: jet2_pt: (1): 40,0,800    : jet2  p_{T} (clean jets 20) [GeV]
 
-##### ISO TRACK
-
-isoTrack_nisoTrack : nisoTrack : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(isotrack)
-isoTrack_pt: isoTrack_pt: (1): 16,0,800    : isotrack p_{T}  [GeV]
-isoTrack_phi: isoTrack_phi: (1): 8,-3.15,3.15    : isotrack phi
-isoTrack_eta: isoTrack_eta:  (1):10,-5.,5.    : isotrack eta
-isoTrack_mass: isoTrack_mass:  (1):20,0,400.    : isotrack mass [GeV]
-
-isoTrack_pdgId : isoTrack_pdgId : (1): 300, -150,150 : isotrack PDG_ID
-
-isoTrack_dz: isoTrack_dz:  (1):40,0,0.4    : isotrack dz  [cm]
-
-isoTrack_absIso:  isoTrack_absIso: (1): 16,0,8: isoTrack absIso
-isoTrack_relIsoAn04:  isoTrack_relIsoAn04: (1): 15,0,.5:  isoTrack relIsoAn04
 
 
 ##### TAU
@@ -362,6 +348,74 @@ mu_pdgId : (lep_pdgId):(fabs(lep_pdgId)==13): [10.5,11.5,12.5,13.5,14.5,15.5,16.
 mu_dxy: fabs(lep_dxy):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dxy|  [cm]
 mu_dz: fabs(lep_dz):(fabs(lep_pdgId)==13): 40,0,0.4    : mu |dz|  [cm]
 mu_miniRelIso: (lep_miniRelIso):(fabs(lep_pdgId)==13): 15,0,.5:  mu minireliso
+
+isoTrack_pt: isoTrack_pt: (1) : 60,0,300    : isoTrack p_{T}  [GeV]
+isoTrack_pt_varBinning: isoTrack_pt:(1): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : isoTrack p_{T}  [GeV]
+isoTrack_phi: (isoTrack_phi):(1): 32,-3.15,3.15    : isoTrack phi
+isoTrack_eta: (isoTrack_eta):(1): 30,-5.,5.    : isoTrack eta
+isoTrack_mass: (isoTrack_mass):(1): 20,0,400.    : isoTrack mass [GeV]
+isoTrack_dxy: fabs(isoTrack_dxy):(1): 40,0,0.4    : isoTrack |dxy|  [cm]
+isoTrack_dz: fabs(isoTrack_dz):(1):40,0,0.4    : isoTrack |dz|  [cm]
+isoTrack_mtw: (isoTrack_mtw):(1): 40,0.,400.:  isoTrack mtw (GeV)
+#isoTrack_nisoTrack : nisoTrack : (1): [-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5] : N(isotrack)
+isoTrack_pdgId : isoTrack_pdgId : (1): 300, -150,150 : isotrack PDG_ID
+isoTrack_dz: isoTrack_dz:  (1):40,0,0.4    : isotrack dz  [cm]
+isoTrack_absIso:  isoTrack_absIso: (1): 16,0.,8.: isoTrack absIso
+#isoTrack_relIsoAn04:  isoTrack_relIsoAn04: (1): 15,0,.5:  isoTrack relIsoAn04
+
+
+## 211 isotracks
+
+pion_isoTrack_pt: isoTrack_pt: (fabs(isoTrack_pdgId)==211) : 60,0,300    : pion isoTrack p_{T}  [GeV]
+pion_isoTrack_pt_varBinning: isoTrack_pt:(fabs(isoTrack_pdgId)==211): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : pion isoTrack p_{T}  [GeV]
+pion_isoTrack_phi: (isoTrack_phi):(fabs(isoTrack_pdgId)==211): 32,-3.15,3.15    : pion isoTrack phi
+pion_isoTrack_eta: (isoTrack_eta):(fabs(isoTrack_pdgId)==211): 30,-5.,5.    : pion isoTrack eta
+pion_isoTrack_mass: (isoTrack_mass):(fabs(isoTrack_pdgId)==211): 20,0,400.    : pion isoTrack mass [GeV]
+pion_isoTrack_dxy: fabs(isoTrack_dxy):(fabs(isoTrack_pdgId)==211): 40,0,0.4    : pion isoTrack |dxy|  [cm]
+pion_isoTrack_dz: fabs(isoTrack_dz):(fabs(isoTrack_pdgId)==211):40,0,0.4    : pion isoTrack |dz|  [cm]
+pion_isoTrack_mtw: (isoTrack_mtw):(fabs(isoTrack_pdgId)==211): 40,0.,400.:  pion isoTrack mtw (GeV)
+pion_isoTrack_pdgId : isoTrack_pdgId : (fabs(isoTrack_pdgId)==211): 300, -150,150 : pion isotrack PDG_ID
+pion_isoTrack_dz: isoTrack_dz:  (fabs(isoTrack_pdgId)==211):40,0,0.4    : pion isotrack dz  [cm]
+pion_isoTrack_absIso:  isoTrack_absIso: (fabs(isoTrack_pdgId)==211): 16,0.,8.: pion isoTrack absIso
+
+## electron isotracks
+ele_isoTrack_pt: isoTrack_pt: (fabs(isoTrack_pdgId)==11) : 60,0,300    : electron isoTrack p_{T}  [GeV]
+ele_isoTrack_pt_varBinning: isoTrack_pt:(fabs(isoTrack_pdgId)==11): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : electron isoTrack p_{T}  [GeV]
+ele_isoTrack_phi: (isoTrack_phi):(fabs(isoTrack_pdgId)==11): 32,-3.15,3.15    : electron isoTrack phi
+ele_isoTrack_eta: (isoTrack_eta):(fabs(isoTrack_pdgId)==11): 30,-5.,5.    : electron isoTrack eta
+ele_isoTrack_mass: (isoTrack_mass):(fabs(isoTrack_pdgId)==11): 20,0,400.    : electron isoTrack mass [GeV]
+ele_isoTrack_dxy: fabs(isoTrack_dxy):(fabs(isoTrack_pdgId)==11): 40,0,0.4    : electron isoTrack |dxy|  [cm]
+ele_isoTrack_dz: fabs(isoTrack_dz):(fabs(isoTrack_pdgId)==11):40,0,0.4    : electron isoTrack |dz|  [cm]
+ele_isoTrack_mtw: (isoTrack_mtw):(fabs(isoTrack_pdgId)==11): 40,0.,400.:  electron isoTrack mtw (GeV)
+ele_isoTrack_pdgId : isoTrack_pdgId : (fabs(isoTrack_pdgId)==11): 300, -150,150 : isotrack PDG_ID
+ele_isoTrack_dz: isoTrack_dz:  (fabs(isoTrack_pdgId)==11):40,0,0.4    : isotrack dz  [cm]
+ele_isoTrack_absIso:  isoTrack_absIso: (fabs(isoTrack_pdgId)==11): 16,0.,8.: ele isoTrack absIso
+
+## muon isotracks
+mu_isoTrack_pt: isoTrack_pt: (fabs(isoTrack_pdgId)==13) :  60,0,300    : muon isoTrack p_{T}  [GeV]
+mu_isoTrack_pt_varBinning: isoTrack_pt:(fabs(isoTrack_pdgId)==13): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : muon isoTrack p_{T}  [GeV]
+mu_isoTrack_phi: (isoTrack_phi):(fabs(isoTrack_pdgId)==13): 32,-3.15,3.15    : muon isoTrack phi
+mu_isoTrack_eta: (isoTrack_eta):(fabs(isoTrack_pdgId)==13): 30,-5.,5.    : muon isoTrack eta
+mu_isoTrack_mass: (isoTrack_mass):(fabs(isoTrack_pdgId)==13): 20,0,400.    : muon isoTrack mass [GeV]
+mu_isoTrack_dxy: fabs(isoTrack_dxy):(fabs(isoTrack_pdgId)==13): 40,0,0.4    : muon isoTrack |dxy|  [cm]
+mu_isoTrack_dz: fabs(isoTrack_dz):(fabs(isoTrack_pdgId)==13):40,0,0.4    : muon isoTrack |dz|  [cm]
+mu_isoTrack_mtw: (isoTrack_mtw):(fabs(isoTrack_pdgId)==13): 40,0.,400.:  muon isoTrack mtw (GeV)
+mu_isoTrack_pdgId : isoTrack_pdgId : (fabs(isoTrack_pdgId)==13): 300, -150,150 : isotrack PDG_ID
+mu_isoTrack_dz: isoTrack_dz:  (fabs(isoTrack_pdgId)==13):40,0,0.4    : isotrack dz  [cm]
+mu_isoTrack_absIso:  isoTrack_absIso: (fabs(isoTrack_pdgId)==13): 16,0.,8.: muon isoTrack absIso
+
+## non muon, non electron, non pion isotracms, if any
+ukwn_isoTrack_pt: isoTrack_pt: (fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211) :  60,0,300    : unknown (tau?) isoTrack p_{T}  [GeV]
+ukwn_isoTrack_pt_varBinning: isoTrack_pt:(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): [10, 30, 50, 70, 90, 110, 130, 150, 180, 225, 300, 400, 600, 1000]    : unknown (tau?) isoTrack p_{T}  [GeV]
+ukwn_isoTrack_phi: (isoTrack_phi):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 32,-3.15,3.15    : unknown (tau?) isoTrack phi
+ukwn_isoTrack_eta: (isoTrack_eta):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 30,-5.,5.    : unknown (tau?) isoTrack eta
+ukwn_isoTrack_mass: (isoTrack_mass):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 20,0,400.    : unknown (tau?) isoTrack mass [GeV]
+ukwn_isoTrack_dxy: fabs(isoTrack_dxy):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 40,0,0.4    : unknown (tau?) isoTrack |dxy|  [cm]
+ukwn_isoTrack_dz: fabs(isoTrack_dz):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211):40,0,0.4    : unknown (tau?) isoTrack |dz|  [cm]
+ukwn_isoTrack_mtw: (isoTrack_mtw):(fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 40,0.,400.:  unknown (tau?) isoTrack mtw (GeV)
+ukwn_isoTrack_pdgId : isoTrack_pdgId : (fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 300, -150,150 : isotrack PDG_ID
+ukwn_isoTrack_dz: isoTrack_dz:  (fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211):40,0,0.4    : isotrack dz  [cm]
+ukwn_isoTrack_absIso:  isoTrack_absIso: (fabs(isoTrack_pdgId)!=13 && fabs(isoTrack_pdgId)!=11 && fabs(isoTrack_pdgId)!=211): 16,0.,8.: unknown (tau?) isoTrack absIso
 
 
 
