@@ -211,18 +211,18 @@ class mt2VarsProducer(Module):
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
-   #FIXME   if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
+      if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
       if abs(electron.eta + electron.deltaEtaSC) < 1.479:
-        #if electron.dxy > 0.05: continue FIXME
-        #if electron.dz > 0.10: continue FIXME
-        if electron.lostHits > 2: continue # included in id FIXME
+        if electron.dxy > 0.05: continue 
+        if electron.dz > 0.10: continue 
+        #if electron.lostHits > 2: continue # included in id 
       else:
-        #if electron.dxy > 0.10: continue FXME
-        #if electron.dz > 0.20: continue FIXME
-        if electron.lostHits > 3: continue # included in id FIXME
+        if electron.dxy > 0.10: continue 
+        if electron.dz > 0.20: continue 
+        #if electron.lostHits > 3: continue # included in id 
 
       if electron.miniPFRelIso_all > 0.1: continue # is cut
       electron.isToRemove = False
