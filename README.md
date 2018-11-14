@@ -38,7 +38,7 @@ python crab_mt2.py -p TEST15 -l ../data/samples/test_data_2017.txt -y 2017
 
 *New procedure is* 
 ```
-cd validate/utils/testAndValidate/
+cd utils/testAndValidate/
 ```
 Edit testAndValidate.sh according to the production label, new and old, to test against, then:
 ```
