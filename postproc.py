@@ -77,7 +77,11 @@ if __name__ == '__main__':
     print 'Running in local'
     from unitTestFiles import f
     sampleName = 'test'
-    files = ['root://cms-xrd-global.cern.ch/' + f[options.year][options.what] ]
+    #files = ['root://cms-xrd-global.cern.ch/' + f[options.year][options.what] ]
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT_diffIso.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCut.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCutNoOR.root']
   else:
     print 'Running on the grid'
     dofwkJobReport = True
