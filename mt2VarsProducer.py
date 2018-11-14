@@ -233,13 +233,13 @@ class mt2VarsProducer(Module):
     for electron in electrons:
       if electron.pt < 5: continue
       if electron.isPFcand == False: continue # passa la pf id
-      #if electron.pfRelIso03_chg > 0.2: continue
-      if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
+      if electron.pfRelIso03_chg > 0.2: continue
+      #if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
       #if electron.pfRelIso03_chg*electron.pt > 8: continue
       if abs(electron.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(electron)
       if electron.mtw>100: continue
-      if electron.pfRelIso03_chg > 0.2: continue
+      #if electron.pfRelIso03_chg > 0.2: continue
       electron.isToRemove = False
       selected_pfleptons.append(electron)
 
@@ -263,13 +263,13 @@ class mt2VarsProducer(Module):
     for muon in muons:
       if muon.pt < 5: continue
       if muon.isPFcand == False: continue # passa la pf id
-      #if muon.pfRelIso03_chg > 0.2: continue
-      if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
+      if muon.pfRelIso03_chg > 0.2: continue
+      #if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
       #if muon.pfRelIso03_chg*muon.pt > 8: continue
       if abs(muon.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(muon)
       if muon.mtw>100: continue
-      if muon.pfRelIso03_chg > 0.2: continue
+      #if muon.pfRelIso03_chg > 0.2: continue
       muon.isToRemove = False
       selected_pfleptons.append(muon)
 
@@ -281,22 +281,22 @@ class mt2VarsProducer(Module):
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
-        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
+        #if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         #if it.pfRelIso03_chg*it.pt > 8: continue
-        #if it.pfRelIso03_chg > 0.2: continue
+        if it.pfRelIso03_chg > 0.2: continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
-        if it.pfRelIso03_chg > 0.2: continue
+        #if it.pfRelIso03_chg > 0.2: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
       elif abs(it.pdgId) == 211:
         if it.pt<5: continue
-        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
+        #if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         #if it.pfRelIso03_chg*it.pt > 8: continue
-        #if it.pfRelIso03_chg > 0.1: continue
+        if it.pfRelIso03_chg > 0.1: continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
-        if it.pfRelIso03_chg > 0.1: continue
+        #if it.pfRelIso03_chg > 0.1: continue
         if it.pt<10: continue
         it.isToRemove = False
         selected_pfhadrons.append(it)
