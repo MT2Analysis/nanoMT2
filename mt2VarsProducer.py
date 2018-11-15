@@ -144,6 +144,10 @@ class mt2VarsProducer(Module):
     self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_pdgId".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_miniPFRelIso_all".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_miniPFRelIso_chg".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_pfRelIso03_all".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_pfRelIso03_chg".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nIt") #
     
     self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
@@ -520,6 +524,10 @@ class mt2VarsProducer(Module):
     isoTrack_dxy = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_pdgId = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_absIso = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_pfRelIso03_chg = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_pfRelIso03_all = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_miniPFRelIso_chg = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_miniPFRelIso_all = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_mtw = [-99.]*len(selected_isoTracks_SnTCompatible)
 
     for i,it in enumerate(selected_isoTracks_SnTCompatible):
@@ -530,7 +538,11 @@ class mt2VarsProducer(Module):
       isoTrack_dz[i] = it.dz
       isoTrack_dxy[i] = it.dxy                         
       isoTrack_pdgId[i] = it.pdgId
-      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt
+      isoTrack_absIso[i] = it.pfRelIso03_all*it.pt
+      isoTrack_miniPFRelIso_all[i] = it.miniPFRelIso_all*it.pt
+      isoTrack_miniPFRelIso_chg[i] = it.miniPFRelIso_chg*it.pt
+      isoTrack_pfRelIso03_all[i] = it.pfRelIso03_all*it.pt
+      isoTrack_pfRelIso03_chg[i] = it.pfRelIso03_chg*it.pt
       isoTrack_mtw[i] = it.mtw
 
     ####################################################
@@ -644,6 +656,10 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("isoTrack_dxy{}".format(self.systSuffix), isoTrack_dxy)
       self.out.fillBranch("isoTrack_pdgId{}".format(self.systSuffix), isoTrack_pdgId)
       self.out.fillBranch("isoTrack_absIso{}".format(self.systSuffix), isoTrack_absIso)
+      self.out.fillBranch("isoTrack_miniPFRelIso_all{}".format(self.systSuffix), isoTrack_miniPFRelIso_all)
+      self.out.fillBranch("isoTrack_miniPFRelIso_chg{}".format(self.systSuffix), isoTrack_miniPFRelIso_chg)
+      self.out.fillBranch("isoTrack_pfRelIso03_all{}".format(self.systSuffix), isoTrack_pfRelIso03_all)
+      self.out.fillBranch("isoTrack_pfRelIso03_chg{}".format(self.systSuffix), isoTrack_pfRelIso03_chg)
       self.out.fillBranch("isoTrack_mtw{}".format(self.systSuffix), isoTrack_mtw)
 
       self.out.fillBranch("jet_pt{}".format(self.systSuffix), jet_pt)
