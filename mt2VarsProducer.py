@@ -329,7 +329,7 @@ class mt2VarsProducer(Module):
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_recoelectrons_CR = clean_recoelectrons  # FIXME [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement
+    clean_recoelectrons_CR = [el for el in clean_recoelectrons if el.cutBasedNoIso>1] # loose id requirement 
     clean_recomuons_CR = clean_recomuons
     clean_recoleptons_CR = clean_recoelectrons_CR + clean_recomuons_CR
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
