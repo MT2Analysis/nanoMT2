@@ -538,7 +538,7 @@ class mt2VarsProducer(Module):
       isoTrack_dz[i] = it.dz
       isoTrack_dxy[i] = it.dxy                         
       isoTrack_pdgId[i] = it.pdgId
-      isoTrack_absIso[i] = it.pfRelIso03_all*it.pt
+      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt # FIXME for compatibility with Bennett #  it.pfRelIso03_all*it.pt
       isoTrack_miniPFRelIso_all[i] = it.miniPFRelIso_all*it.pt
       isoTrack_miniPFRelIso_chg[i] = it.miniPFRelIso_chg*it.pt
       isoTrack_pfRelIso03_all[i] = it.pfRelIso03_all*it.pt
