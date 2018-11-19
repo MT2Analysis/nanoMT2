@@ -82,7 +82,10 @@ if __name__ == '__main__':
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCut.root']
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCutNoOR.root']
-    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_noCut.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_std_moreInfo.root']
+    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_noCut_moreInfo.root']
   else:
     print 'Running on the grid'
     dofwkJobReport = True
