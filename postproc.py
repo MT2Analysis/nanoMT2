@@ -85,7 +85,15 @@ if __name__ == '__main__':
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_noCut.root']
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO.root']
     #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_std_moreInfo.root']
-    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_noCut_moreInfo.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_noCut_moreInfo.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_noLost_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_wLost_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_asBM_noLost_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_asBM_wLost_NANO.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/ttbar94X_NANO_isFromLostTrack.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/1.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/2.root']
+    files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_6/src/PhysicsTools/NanoAOD/test/3.root']
   else:
     print 'Running on the grid'
     dofwkJobReport = True

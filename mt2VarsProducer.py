@@ -286,8 +286,9 @@ class mt2VarsProducer(Module):
       it.mass = 0.
       it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
       if not it.isPFcand: continue # consider only pfcandidates
-      if it.fromPV <= 1: continue # MG
-      if it.charge == 0: continue # MG
+      #if it.isFromPV <= 1: continue # MG
+      if it.isFromLostTrack: continue # MG
+      #if it.charge == 0: continue # MG
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
