@@ -10,6 +10,8 @@
 # TODO: please put most numerical values in a config file
 # TODO: add some truth information
 
+# FIXME: add dxy cut, |eta|<2.4 on isotracks and other selections for isotracks
+
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
@@ -76,10 +78,14 @@ class mt2VarsProducer(Module):
     # possible year-dependent configurations
     if self.year == 2016:
       self.eleIdTune = 'Summer16'
+      self.cut_btagWP =  0.8484 # medium WP for 80X
     elif self.year == 2017: 
       self.eleIdTune = 'Fall17'
+      self.cut_btagWP =  0.8838 # medium WP for 94X
     elif self.year == 2018:
       self.eleIdTune = 'Fall17'
+      self.cut_btagWP =  0.8838 # FIXME
+
 
   def beginJob(self):
     pass
@@ -368,7 +374,7 @@ class mt2VarsProducer(Module):
     clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
-    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > 0.8838] # Medium WP for 94X
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > cut_btagWP] # Medium WP 
     # NOTE: this you will have to change it yourself when the recommendation change / depending on the year
     jets_HEMfail =          [jet for jet in jets if jet.eta > -3 and jet.eta < -1.4 and jet.phi > -1.57 and jet.phi < -0.87]
 
@@ -524,7 +530,7 @@ class mt2VarsProducer(Module):
       isoTrack_dz[i] = it.dz
       isoTrack_dxy[i] = it.dxy                         
       isoTrack_pdgId[i] = it.pdgId
-      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt # FIXME for compatibility with Bennett #  it.pfRelIso03_all*it.pt
+      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt
       isoTrack_miniPFRelIso_chg[i] = it.miniPFRelIso_chg*it.pt
       isoTrack_mtw[i] = it.mtw
 
