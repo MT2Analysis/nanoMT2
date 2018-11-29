@@ -144,6 +144,7 @@ class mt2VarsProducer(Module):
     self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_pdgId".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nIt") #
+    self.out.branch("isoTrack_miniPFRelIso_chg".format(self.systSuffix), "F", 1, "nIt") #
     self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nIt") #
     
     self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
@@ -211,7 +212,7 @@ class mt2VarsProducer(Module):
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
-      if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id
+      if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id, so need to be applied below
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
       #https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
@@ -233,13 +234,13 @@ class mt2VarsProducer(Module):
     for electron in electrons:
       if electron.pt < 5: continue
       if electron.isPFcand == False: continue # passa la pf id
-      if electron.pfRelIso03_chg > 0.2: continue
-      #if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
-      #if electron.pfRelIso03_chg*electron.pt > 8: continue
+      #if electron.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
+      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
       if abs(electron.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(electron)
       if electron.mtw>100: continue
-      #if electron.pfRelIso03_chg > 0.2: continue
+      if electron.pfRelIso03_chg > 0.2: continue
       electron.isToRemove = False
       selected_pfleptons.append(electron)
 
@@ -247,7 +248,7 @@ class mt2VarsProducer(Module):
       muon.mtw = mtw(muon.pt, muon.phi, met.pt, met.phi)
       if muon.pt < 10: continue
       if abs(muon.eta)>2.4: continue
-      #if muon.isPFcand: continue
+      if muon.isPFcand: continue
       #print 'medium id for muon ', muon.mediumId
       #print 'tight id for muon ', muon.tightId
       #if muon.tightId == False: continue # medium working point instead of loose
@@ -263,13 +264,13 @@ class mt2VarsProducer(Module):
     for muon in muons:
       if muon.pt < 5: continue
       if muon.isPFcand == False: continue # passa la pf id
-      if muon.pfRelIso03_chg > 0.2: continue
-      #if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
-      #if muon.pfRelIso03_chg*muon.pt > 8: continue
+      #if muon.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
+      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
       if abs(muon.dz)>0.1: continue
       selected_isoTracks_SnTCompatible.append(muon)
       if muon.mtw>100: continue
-      #if muon.pfRelIso03_chg > 0.2: continue
+      if muon.pfRelIso03_chg > 0.2: continue
       muon.isToRemove = False
       selected_pfleptons.append(muon)
 
@@ -278,25 +279,23 @@ class mt2VarsProducer(Module):
       it.mass = 0.
       it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
       if not it.isPFcand: continue # consider only pfcandidates
+      #if it.isFromPV <= 1: continue # FIXME: to be uncommented when branch is available
+      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
       if abs(it.dz)>0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
-        #if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
-        #if it.pfRelIso03_chg*it.pt > 8: continue
-        if it.pfRelIso03_chg > 0.2: continue
+        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
-        #if it.pfRelIso03_chg > 0.2: continue
+        if it.pfRelIso03_chg > 0.2: continue
         it.isToRemove = False
         selected_pfleptons.append(it)
       elif abs(it.pdgId) == 211:
         if it.pt<5: continue
-        #if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
-        #if it.pfRelIso03_chg*it.pt > 8: continue
-        if it.pfRelIso03_chg > 0.1: continue
+        if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
-        #if it.pfRelIso03_chg > 0.1: continue
+        if it.pfRelIso03_chg > 0.1: continue
         if it.pt<10: continue
         it.isToRemove = False
         selected_pfhadrons.append(it)
@@ -343,11 +342,6 @@ class mt2VarsProducer(Module):
     for i,x in enumerate(clean_recoleptons_CR):
       if x.mtw<100: clean_recoleptons_CR_lowMT.append(x)
       else:  clean_recoleptons_CR_highMT.append(x)
-
-    #print '************************'
-    #print 'NEW EVENT'
-    #print 'Size of clean leptons aka selectedIsoCleanTrack: ', len(clean_pfleptons)
-    #for x in clean_pfleptons: stampP(x)
 
     # ##################################################
     # NOW PERFORM THE CROSS-CLEANING: stage 2, remove closest jet to lepton within given DeltaR
@@ -520,6 +514,7 @@ class mt2VarsProducer(Module):
     isoTrack_dxy = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_pdgId = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_absIso = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_miniPFRelIso_chg = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_mtw = [-99.]*len(selected_isoTracks_SnTCompatible)
 
     for i,it in enumerate(selected_isoTracks_SnTCompatible):
@@ -530,7 +525,8 @@ class mt2VarsProducer(Module):
       isoTrack_dz[i] = it.dz
       isoTrack_dxy[i] = it.dxy                         
       isoTrack_pdgId[i] = it.pdgId
-      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt
+      isoTrack_absIso[i] = it.pfRelIso03_chg*it.pt # FIXME for compatibility with Bennett #  it.pfRelIso03_all*it.pt
+      isoTrack_miniPFRelIso_chg[i] = it.miniPFRelIso_chg*it.pt
       isoTrack_mtw[i] = it.mtw
 
     ####################################################
@@ -644,6 +640,7 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("isoTrack_dxy{}".format(self.systSuffix), isoTrack_dxy)
       self.out.fillBranch("isoTrack_pdgId{}".format(self.systSuffix), isoTrack_pdgId)
       self.out.fillBranch("isoTrack_absIso{}".format(self.systSuffix), isoTrack_absIso)
+      self.out.fillBranch("isoTrack_miniPFRelIso_chg{}".format(self.systSuffix), isoTrack_miniPFRelIso_chg)
       self.out.fillBranch("isoTrack_mtw{}".format(self.systSuffix), isoTrack_mtw)
 
       self.out.fillBranch("jet_pt{}".format(self.systSuffix), jet_pt)
