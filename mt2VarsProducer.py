@@ -248,7 +248,6 @@ class mt2VarsProducer(Module):
       muon.mtw = mtw(muon.pt, muon.phi, met.pt, met.phi)
       if muon.pt < 10: continue
       if abs(muon.eta)>2.4: continue
-      if muon.isPFcand: continue
       #print 'medium id for muon ', muon.mediumId
       #print 'tight id for muon ', muon.tightId
       #if muon.tightId == False: continue # medium working point instead of loose
@@ -536,7 +535,7 @@ class mt2VarsProducer(Module):
     jet_eta = [-99.]*len(clean_jets20_largeEta)
     jet_phi =  [-99.]*len(clean_jets20_largeEta)
     jet_id = [-99.]*len(clean_jets20_largeEta)
-    jet_mcFlavour = [-99.]*len(clean_jets20_largeEta)
+    jet_mcFlavour = [-99]*len(clean_jets20_largeEta)
     jet_btagCSV = [-99.]*len(clean_jets20_largeEta)
 
     for i,ijet in enumerate(clean_jets20_largeEta):
