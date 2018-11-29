@@ -82,6 +82,8 @@ if __name__ == "__main__":
 
   #makeValidationPlots(options.fname1, options.fname2, options.treename1, options.treename2, options.label1, options.label2, options.outdirname)
 
+  if os.path.isfile(options.fname1)==False or os.path.isfile(options.fname2)==False: raise RuntimeError('One of the two files is not available')
+
   qs_to_run = qs_common
 
   for q in qs_to_run:
