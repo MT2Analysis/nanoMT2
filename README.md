@@ -36,7 +36,6 @@ python crab_mt2.py -p TEST15 -l ../data/samples/test_data_2017.txt -y 2017
 
 #### Local: Pre-production tests
 
-*New procedure is* 
 ```
 cd utils/testAndValidate/
 ```
@@ -45,20 +44,12 @@ Edit testAndValidate.sh according to the production label, new and old, to test 
 source testAndValidate.sh
 ```
 
-*OUTDATED*
-
-Please remember to save the pre-production tests with the same production label PL as the one used for production
-
-```
-python postproc.py --year 2017 --doMC -o output/test_preProd_${PL}_MC  -w Wlv --doLocal -N 50001 --doSkim 
-
-python postproc.py --year 2017        -o output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
-``` 
---> NEXT: perform validation, use utils/validate and follow instructions there
-*END OUTDATED*
-
 #### Grid: launch production
 Please remember to clean or move the content of the output directory before launching a production, otherwise all files in it will be copied to the workdir of the job
+
+Are you sure that you looked at the SUSY recommendations ? Have a look !
+https://twiki.cern.ch/twiki/bin/viewauth/CMS/SUSRecommendationsRun2Legacy 
+
 ```
 python crab_mt2.py -p ${PL} -l ../data/samples/mc_bkg_2017.txt -y 2017 --doSkim --doMC 
 
@@ -80,6 +71,7 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V01_V00: 2017 w/ correct json list                  cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
 2017_V01_V01: PUweight, info for btagSF,		 cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
 2016_V02_V00: isotrack variables, fix for btag info	 9411aeaef2cfc01c6c0744f4e31ca42fe5bc2ad4
+2016_V02_V01: same as previous, but for MC               0ea80dd03d0099ac9778fd54c6795a28867db663
 ```
 
 
