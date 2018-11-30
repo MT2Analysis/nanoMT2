@@ -1,7 +1,7 @@
-[mratti@t3ui02 samplesUtilities]$ python checkDatasetsMT2.py -c RunIIFall17*12Apr2018* -f NANOAOD* -s "*" -g all -l PDsamples/mc_bkgs_greedy.txt 
-# This list was generated on  Wed, 17 Oct 2018 09:16:53 +0000
+tti@t3ui02 samplesUtilities]$ python checkDatasetsMT2.py -c RunIIFall17*12Apr2018* -f NANOAOD* -s VALID -g all -l PDsamples/mc_bkgs_greedy.txt 
+# This list was generated on  Fri, 30 Nov 2018 17:52:17 +0000
 #****
-# Summary for:  group = ZJetsToNuNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
+# Summary for:  group = ZJetsToNuNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
 #****
 
 # Gen sample:  ZJetsToNuNu_HT-100To200*
@@ -27,10 +27,9 @@
 
 # Gen sample:  ZJetsToNuNu_HT-2500ToInf*
 /ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph/RunIIFall17NanoAOD-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/NANOAODSIM
 
 #****
-# Summary for:  group = WJetsToLNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
+# Summary for:  group = WJetsToLNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
 #****
 
 # Gen sample:  WJetsToLNu_HT-100To200*
@@ -52,11 +51,10 @@
 /WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
 
 # Gen sample:  WJetsToLNu_HT-2500ToInf*
-/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
 /WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v3/NANOAODSIM
 
 #****
-# Summary for:  group = DYJetsToLL_M-50_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
+# Summary for:  group = DYJetsToLL_M-50_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
 #****
 
 # Gen sample:  DYJetsToLL_M-50_HT-100to200*
@@ -90,7 +88,7 @@
 /DYJetsToLL_M-50_HT-2500toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
 
 #****
-# Summary for:  group = QCD_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
+# Summary for:  group = QCD_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
 #****
 
 # Gen sample:  QCD_HT100to200*
@@ -128,7 +126,7 @@
 /QCD_HT2000toInf_TuneCP5_13TeV-madgraph-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_old_pmx_94X_mc2017_realistic_v14-v1/NANOAODSIM
 
 #****
-# Summary for:  group = TT|ST_|tt  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
+# Summary for:  group = TT|ST_|tt  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
 #****
 
 # Gen sample:  TTJets_Tune*
@@ -138,14 +136,12 @@
 
 # Gen sample:  TTJets_SingleLeptFromTbar*
 /TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-/TTJets_SingleLeptFromTbar_genMET-150_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
 /TTJets_SingleLeptFromTbar_genMET-150_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
 
 # Gen sample:  TTJets_SingleLeptFromT*
 /TTJets_SingleLeptFromT_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
 /TTJets_SingleLeptFromT_genMET-150_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
 /TTJets_SingleLeptFromTbar_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-/TTJets_SingleLeptFromTbar_genMET-150_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
 /TTJets_SingleLeptFromTbar_genMET-150_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
 
 # Gen sample:  TTJets_DiLept*
@@ -190,27 +186,4 @@
 # Gen sample:  ttHTobb_M125_13TeV_powheg_pythia8*
 
 # Gen sample:  TTTT_TuneCUETP8M1_13TeV-amcatnlo-pythia8*
-
-#****
-# Summary for:  group = GJets_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = * 
-#****
-
-# Gen sample:  GJets_HT-40To100*
-/GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_1core_94X_mc2017_realistic_v14_ext1-v1/NANOAODSIM
-/GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_1core_94X_mc2017_realistic_v14_ext1-v2/NANOAODSIM
-/GJets_HT-40To100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
-
-# Gen sample:  GJets_HT-100To200*
-/GJets_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-
-# Gen sample:  GJets_HT-200To400*
-/GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-/GJets_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v2/NANOAODSIM
-
-# Gen sample:  GJets_HT-400To600*
-/GJets_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_new_pmx_94X_mc2017_realistic_v14-v1/NANOAODSIM
-
-# Gen sample:  GJets_HT-600ToInf*
-/GJets_HT-600ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM
-
 
