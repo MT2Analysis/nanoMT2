@@ -1,7 +1,10 @@
-# python checkDataMT2.py -c *Run2017*31Mar2018* -f NANOAOD -s "*"
-# This list was generated on  Thu, 27 Sep 2018 10:13:08 +0000
+# python checkDataMT2.py -c Run2017*31Mar2018* -f NANOAOD -s "*"
+# This list was generated on  Fri, 30 Nov 2018 16:52:04 +0000
+
+
+###   dasgoclient --query="dataset=/SinglePhoton/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = SinglePhoton  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = SinglePhoton  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /SinglePhoton/Run2017B-31Mar2018-v1/NANOAOD
@@ -9,12 +12,18 @@
 /SinglePhoton/Run2017D-31Mar2018-v1/NANOAOD
 /SinglePhoton/Run2017E-31Mar2018-v1/NANOAOD
 /SinglePhoton/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/DoublePhoton/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = DoublePhoton  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = DoublePhoton  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
+
+
+###   dasgoclient --query="dataset=/JetHT/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = JetHT  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = JetHT  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /JetHT/Run2017B-31Mar2018-v1/NANOAOD
@@ -22,8 +31,11 @@
 /JetHT/Run2017D-31Mar2018-v1/NANOAOD
 /JetHT/Run2017E-31Mar2018-v1/NANOAOD
 /JetHT/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/HTMHT/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = HTMHT  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = HTMHT  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /HTMHT/Run2017B-31Mar2018-v1/NANOAOD
@@ -31,8 +43,11 @@
 /HTMHT/Run2017D-31Mar2018-v1/NANOAOD
 /HTMHT/Run2017E-31Mar2018-v1/NANOAOD
 /HTMHT/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/MET/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = MET  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = MET  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /MET/Run2017B-31Mar2018-v1/NANOAOD
@@ -40,8 +55,11 @@
 /MET/Run2017D-31Mar2018-v1/NANOAOD
 /MET/Run2017E-31Mar2018-v1/NANOAOD
 /MET/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/SingleElectron/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = SingleElectron  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = SingleElectron  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /SingleElectron/Run2017B-31Mar2018-v1/NANOAOD
@@ -49,8 +67,11 @@
 /SingleElectron/Run2017D-31Mar2018-v1/NANOAOD
 /SingleElectron/Run2017E-31Mar2018-v1/NANOAOD
 /SingleElectron/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/SingleMuon/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = SingleMuon  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = SingleMuon  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /SingleMuon/Run2017B-31Mar2018-v1/NANOAOD
@@ -58,8 +79,11 @@
 /SingleMuon/Run2017D-31Mar2018-v1/NANOAOD
 /SingleMuon/Run2017E-31Mar2018-v1/NANOAOD
 /SingleMuon/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/DoubleEG/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = DoubleEG  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = DoubleEG  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /DoubleEG/Run2017B-31Mar2018-v1/NANOAOD
@@ -67,8 +91,11 @@
 /DoubleEG/Run2017D-31Mar2018-v1/NANOAOD
 /DoubleEG/Run2017E-31Mar2018-v1/NANOAOD
 /DoubleEG/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/DoubleMuon/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = DoubleMuon  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = DoubleMuon  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /DoubleMuon/Run2017B-31Mar2018-v1/NANOAOD
@@ -76,8 +103,11 @@
 /DoubleMuon/Run2017D-31Mar2018-v1/NANOAOD
 /DoubleMuon/Run2017E-31Mar2018-v1/NANOAOD
 /DoubleMuon/Run2017F-31Mar2018-v1/NANOAOD
+
+
+###   dasgoclient --query="dataset=/MuonEG/Run2017*31Mar2018*/NANOAOD dataset status=*"
 # ****
-# Summary for:  PD = MuonEG  campaign = *Run2017*31Mar2018*  datatier = NANOAOD 
+# Summary for:  PD = MuonEG  campaign = Run2017*31Mar2018*  datatier = NANOAOD  status = * 
 # ****
 
 /MuonEG/Run2017B-31Mar2018-v1/NANOAOD
