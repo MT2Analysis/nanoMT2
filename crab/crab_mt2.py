@@ -76,8 +76,10 @@ for dataset in datasets :
 
   print 'Working on dataset ', dataset
 
-  dataset_nickName = dataset.split('/')[1]
-  if 'ext' in dataset: dataset_nickName = dataset.split('/')[1] + '_ext'
+  if options.doMC: 
+    dataset_nickName = dataset.split('/')[1]
+    if 'ext' in dataset: dataset_nickName = dataset.split('/')[1] + '_ext'
+  else: dataset_nickName = dataset.split('/')[1] + '_' + dataset.split('/')[2]
   config.General.requestName = options.productionLabel + '_' + dataset_nickName
 
   config.Data.outputDatasetTag = dataset.split('/')[2] # campaign

@@ -1,7 +1,7 @@
-PL="2017_V02_V00"
-OLD_PL="2017_V01_V01"
-MC=true # or false if data
-YEAR=2017
+PL="2016_V02_V02"
+OLD_PL="2016_V00_V00"
+MC=false # or false if data
+YEAR=2016
 
 
 echo "Going to run local test for PL=" $PL "  year=" $YEAR "  MC=" $MC
