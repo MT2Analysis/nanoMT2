@@ -1,7 +1,7 @@
-PL="2016_V02_V01"
-OLD_PL="2017_V02_V00"
+PL="2017_V02_V03"
+OLD_PL="2017_V01_V01"
 MC=true # or false if data
-YEAR=2016
+YEAR=2017
 
 echo "Going to run local test for PL=" $PL "  year=" $YEAR "  MC=" $MC
 cd ../../.
@@ -36,7 +36,7 @@ echo "Going to publish them on website"
 if [ "$MC" = true ] ; then
 
   scp -r ~/MT2_UNIT_TESTS/validate/out_${PL}VS${OLD_PL}_MC mratti@lxplus.cern.ch:/eos/user/m/mratti/www/MT2/validation/.
-  scp -i HTACCESS mratti@lxplus.cern.ch:/eos/user/m/mratti/www/MT2/validation/out_${PL}VS${OLD_PL}_MC/.htaccess
+  scp HTACCESS mratti@lxplus.cern.ch:/eos/user/m/mratti/www/MT2/validation/out_${PL}VS${OLD_PL}_MC/.htaccess
 
 else
   scp -r ~/MT2_UNIT_TESTS/validate/out_${PL}VS${OLD_PL}_data mratti@lxplus.cern.ch:/eos/user/m/mratti/www/MT2/validation/.

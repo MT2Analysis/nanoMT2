@@ -1,4 +1,4 @@
-tti@t3ui02 samplesUtilities]$ python checkDatasetsMT2.py -c RunIIFall17*12Apr2018* -f NANOAOD* -s VALID -g all -l PDsamples/mc_bkgs_greedy.txt 
+# python checkDatasetsMT2.py -c RunIIFall17*12Apr2018* -f NANOAOD* -s VALID -g all -l PDsamples/mc_bkgs_greedy.txt 
 # This list was generated on  Fri, 30 Nov 2018 17:52:17 +0000
 #****
 # Summary for:  group = ZJetsToNuNu_HT  campaign = RunIIFall17*12Apr2018*  datatier = NANOAOD*  status = VALID 
