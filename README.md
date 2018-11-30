@@ -68,6 +68,8 @@ python crab_mt2.py -p ${PL} -l ../data/samples/data_2017.txt -y 2017 --doSkim
 #### Versions of productions
 We will not version the nanoMT2 code, but please remember to make a commit after launching production and to copy the commit hash below
 
+Convention for the production label: <year>_<label1>_<label2>, label 1 should be changed anytime the code is different, label 2 is only used in case more than one grid production is launched.
+
 Production Label: brief description : git commit hash (can be searched)
 ```
 2017_V00_V04: first production for 2017 data:		 a5b8b241a3cedd5fb408675ffb5581ca26f075f3
@@ -77,6 +79,7 @@ Production Label: brief description : git commit hash (can be searched)
 2016_V00_V00: first production for 2016 data:            209a1f248cc105c8950d8534cbc66ac38dc28bba
 2017_V01_V00: 2017 w/ correct json list                  cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
 2017_V01_V01: PUweight, info for btagSF,		 cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
+2016_V02_V00: isotrack variables, fix for btag info	 9411aeaef2cfc01c6c0744f4e31ca42fe5bc2ad4
 ```
 
 
