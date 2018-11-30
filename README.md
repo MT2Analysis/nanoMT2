@@ -63,15 +63,17 @@ Convention for the production label: <year>_<label1>_<label2>, label 1 should be
 
 Production Label: brief description : git commit hash (can be searched)
 ```
-2017_V00_V04: first production for 2017 data:		 a5b8b241a3cedd5fb408675ffb5581ca26f075f3
-2017_V00_V05: first production for 2017 mc: 		 aba436783a88e092663da19189ee9d60fc0683a8
-2017_V00_V06: missing data samples for 2017 data:        7e88eabcca49936feb6212931816a95f170757fe
-2017_V00_V07: more missing data samples for 2017 data:   895311e5cf2e397cac3d6bd472b2eee4916e7021
-2016_V00_V00: first production for 2016 data:            209a1f248cc105c8950d8534cbc66ac38dc28bba
-2017_V01_V00: 2017 w/ correct json list                  cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
-2017_V01_V01: PUweight, info for btagSF,		 cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
-2016_V02_V00: isotrack variables, fix for btag info	 9411aeaef2cfc01c6c0744f4e31ca42fe5bc2ad4
-2016_V02_V01: same as previous, but for MC               0ea80dd03d0099ac9778fd54c6795a28867db663
+2017_V00_V04: first production for 2017 data:		 	a5b8b241a3cedd5fb408675ffb5581ca26f075f3
+2017_V00_V05: first production for 2017 mc: 		 	aba436783a88e092663da19189ee9d60fc0683a8
+2017_V00_V06: missing data samples for 2017 data:        	7e88eabcca49936feb6212931816a95f170757fe
+2017_V00_V07: more missing data samples for 2017 data:   	895311e5cf2e397cac3d6bd472b2eee4916e7021
+2016_V00_V00: first production for 2016 data:            	209a1f248cc105c8950d8534cbc66ac38dc28bba
+2017_V01_V00: 2017 w/ correct json list                  	cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
+2017_V01_V01: PUweight, info for btagSF,		 	cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
+2016_V02_V00: isotrack variables, fix for btag info,data 	9411aeaef2cfc01c6c0744f4e31ca42fe5bc2ad4
+2016_V02_V11: same as previous, but for MC               	0ea80dd03d0099ac9778fd54c6795a28867db663
+2017_V02_V12: same as above, data 2017			 	e0d351f6a034f13bfd57d4aab2cfa83fae7c8b55
+2017_V02_V13: same as above, mc 2017				bda05f7e2989742b5d74e813770e150bea0bd69b
 ```
 
 
