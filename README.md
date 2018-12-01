@@ -71,8 +71,8 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V01_V00: 2017 w/ correct json list                  	cbe8fd1791b73b0a9fed4965d7f47fac80dd292a
 2017_V01_V01: PUweight, info for btagSF,		 	cd6f9a47b4232f97c3572b3ba7c9dbd279a38c3d
 2016_V02_V00: isotrack variables, fix for btag info,data 	9411aeaef2cfc01c6c0744f4e31ca42fe5bc2ad4
-2016_V02_V11: same as previous, but for MC               	0ea80dd03d0099ac9778fd54c6795a28867db663
-2017_V02_V12: same as above, data 2017			 	e0d351f6a034f13bfd57d4aab2cfa83fae7c8b55
+2016_V02_V11: same as previous, but for MC               	bda05f7e2989742b5d74e813770e150bea0bd69b
+2017_V02_V12: same as above, data 2017			 	bda05f7e2989742b5d74e813770e150bea0bd69b
 2017_V02_V13: same as above, mc 2017				bda05f7e2989742b5d74e813770e150bea0bd69b
 ```
 
