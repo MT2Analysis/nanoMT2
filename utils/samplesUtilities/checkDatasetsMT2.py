@@ -87,10 +87,10 @@ if __name__ == "__main__":
   allowed_groups = MT2groups.keys()
   allowed_formats = ['MINIAOD*', 'NANOAOD*']
   allowed_status = ['*', 'VALID', 'PRODUCTION', 'INVALID']
-  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*', 'RunIISummer16NanoAODv3*', 'RunIIFall18NanoAOD*', '*']
+  allowed_campaigns = ['RunIIFall17*12Apr2018*', 'RunIISummer16NanoAOD*05Feb2018*', 'RunIISummer16NanoAODv3*', 'RunIIAutumn18NanoAOD*', '*']
 
   # description of the campaigns
-  # RunIIFall18NanoAOD*                         2018 baseline nano 
+  # RunIIAutumn18NanoAOD*                       2018 baseline nano 
   # RunIIFall17*12Apr2018*    			2017 baseline nano (and mini) production
   # RunIISummer16NanoAODv3*                     2016 baseline nano (in principle!)
   # RunIISummer16NanoAOD*05Feb2018*             2016 first nano production
