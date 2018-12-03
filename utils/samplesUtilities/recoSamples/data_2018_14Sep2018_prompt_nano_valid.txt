@@ -1,10 +1,10 @@
-# python checkDataMT2.py -c Run2018*14Sep2018* -f NANOAOD -s "*"
-# This list was generated on  Mon, 03 Dec 2018 10:04:05 +0000
-# some of these samples are still in production -> please check list with valid samples only
+#  python checkDataMT2.py -c Run2018*14Sep2018* -f NANOAOD -s VALID
+# This list was generated on  Mon, 03 Dec 2018 10:03:23 +0000
 
-###   dasgoclient --query="dataset=/EGamma/Run2018*14Sep2018*/NANOAOD dataset status=*"
+
+###   dasgoclient --query="dataset=/EGamma/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = EGamma  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = EGamma  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /EGamma/Run2018A-14Sep2018_ver1-v1/NANOAOD
@@ -15,12 +15,11 @@
 /EGamma/Run2018C-14Sep2018_ver1-v1/NANOAOD
 /EGamma/Run2018C-14Sep2018_ver2-v1/NANOAOD
 /EGamma/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/EGamma/Run2018D-14Sep2018_ver2-v1/NANOAOD
 
 
-###   dasgoclient --query="dataset=/JetHT/Run2018*14Sep2018*/NANOAOD dataset status=*"
+###   dasgoclient --query="dataset=/JetHT/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = JetHT  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = JetHT  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /JetHT/Run2018A-14Sep2018_ver1-v1/NANOAOD
@@ -31,12 +30,11 @@
 /JetHT/Run2018C-14Sep2018_ver1-v1/NANOAOD
 /JetHT/Run2018C-14Sep2018_ver2-v1/NANOAOD
 /JetHT/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/JetHT/Run2018D-14Sep2018_ver2-v1/NANOAOD
 
 
-###   dasgoclient --query="dataset=/MET/Run2018*14Sep2018*/NANOAOD dataset status=*"
+###   dasgoclient --query="dataset=/MET/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = MET  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = MET  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /MET/Run2018A-14Sep2018_ver1-v1/NANOAOD
@@ -47,16 +45,14 @@
 /MET/Run2018C-14Sep2018_ver1-v1/NANOAOD
 /MET/Run2018C-14Sep2018_ver2-v1/NANOAOD
 /MET/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/MET/Run2018D-14Sep2018_ver2-v1/NANOAOD
 
 
-###   dasgoclient --query="dataset=/SingleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
+###   dasgoclient --query="dataset=/SingleMuon/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = SingleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = SingleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /SingleMuon/Run2018A-14Sep2018_06Jun2018-v1/NANOAOD
-/SingleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
 /SingleMuon/Run2018A-14Sep2018_ver2-v1/NANOAOD
 /SingleMuon/Run2018A-14Sep2018_ver3-v1/NANOAOD
 /SingleMuon/Run2018B-14Sep2018_ver1-v1/NANOAOD
@@ -64,12 +60,11 @@
 /SingleMuon/Run2018C-14Sep2018_ver1-v1/NANOAOD
 /SingleMuon/Run2018C-14Sep2018_ver2-v1/NANOAOD
 /SingleMuon/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/SingleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
 
 
-###   dasgoclient --query="dataset=/DoubleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
+###   dasgoclient --query="dataset=/DoubleMuon/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = DoubleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = DoubleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /DoubleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
@@ -83,9 +78,9 @@
 /DoubleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
 
 
-###   dasgoclient --query="dataset=/MuonEG/Run2018*14Sep2018*/NANOAOD dataset status=*"
+###   dasgoclient --query="dataset=/MuonEG/Run2018*14Sep2018*/NANOAOD dataset status=VALID"
 # ****
-# Summary for:  PD = MuonEG  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# Summary for:  PD = MuonEG  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = VALID 
 # ****
 
 /MuonEG/Run2018A-14Sep2018_ver1-v1/NANOAOD
@@ -97,3 +92,4 @@
 /MuonEG/Run2018C-14Sep2018_ver2-v1/NANOAOD
 /MuonEG/Run2018C-14Sep2018_ver3-v1/NANOAOD
 /MuonEG/Run2018D-14Sep2018_ver2-v1/NANOAOD
+

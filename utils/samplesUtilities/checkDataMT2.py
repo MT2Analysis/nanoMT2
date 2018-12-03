@@ -32,6 +32,8 @@ if __name__ == "__main__":
   options = getOptions()
 
   PDs = ['SinglePhoton', 'DoublePhoton', 'JetHT', 'HTMHT', 'MET', 'SingleElectron', 'SingleMuon', 'DoubleEG', 'DoubleMuon', 'MuonEG']
+  if '2018' in options.campaign: 
+    PDs = ['EGamma', 'JetHT', 'MET', 'SingleMuon', 'DoubleMuon', 'MuonEG']
   #PDs = ['MET']
 
   for PD in PDs:
