@@ -334,7 +334,7 @@ class mt2VarsProducer(Module):
     clean_recoleptons =   selected_recoleptons
     clean_recoelectrons = selected_recoelectrons
     clean_recomuons =     selected_recomuons
-    clean_recoleptons_CR = [x for x in clean_recoleptons if (abs(x.pdgId)==13 or (abs(x.pdgId)==11 and el.cutBasedNoIso>1))]
+    clean_recoleptons_CR = [x for x in clean_recoleptons if (abs(x.pdgId)==13 or (abs(x.pdgId)==11 and x.cutBasedNoIso>1))]
     clean_pfleptons =    [x for x in selected_pfleptons if x.isToRemove == False]
     clean_pfhadrons =    selected_pfhadrons
     clean_leptons =      clean_pfleptons + clean_recoleptons
