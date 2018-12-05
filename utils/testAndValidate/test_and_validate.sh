@@ -1,5 +1,5 @@
-PL="2017_V02_V03"
-OLD_PL="2017_V01_V01"
+PL="2017_V03_V00"
+OLD_PL="2017_V02_V13"
 MC=true # or false if data
 YEAR=2017
 
@@ -27,7 +27,7 @@ else
 
 fi
 
-cd -
+cd ../testAndValidate
 
 echo ""
 echo "Validation plots created"
