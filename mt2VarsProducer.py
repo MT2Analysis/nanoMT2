@@ -317,6 +317,7 @@ class mt2VarsProducer(Module):
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
     baseline_jets_noId.sort(key=lambda jet: jet.pt, reverse = True)
     selected_recoleptons = selected_recomuons + selected_recoelectrons
+    selected_recoleptons.sort(key=lambda lep: lep.pt, reverse = True)
     selected_isoTracks_SnTCompatible.sort(key=lambda it: it.pt, reverse = True)
 
     # ##################################################
