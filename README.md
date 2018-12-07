@@ -74,6 +74,10 @@ Production Label: brief description : git commit hash (can be searched)
 2016_V02_V11: same as previous, but for MC               	bda05f7e2989742b5d74e813770e150bea0bd69b
 2017_V02_V12: same as above, data 2017			 	bda05f7e2989742b5d74e813770e150bea0bd69b
 2017_V02_V13: same as above, mc 2017				bda05f7e2989742b5d74e813770e150bea0bd69b
+2017_V03_V10: fixed pt ordering, MC 2017 			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
+2017_V03_V11: same as above, but for data			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
+2016_V03_V12: same as above, but for MC 2016			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
+2016_V03_V13: samoe as above, but for data 2016			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
 ```
 
 
