@@ -1,4 +1,4 @@
-# groupMerger.py - Maria Giulia Ratti, ETH Zurich
+## groupMerger.py - Maria Giulia Ratti, ETH Zurich
 
 # Class to handle merging of crab nanoAODs for a group of samples
 
@@ -85,8 +85,11 @@ class GroupMerger(object):
   def configOutput(self):
     # check output path exists , if not create one
     if not os.path.isdir(self.outputPath):
-      print 'Creating outputpath'
-      ret = os.mkdir(self.outputPath) # None if everything goes smoothly
+      print 'Creating outputpath {}'.format(self.outputPath)
+      #ret = os.mkdir(self.outputPath) # None if everything goes smoothly
+      mkdir_command = 'xrdfs t3dcachedb03.psi.ch mkdir {}'.format(self.outputPath)
+      ret = subprocess.call(mkdir_command, shell=True)
+      # if it's already there the command will fail... but in the end I do not care 
       return ret
 
   def clean(self):
@@ -108,7 +111,7 @@ class GroupMerger(object):
       print 'Start merging for sample', sample
       fullSamplePath = '%s/%s/' %(self.inputPath, sample)
       mergedFileName=mergeMember(fullSamplePath=fullSamplePath)
-      print 'DEBUG', mergedFileName
+      #print 'DEBUG', mergedFileName
       if 'mt2' in mergedFileName: # further protection against problems in mergeMember, should not be needed, but here we are
         print 'Sample successfully merged, tmp path is ', mergedFileName
         self.groupMembersMerged.append(mergedFileName)
@@ -121,9 +124,13 @@ class GroupMerger(object):
       # now copy the merged file
       if self.doMC: # if it's MC, use only the PD name - not the campaign please
         outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '.root'
+        if 'ext' in self.groupMembers[i]: 
+          outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '_ext' + self.groupMembers[i].split('/')[1].split('ext')[1] + '.root'
       else: # if it's data, also call based on the period
         outp = self.outputPath + '/' + self.groupMembers[i].split('/')[0] + '_' + self.groupMembers[i].split('/')[1] + '.root'
-      cp_command = 'cp {inp} {outp}'.format(inp=mergedFileName, outp=outp)
+      outp = 'root://t3dcachedb.psi.ch:1094/' + outp # prepend the address of the storage element
+      
+      cp_command = 'xrdcp -f -d 1 {inp} {outp}'.format(inp=mergedFileName, outp=outp)
       print 'Going to copy sample ', sample, 'to output ', outp
       ret = subprocess.call(cp_command, shell=True)
       if ret!=0:

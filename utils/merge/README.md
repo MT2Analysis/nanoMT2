@@ -30,21 +30,21 @@ voms-proxy-init --voms cms
 ```
 
 ### Run-time
-#### Testing
+#### Full production (run on batch
+```
+python submit_merge.py -p ${PL} -v ${ML} -y 2016 --doMC  # or omit --doMC 
+```
+#### Testing (run interactively)
 ```
 python merge.py -p TEST14 -v ${ML} -g Wlv -y 2017 --doMC
 python merge.py -p TEST14 -v ${ML} -g data -y 2017
 ```
-
-#### Full production
-Data and MC all together:
+##### Some examples (run interactively)
+Data:
 ```
 python merge.py -p ${PL} -v ${ML} -g data -y 2017
-python merge.py -p ${PL} -v ${ML} -g all -y 2017 --doMC
 ```
-
-##### Some recent examples
-Data:
+or, separately:
 ```
 python merge.py -p ${PL} -v ${ML} -y 2017 -g MET
 python merge.py -p ${PL} -v ${ML} -y 2017 -g JetHT
@@ -59,6 +59,12 @@ python merge.py -p ${PL} -v ${ML} -y 2017 -g SinglePhoton
 ```
 
 MC:
+
+```
+python merge.py -p ${PL} -v ${ML} -g all -y 2017 --doMC
+```
+or, separately,
+
 ```
 python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Zvv
 python merge.py -p ${PL} -v ${ML} -y 2017 --doMC -g Wlv
