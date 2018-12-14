@@ -214,7 +214,7 @@ class mt2VarsProducer(Module):
 
     for electron in electrons:
       electron.mtw = mtw(electron.pt, electron.phi, met.pt, met.phi)
-      electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
+      if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
@@ -372,7 +372,6 @@ class mt2VarsProducer(Module):
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
     clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
-    # NOTE: this you will have to change it yourself when the recommendation change / depending on the year
     jets_HEMfail =          [jet for jet in jets if jet.eta > -3 and jet.eta < -1.4 and jet.phi > -1.57 and jet.phi < -0.87]
 
     objects_std =            clean_jets30 + clean_leptons
