@@ -41,7 +41,7 @@ cd utils/testAndValidate/
 ```
 Edit testAndValidate.sh according to the production label, new and old, to test against, then:
 ```
-source testAndValidate.sh
+source test_and_validate.sh
 ```
 
 #### Grid: launch production
@@ -78,6 +78,7 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V03_V11: same as above, but for data			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
 2016_V03_V12: same as above, but for MC 2016			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
 2016_V03_V13: samoe as above, but for data 2016			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
+2018_V03_V14: same as above, but for data 2018                  62f9802e4e0a74adf85dbf87bcafe9a62f152ab7
 ```
 
 
