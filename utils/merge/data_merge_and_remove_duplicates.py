@@ -30,10 +30,11 @@ if __name__ == "__main__":
   elif options.year==2016:
     periods = ['B', 'C', 'D', 'E', 'F', 'G', 'H']
   elif options.year==2018:
-    pass
+    periods = ['A', 'B', 'C', 'D']
 
   pds = ['HTMHT', 'JetHT', 'MET', 'DoubleEG', 'DoubleMuon', 'MuonEG', 'SingleElectron', 'SingleMuon', 'SinglePhoton'] #'DoublePhoton' ]
-
+  if options.year==2018:
+    pds = ['MET', 'JetHT', 'SingleMuon', 'MuonEG', 'DoubleMuon', 'EGamma']
 
 
   print 'Running merging and duplicates removal'

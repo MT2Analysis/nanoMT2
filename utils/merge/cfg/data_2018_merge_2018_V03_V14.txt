@@ -1,0 +1,98 @@
+/EGamma/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/EGamma/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/EGamma/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/EGamma/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/EGamma/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/EGamma/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/EGamma/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/EGamma/Run2018C-14Sep2018_ver3-v1/NANOAOD
+/EGamma/Run2018D-14Sep2018_ver2-v1/NANOAOD
+/JetHT/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/JetHT/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/JetHT/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/JetHT/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/JetHT/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/JetHT/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/JetHT/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/JetHT/Run2018C-14Sep2018_ver3-v1/NANOAOD
+/JetHT/Run2018D-14Sep2018_ver2-v1/NANOAOD
+/MET/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/MET/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/MET/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/MET/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/MET/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/MET/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/MET/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/MET/Run2018C-14Sep2018_ver3-v1/NANOAOD
+/MET/Run2018D-14Sep2018_ver2-v1/NANOAOD
+/SingleMuon/Run2018A-14Sep2018_06Jun2018-v1/NANOAOD
+/SingleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/SingleMuon/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/SingleMuon/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/SingleMuon/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/SingleMuon/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/SingleMuon/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/SingleMuon/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/SingleMuon/Run2018C-14Sep2018_ver3-v1/NANOAOD
+/SingleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/DoubleMuon/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/DoubleMuon/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/DoubleMuon/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/DoubleMuon/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2018C-14Sep2018_ver3-v1/NANOAOD
+/DoubleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
+/MuonEG/Run2018A-14Sep2018_ver1-v1/NANOAOD
+/MuonEG/Run2018A-14Sep2018_ver2-v1/NANOAOD
+/MuonEG/Run2018A-14Sep2018_ver3-v1/NANOAOD
+/MuonEG/Run2018B-14Sep2018_ver1-v1/NANOAOD
+/MuonEG/Run2018B-14Sep2018_ver2-v1/NANOAOD
+/MuonEG/Run2018C-14Sep2018_ver1-v1/NANOAOD
+/MuonEG/Run2018C-14Sep2018_ver2-v1/NANOAOD
+/MuonEG/Run2018C-14Sep2018_ver3-v1/NANOAOD
+###/MuonEG/Run2018D-14Sep2018_ver2-v1/NANOAOD
+# This list was generated on  Thu, 13 Dec 2018 18:33:50 +0000
+
+
+###   dasgoclient --query="dataset=/EGamma/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = EGamma  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/JetHT/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = JetHT  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/MET/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = MET  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/SingleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = SingleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/DoubleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = DoubleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/MuonEG/Run2018*14Sep2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = MuonEG  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
+# ****
+
