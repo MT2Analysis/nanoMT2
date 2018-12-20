@@ -56,13 +56,14 @@ config.Data.inputDataset = exampleSample
 config.Data.inputDBS = 'global' # should be changed only in case you are running over privately produced samples
 config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'#'EventAwareLumiBased' 'LumiBased'
 config.Data.unitsPerJob = 5 if options.doMC else 1000000 # 1000000 1000 # 1M events per job, 115 M in period B of MET pd
-#config.Data.splitting = 'EventAwareLumiBased'
 # The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/PD/campaign/timestamp/counter/mt2_bla.root
 config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code
 config.Data.outputDatasetTag = exampleSample.split('/')[2]  #  campaign
 config.Data.publication = True
 config.Data.allowNonValidInputDataset = True
 config.Site.storageSite = 'T3_CH_PSI' # T3_CH_PSI # T2_CH_CSCS
+#config.Site.whitelist = ['T3_CH_PSI', 'T2_CH_CSCS']
+#config.Data.ignoreLocality = True # otherwise won't use AAA
 
 if not options.doMC and not options.doSkipJSON:
   config.Data.lumiMask = jsonFile
@@ -85,5 +86,24 @@ for dataset in datasets :
   config.Data.outputDatasetTag = dataset.split('/')[2] # campaign
 
   config.Data.inputDataset = dataset
+
+  if 'USER' in dataset:
+    import re
+    config.Data.inputDBS = 'phys03'
+    config.General.requestName = re.sub(r'(.*)-[^.]*', '\\1', config.General.requestName)
+    config.Data.outputDatasetTag = re.sub(r'(.*)-[^.]*', '\\1', config.Data.outputDatasetTag)
+
+  if dataset=='/MuonEG/Run2018D-14Sep2018_ver2-v1/NANOAOD':
+    print 'have you switched off the GRL for this sample? if not, do it otherwise the job will fail'
+    config.Data.splitting = 'FileBased'
+    config.Data.unitsPerJob = 1
+    config.Data.runRange = ''
+    config.Data.lumiMask  = ''
+    config.Data.splitting = 'EventAwareLumiBased'
+
+  print 'Going to submit job with following parameters: '
+  print 'outputdatasettag = ', config.Data.outputDatasetTag
+  print 'requestname = ', config.General.requestName
+  print 'inputdataset = ', config.Data.inputDataset 
 
   crabCommand('submit', config = config)
