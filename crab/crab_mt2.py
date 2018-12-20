@@ -99,7 +99,6 @@ for dataset in datasets :
     config.Data.unitsPerJob = 1
     config.Data.runRange = ''
     config.Data.lumiMask  = ''
-    config.Data.splitting = 'EventAwareLumiBased'
 
   print 'Going to submit job with following parameters: '
   print 'outputdatasettag = ', config.Data.outputDatasetTag
