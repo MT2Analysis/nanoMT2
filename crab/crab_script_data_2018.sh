@@ -27,4 +27,5 @@ echo Found Proxy in: $X509_USER_PROXY
 
 #echo Using arguments $1 $2
 python postproc.py --year 2018 --doSkim 
+#python postproc.py --year 2018 --doSkim --doSkipJSON
 fi
