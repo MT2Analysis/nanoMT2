@@ -78,13 +78,15 @@ class mt2VarsProducer(Module):
     # possible year-dependent configurations
     if self.year == 2016:
       self.eleIdTune = 'Summer16'
-      self.cut_btagWP =  0.8484 # medium WP for 80X
+      #self.cut_btagWP =  0.8484 # medium WP for 80X csvv2
+      self.cut_btagWP = 0.6324 # medium WP for 80X deepcsv
     elif self.year == 2017: 
       self.eleIdTune = 'Fall17'
-      self.cut_btagWP =  0.8838 # medium WP for 94X
+      #self.cut_btagWP =  0.8838 # medium WP for 94X csvv2
+      self.cut_btagWP =  0.4941 # medium WP for 94X deepcsv
     elif self.year == 2018:
       self.eleIdTune = 'Fall17'
-      self.cut_btagWP =  0.8838 # FIXME
+      self.cut_btagWP = 0.4941  # FIXME 
 
 
   def beginJob(self):
@@ -159,6 +161,7 @@ class mt2VarsProducer(Module):
     self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "nJet")
     self.out.branch("jet_mcFlavour{}".format(self.systSuffix), "I", 1, "nJet")
     self.out.branch("jet_btagCSV{}".format(self.systSuffix), "F", 1, "nJet")
+    self.out.branch("jet_btagDeepCSV{}".format(self.systSuffix), "F", 1, "nJet")
 
     self.out.branch("zll_pt{}".format(self.systSuffix), "F")
     self.out.branch("zll_eta{}".format(self.systSuffix), "F")
@@ -371,7 +374,8 @@ class mt2VarsProducer(Module):
     clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
-    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
+    #clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagDeepB > self.cut_btagWP] # Medium WP deep csv
     jets_HEMfail =          [jet for jet in jets if jet.eta > -3 and jet.eta < -1.4 and jet.phi > -1.57 and jet.phi < -0.87]
 
     objects_std =            clean_jets30 + clean_leptons
@@ -539,6 +543,7 @@ class mt2VarsProducer(Module):
     jet_id = [-99.]*len(clean_jets20_largeEta)
     jet_mcFlavour = [-99]*len(clean_jets20_largeEta)
     jet_btagCSV = [-99.]*len(clean_jets20_largeEta)
+    jet_btagDeepCSV = [-99.]*len(clean_jets20_largeEta)
 
     for i,ijet in enumerate(clean_jets20_largeEta):
       jet_pt[i] = ijet.pt
@@ -546,6 +551,7 @@ class mt2VarsProducer(Module):
       jet_eta[i] = ijet.eta
       jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
       jet_btagCSV[i] = ijet.btagCSVV2
+      jet_btagDeepCSV[i] = ijet.btagDeepB
       if self.isMC: 
         jet_mcFlavour[i] = ijet.hadronFlavour
 
@@ -650,6 +656,7 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("jet_id{}".format(self.systSuffix), jet_id)
       self.out.fillBranch("jet_mcFlavour{}".format(self.systSuffix), jet_mcFlavour)
       self.out.fillBranch("jet_btagCSV{}".format(self.systSuffix), jet_btagCSV)
+      self.out.fillBranch("jet_btagDeepCSV{}".format(self.systSuffix), jet_btagDeepCSV)
 
       self.out.fillBranch("zll_pt{}".format(self.systSuffix), zll_pt)
       self.out.fillBranch("zll_eta{}".format(self.systSuffix), zll_eta)
