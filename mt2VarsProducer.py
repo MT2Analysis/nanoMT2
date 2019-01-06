@@ -181,7 +181,10 @@ class mt2VarsProducer(Module):
     muons = Collection(event, "Muon")
     jets = Collection(event, "Jet")
     photons = Collection(event, "Photon")
-    met = Object(event, "MET")
+    if self.year==2017:
+      met = Object(event, "METFixEE2017")
+    else:
+      met = Object(event, "MET")
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
 
