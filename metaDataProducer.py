@@ -21,6 +21,7 @@ def idData(name):
   elif 'SinglePhoton' in name: return 7
   elif 'SingleMuon' in name: return 8
   elif 'SingleElectron' in name: return 9
+  elif 'EGamma' in name: return 10
   elif 'test' in name: return -1
   else:
     print 'ERROR, no id found for this dataset'
