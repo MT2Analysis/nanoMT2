@@ -213,7 +213,7 @@ class mt2VarsProducer(Module):
     baseline_jets = []
     baseline_jets_noId = []
 
-    selected_isoTracks_SnTCompatible = [] # should include 
+    selected_isoTracks_SnTCompatible = [] 
 
     for electron in electrons:
       electron.mtw = mtw(electron.pt, electron.phi, met.pt, met.phi)
@@ -243,10 +243,11 @@ class mt2VarsProducer(Module):
     for electron in electrons:
       if electron.pt < 5: continue
       if electron.isPFcand == False: continue # passa la pf id
-      #if electron.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      #if electron.isFromLostTrack: continue 
+      #if electron.fromPV <= 1: continue 
       if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
-      if abs(electron.dz)>0.1: continue
+      if abs(electron.dxy) > 0.2: continue
+      if abs(electron.dz) > 0.1: continue
       selected_isoTracks_SnTCompatible.append(electron)
       if electron.mtw>100: continue
       if electron.pfRelIso03_chg > 0.2: continue
@@ -272,10 +273,11 @@ class mt2VarsProducer(Module):
     for muon in muons:
       if muon.pt < 5: continue
       if muon.isPFcand == False: continue # passa la pf id
-      #if muon.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      #if muon.isFromLostTrack: continue
+      #if muon.fromPV <= 1: continue 
       if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
-      if abs(muon.dz)>0.1: continue
+      if abs(muon.dxy) > 0.2: continue
+      if abs(muon.dz) > 0.1: continue
       selected_isoTracks_SnTCompatible.append(muon)
       if muon.mtw>100: continue
       if muon.pfRelIso03_chg > 0.2: continue
@@ -287,9 +289,10 @@ class mt2VarsProducer(Module):
       it.mass = 0.
       it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
       if not it.isPFcand: continue # consider only pfcandidates
-      #if it.isFromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
-      if abs(it.dz)>0.1: continue
+      if it.isFromLostTrack: continue 
+      if it.isFromPV <= 1: continue 
+      if abs(it.dxy) > 0.2: continue
+      if abs(it.dz) > 0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
         if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
@@ -299,7 +302,8 @@ class mt2VarsProducer(Module):
         it.isToRemove = False
         selected_pfleptons.append(it)
       elif abs(it.pdgId) == 211:
-        if it.pt<5: continue
+        if it.pt<5: continue # this is actually not effective, since in the nanoAOD only pion tracks with pt>10 GeV are stored
+        if abs(it.eta) > 2.4: continue # this is already applied at nanoAOD level, but restated here
         if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
