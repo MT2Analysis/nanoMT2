@@ -97,6 +97,8 @@ class mt2VarsProducer(Module):
     self.verbose = False
     self.out = wrappedOutputTree
 
+    self.out.branch("lumi", "I")
+    self.out.branch("evt", "L")
     self.out.branch("nJet20{}".format(self.systSuffix), "I")
     self.out.branch("nJet30{}".format(self.systSuffix), "I")
     self.out.branch("nJet30FailId{}".format(self.systSuffix), "I")
@@ -217,7 +219,7 @@ class mt2VarsProducer(Module):
 
     for electron in electrons:
       electron.mtw = mtw(electron.pt, electron.phi, met.pt, met.phi)
-      if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
+      if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics 
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
@@ -588,6 +590,8 @@ class mt2VarsProducer(Module):
     # Fill the tree if needed
     ###################################################
     if(passSkim or not doSkim):
+      self.out.fillBranch("lumi", event.luminosityBlock)
+      self.out.fillBranch("evt", event.event)
       self.out.fillBranch("nJet20{}".format(self.systSuffix), nJet20)
       self.out.fillBranch("nJet30{}".format(self.systSuffix), nJet30)
       self.out.fillBranch("nJet30FailId{}".format(self.systSuffix), nJet30FailId)
