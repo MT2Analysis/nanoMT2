@@ -10,8 +10,6 @@
 # TODO: please put most numerical values in a config file
 # TODO: add some truth information
 
-# FIXME: add dxy cut, |eta|<2.4 on isotracks and other selections for isotracks
-
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
@@ -21,6 +19,7 @@ import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
 
 import electronIdUtils as eleUtils
+import jetIdUtils as jetUtils
 
 def stampP(obj):
   print 'pt={:>8} eta={:>8} phi={:>8}'.format(obj.pt, obj.eta, obj.phi)
@@ -43,9 +42,6 @@ def closest(obj,collection):
 def mtw(x1_pt, x1_phi, x2_pt, x2_phi):
   import math
   return math.sqrt(2*x1_pt*x2_pt*(1-math.cos(x1_phi-x2_phi)))
-
-def getBitDecision(x, n): # x is an integer
-  return (x & 2**n) != 0
 
 def getDeltaPhiMin(objects, met4vec):
     if len(objects) == 0: return -99
@@ -77,15 +73,22 @@ class mt2VarsProducer(Module):
 
     # possible year-dependent configurations
     if self.year == 2016:
-      self.eleIdTune = 'Summer16'
-      self.cut_btagWP =  0.8484 # medium WP for 80X
+      self.eleIdTune = 'Spring15'
+      self.eleVIDMapName = 'vidNestedWPBitmapSpring15'
+      #self.cut_btagWP =  0.8484 # medium WP for 80X csvv2
+      self.cut_btagWP = 0.6324 # medium WP for 80X deepcsv
+      self.jetIdCustomLevel = 1 # loose
     elif self.year == 2017: 
-      self.eleIdTune = 'Fall17'
-      self.cut_btagWP =  0.8838 # medium WP for 94X
+      self.eleIdTune = 'Fall17V2'
+      self.eleVIDMapName = 'vidNestedWPBitmap'
+      #self.cut_btagWP =  0.8838 # medium WP for 94X csvv2
+      self.cut_btagWP =  0.4941 # medium WP for 94X deepcsv
+      self.jetIdCustomLevel = 3 # tight
     elif self.year == 2018:
-      self.eleIdTune = 'Fall17'
-      self.cut_btagWP =  0.8838 # FIXME
-
+      self.eleIdTune = 'Fall17V2'
+      self.eleVIDMapName = 'vidNestedWPBitmap'
+      self.cut_btagWP = 0.4941  # FIXME 
+      self.jetIdCustomLevel = 3 # tight
 
   def beginJob(self):
     pass
@@ -95,6 +98,8 @@ class mt2VarsProducer(Module):
     self.verbose = False
     self.out = wrappedOutputTree
 
+    self.out.branch("lumi", "I")
+    self.out.branch("evt", "L")
     self.out.branch("nJet20{}".format(self.systSuffix), "I")
     self.out.branch("nJet30{}".format(self.systSuffix), "I")
     self.out.branch("nJet30FailId{}".format(self.systSuffix), "I")
@@ -159,6 +164,7 @@ class mt2VarsProducer(Module):
     self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "nJet")
     self.out.branch("jet_mcFlavour{}".format(self.systSuffix), "I", 1, "nJet")
     self.out.branch("jet_btagCSV{}".format(self.systSuffix), "F", 1, "nJet")
+    self.out.branch("jet_btagDeepCSV{}".format(self.systSuffix), "F", 1, "nJet")
 
     self.out.branch("zll_pt{}".format(self.systSuffix), "F")
     self.out.branch("zll_eta{}".format(self.systSuffix), "F")
@@ -176,7 +182,10 @@ class mt2VarsProducer(Module):
     muons = Collection(event, "Muon")
     jets = Collection(event, "Jet")
     photons = Collection(event, "Photon")
-    met = Object(event, "MET")
+    if self.year==2017:
+      met = Object(event, "METFixEE2017")
+    else:
+      met = Object(event, "MET")
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
 
@@ -210,14 +219,15 @@ class mt2VarsProducer(Module):
     baseline_jets = []
     baseline_jets_noId = []
 
-    selected_isoTracks_SnTCompatible = [] # should include 
+    selected_isoTracks_SnTCompatible = [] 
 
     for electron in electrons:
       electron.mtw = mtw(electron.pt, electron.phi, met.pt, met.phi)
-      if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics (?)
+      if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics 
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
+      #electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=getattr(electron, eleVIDMapName), tune=self.eleIdTune)
       if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id, so need to be applied below
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
@@ -239,11 +249,13 @@ class mt2VarsProducer(Module):
     # loop to look for the low pt pf candidates
     for electron in electrons:
       if electron.pt < 5: continue
+      if abs(electron.eta)>2.4: continue
       if electron.isPFcand == False: continue # passa la pf id
-      #if electron.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      #if electron.isFromLostTrack: continue 
+      #if electron.fromPV <= 1: continue 
       if electron.pfRelIso03_chg*electron.pt > min(0.2*electron.pt,8): continue
-      if abs(electron.dz)>0.1: continue
+      if abs(electron.dxy) > 0.2: continue
+      if abs(electron.dz) > 0.1: continue
       selected_isoTracks_SnTCompatible.append(electron)
       if electron.mtw>100: continue
       if electron.pfRelIso03_chg > 0.2: continue
@@ -268,11 +280,13 @@ class mt2VarsProducer(Module):
     # loop again to recover low pt PFcandidates
     for muon in muons:
       if muon.pt < 5: continue
+      if abs(muon.eta)>2.4: continue
       if muon.isPFcand == False: continue # passa la pf id
-      #if muon.fromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
+      #if muon.isFromLostTrack: continue
+      #if muon.fromPV <= 1: continue 
       if muon.pfRelIso03_chg*muon.pt > min(0.2*muon.pt,8): continue
-      if abs(muon.dz)>0.1: continue
+      if abs(muon.dxy) > 0.2: continue
+      if abs(muon.dz) > 0.1: continue
       selected_isoTracks_SnTCompatible.append(muon)
       if muon.mtw>100: continue
       if muon.pfRelIso03_chg > 0.2: continue
@@ -283,10 +297,12 @@ class mt2VarsProducer(Module):
     for it in isotracks:
       it.mass = 0.
       it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
+      if abs(it.eta) > 2.4: continue 
       if not it.isPFcand: continue # consider only pfcandidates
-      #if it.isFromPV <= 1: continue # FIXME: to be uncommented when branch is available
-      #if it.isFromLostTrack: continue # FIXME: to be uncommented when branch is available
-      if abs(it.dz)>0.1: continue
+      if it.isFromLostTrack: continue 
+      if it.isFromPV <= 1: continue 
+      if abs(it.dxy) > 0.2: continue
+      if abs(it.dz) > 0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
         if it.pt<5: continue
         if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
@@ -296,7 +312,7 @@ class mt2VarsProducer(Module):
         it.isToRemove = False
         selected_pfleptons.append(it)
       elif abs(it.pdgId) == 211:
-        if it.pt<5: continue
+        if it.pt<5: continue # this is actually not effective, since in the nanoAOD only pion tracks with pt>10 GeV are stored
         if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
@@ -307,11 +323,13 @@ class mt2VarsProducer(Module):
 
     for jet in jets:
       jet.isToRemove = False
-      if self.verbose:  print 'jet id tight ', getBitDecision(jet.jetId, 2)
+      # define a customId coherently with previous analysis 
+      jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmE, jet.eta)
+      if self.verbose:  print 'jet custom id level ', jet.customId
       if jet.pt<20: continue
       if abs(jet.eta)>4.7: continue # large eta cut
       baseline_jets_noId.append(jet)
-      if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
+      if jet.customId < self.jetIdCustomLevel: continue # #
       baseline_jets.append(jet)
 
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
@@ -368,10 +386,11 @@ class mt2VarsProducer(Module):
     clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False]
     clean_jets30_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30]
     clean_jets40_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 40]
-    clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
+    clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and jet.customId < self.jetIdCustomLevel]
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
-    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
+    #clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
+    clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagDeepB > self.cut_btagWP] # Medium WP deep csv
     jets_HEMfail =          [jet for jet in jets if jet.eta > -3 and jet.eta < -1.4 and jet.phi > -1.57 and jet.phi < -0.87]
 
     objects_std =            clean_jets30 + clean_leptons
@@ -539,13 +558,15 @@ class mt2VarsProducer(Module):
     jet_id = [-99.]*len(clean_jets20_largeEta)
     jet_mcFlavour = [-99]*len(clean_jets20_largeEta)
     jet_btagCSV = [-99.]*len(clean_jets20_largeEta)
+    jet_btagDeepCSV = [-99.]*len(clean_jets20_largeEta)
 
     for i,ijet in enumerate(clean_jets20_largeEta):
       jet_pt[i] = ijet.pt
       jet_phi[i] = ijet.phi
       jet_eta[i] = ijet.eta
-      jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
+      jet_id[i] = ijet.customId 
       jet_btagCSV[i] = ijet.btagCSVV2
+      jet_btagDeepCSV[i] = ijet.btagDeepB
       if self.isMC: 
         jet_mcFlavour[i] = ijet.hadronFlavour
 
@@ -578,6 +599,8 @@ class mt2VarsProducer(Module):
     # Fill the tree if needed
     ###################################################
     if(passSkim or not doSkim):
+      self.out.fillBranch("lumi", event.luminosityBlock)
+      self.out.fillBranch("evt", event.event)
       self.out.fillBranch("nJet20{}".format(self.systSuffix), nJet20)
       self.out.fillBranch("nJet30{}".format(self.systSuffix), nJet30)
       self.out.fillBranch("nJet30FailId{}".format(self.systSuffix), nJet30FailId)
@@ -650,6 +673,7 @@ class mt2VarsProducer(Module):
       self.out.fillBranch("jet_id{}".format(self.systSuffix), jet_id)
       self.out.fillBranch("jet_mcFlavour{}".format(self.systSuffix), jet_mcFlavour)
       self.out.fillBranch("jet_btagCSV{}".format(self.systSuffix), jet_btagCSV)
+      self.out.fillBranch("jet_btagDeepCSV{}".format(self.systSuffix), jet_btagDeepCSV)
 
       self.out.fillBranch("zll_pt{}".format(self.systSuffix), zll_pt)
       self.out.fillBranch("zll_eta{}".format(self.systSuffix), zll_eta)

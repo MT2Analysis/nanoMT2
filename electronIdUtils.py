@@ -6,6 +6,18 @@
 def getCuts():
 
   cut_names = {}
+  cut_names['Fall17V2']={
+    0: 'MinPtCut',
+    1: 'GsfEleSCEtaMultiRangeCut',
+    2: 'GsfEleDEtaInSeedCut',
+    3: 'GsfEleDPhiInCut',
+    4: 'GsfEleFull5x5SigmaIEtaIEtaCut',
+    5: 'GsfEleHadronicOverEMEnergyScaledCut',
+    6: 'GsfEleEInverseMinusPInverseCut',
+    7: 'GsfEleRelPFIsoScaledCut',
+    8: 'GsfEleConversionVetoCut',
+    9: 'GsfEleMissingHitsCut',
+  }
   cut_names['Fall17']={
     0: 'MinPtCut',
     1: 'GsfEleSCEtaMultiRangeCut',
@@ -19,7 +31,18 @@ def getCuts():
     9: 'GsfEleMissingHitsCut',
   }
   cut_names['Spring15']={
-  #FIXME
+    0: 'MinPtCut',
+    1: 'GsfEleSCEtaMultiRangeCut',
+    2: 'GsfEleDEtaInCut',
+    3: 'GsfEleDPhiInCut',
+    4: 'GsfEleFull5x5SigmaIEtaIEtaCut',
+    5: 'GsfEleHadronicOverEMCut',
+    6: 'GsfEleDxyCut',
+    7: 'GsfEleDzCut',
+    8: 'GsfEleEInverseMinusPInverseCut',
+    9: 'GsfEleEffAreaPFIsoCut',
+   10: 'GsfEleConversionVetoCut',
+   11: 'GsfEleMissingHitsCut',
   }
   cut_names['Summer16']={
     0: 'MinPtCut',
@@ -43,12 +66,14 @@ def getNbitFromBitMap(bitmap, n, base):
 
 def getIdLevelNoIso(bitmap, tune='Fall17', verbose=False):
 
-  if tune=='Fall17' or tune == 'Summer16':
+  if tune=='Fall17' or tune == 'Summer16' or tune == 'Fall17V2':
     nbits=10 # number of bits to determine wp in tune
     ibit_isocut=7 # position of bit corrsponding to the isocut, counting from 0 to 9
     base=3 # number of bits per cut used
   elif tune== 'Spring15':
-    pass # FIXME
+    nbins=12
+    ibit_isocut=9
+    base=2
   else: raise RunTimeError('Tune not supported')
 
   results_to_use = []

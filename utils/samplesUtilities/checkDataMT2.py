@@ -6,15 +6,16 @@ def getOptions():
 
   allowed_formats = ['MINIAOD', 'NANOAOD']
   allowed_status = ['*', 'VALID', 'PRODUCTION', 'INVALID']
-  allowed_campaigns = ['Run2017*31Mar2018*', 'Run2016*22Aug2018*', 'Run2018*14Sep2018*', 'Run2018*17Sep2018*', 'Run2018*PromptReco*' ]
+  allowed_campaigns = ['Run2017*31Mar2018*', 'Run2016*22Aug2018*', 'Run2018*14Sep2018*', 'Run2018*17Sep2018*', 'Run2016*Nano14Dec2018*', 'Run2017*Nano14Dec2018*' ]
 
   #   Brief explanations of the campaigns here please !
   #  'Run2017*31Mar2018*' 		     # 2017 94X re-reco 
   #  'Run2016*22Aug2018*' 		     # 2016 94X legacy
   #  'Run2018*14Sep2018*'	             # 2018 101X(?) prompt-reco -> this will not be used for legacy results -> recipe for combination ->
-  
   #  'Run2018*17Sep2018*' # ONLY FOR MINI    # 2018 102X    re-reco  
   #  'Run2018*PromptReco*' # only for MINI   # 2018 prompt-reco 
+  #  'Run2016*Nano14Dec2018*'                # 2016 102X    final
+  #  'Run2017*Nano14Dec2018*'		     # 2017 102X    final
 
   # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Centrally_produced_samples
   # https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD
