@@ -182,10 +182,12 @@ class mt2VarsProducer(Module):
     muons = Collection(event, "Muon")
     jets = Collection(event, "Jet")
     photons = Collection(event, "Photon")
-    if self.year==2017:
-      met = Object(event, "METFixEE2017")
-    else:
-      met = Object(event, "MET")
+#    if self.year==2017:
+#      met = Object(event, "METFixEE2017")
+#      print 'my met = ' , getattr(event, 'METFixEE2017_pt'),  event.METFixEE2017_pt
+#    else:
+    met = Object(event, "MET")
+    if self.verbose: print 'MET is:', met.pt, met.phi
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
 
@@ -227,7 +229,8 @@ class mt2VarsProducer(Module):
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
       #electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
-      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=getattr(electron, eleVIDMapName), tune=self.eleIdTune)
+      if self.verbose: print 'eleVIDmap=', getattr(electron, self.eleVIDMapName)
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=getattr(electron, self.eleVIDMapName), tune=self.eleIdTune)
       if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id, so need to be applied below
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
@@ -300,7 +303,7 @@ class mt2VarsProducer(Module):
       if abs(it.eta) > 2.4: continue 
       if not it.isPFcand: continue # consider only pfcandidates
       if it.isFromLostTrack: continue 
-      if it.isFromPV <= 1: continue 
+      if it.fromPV <= 1: continue 
       if abs(it.dxy) > 0.2: continue
       if abs(it.dz) > 0.1: continue
       if abs(it.pdgId) == 11 or abs(it.pdgId) == 13: # muon or electron PFcandidates
@@ -324,7 +327,7 @@ class mt2VarsProducer(Module):
     for jet in jets:
       jet.isToRemove = False
       # define a customId coherently with previous analysis 
-      jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmE, jet.eta)
+      jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmEF, jetEta=jet.eta)
       if self.verbose:  print 'jet custom id level ', jet.customId
       if jet.pt<20: continue
       if abs(jet.eta)>4.7: continue # large eta cut
