@@ -19,6 +19,7 @@ import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
 
 import electronIdUtils as eleUtils
+import jetIdUtils as jetUtils
 
 def stampP(obj):
   print 'pt={:>8} eta={:>8} phi={:>8}'.format(obj.pt, obj.eta, obj.phi)
@@ -41,9 +42,6 @@ def closest(obj,collection):
 def mtw(x1_pt, x1_phi, x2_pt, x2_phi):
   import math
   return math.sqrt(2*x1_pt*x2_pt*(1-math.cos(x1_phi-x2_phi)))
-
-def getBitDecision(x, n): # x is an integer
-  return (x & 2**n) != 0
 
 def getDeltaPhiMin(objects, met4vec):
     if len(objects) == 0: return -99
@@ -79,16 +77,18 @@ class mt2VarsProducer(Module):
       self.eleVIDMapName = 'vidNestedWPBitmapSpring15'
       #self.cut_btagWP =  0.8484 # medium WP for 80X csvv2
       self.cut_btagWP = 0.6324 # medium WP for 80X deepcsv
+      self.jetIdCustomLevel = 1 # loose
     elif self.year == 2017: 
       self.eleIdTune = 'Fall17V2'
       self.eleVIDMapName = 'vidNestedWPBitmap'
       #self.cut_btagWP =  0.8838 # medium WP for 94X csvv2
       self.cut_btagWP =  0.4941 # medium WP for 94X deepcsv
+      self.jetIdCustomLevel = 3 # tight
     elif self.year == 2018:
       self.eleIdTune = 'Fall17V2'
       self.eleVIDMapName = 'vidNestedWPBitmap'
       self.cut_btagWP = 0.4941  # FIXME 
-
+      self.jetIdCustomLevel = 3 # tight
 
   def beginJob(self):
     pass
@@ -323,11 +323,13 @@ class mt2VarsProducer(Module):
 
     for jet in jets:
       jet.isToRemove = False
-      if self.verbose:  print 'jet id tight ', getBitDecision(jet.jetId, 2)
+      # define a customId coherently with previous analysis 
+      jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmE, jet.eta)
+      if self.verbose:  print 'jet custom id level ', jet.customId
       if jet.pt<20: continue
       if abs(jet.eta)>4.7: continue # large eta cut
       baseline_jets_noId.append(jet)
-      if getBitDecision(jet.jetId, 2) == False: continue  #  bit1 is loose (always false in 2017 since it does not exist), bit2 is tight, bit3 is tightLepVeto"
+      if jet.customId < self.jetIdCustomLevel: continue # #
       baseline_jets.append(jet)
 
     baseline_jets.sort(key=lambda jet: jet.pt, reverse = True)
@@ -384,7 +386,7 @@ class mt2VarsProducer(Module):
     clean_jets20_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False]
     clean_jets30_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30]
     clean_jets40_largeEta = [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 40]
-    clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and getBitDecision(jet.jetId, 2) == False]
+    clean_jets30_largeEta_FailId =   [jet for jet in baseline_jets_noId if jet.isToRemove == False and jet.pt > 30 and jet.customId < self.jetIdCustomLevel]
     clean_jets20 =          [jet for jet in baseline_jets if jet.isToRemove == False and abs(jet.eta) < 2.4 ] #
     clean_jets30 =          [jet for jet in baseline_jets if jet.isToRemove == False and jet.pt > 30 and abs(jet.eta) < 2.4]
     #clean_bjets20 =         [jet for jet in clean_jets20 if jet.btagCSVV2 > self.cut_btagWP] # Medium WP 
@@ -562,7 +564,7 @@ class mt2VarsProducer(Module):
       jet_pt[i] = ijet.pt
       jet_phi[i] = ijet.phi
       jet_eta[i] = ijet.eta
-      jet_id[i] = ijet.jetId # keep same information as in the nanoAOD 0: loose, 2: tight, 6:tightlepveto   # int(getBitDecision(ijet.jetId, 2)) #getJetID(ijet)
+      jet_id[i] = ijet.customId 
       jet_btagCSV[i] = ijet.btagCSVV2
       jet_btagDeepCSV[i] = ijet.btagDeepB
       if self.isMC: 
