@@ -1,98 +1,31 @@
-/EGamma/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/EGamma/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/EGamma/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/EGamma/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/EGamma/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/EGamma/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/EGamma/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/EGamma/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/EGamma/Run2018D-14Sep2018_ver2-v1/NANOAOD
-/JetHT/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/JetHT/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/JetHT/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/JetHT/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/JetHT/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/JetHT/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/JetHT/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/JetHT/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/JetHT/Run2018D-14Sep2018_ver2-v1/NANOAOD
-/MET/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/MET/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/MET/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/MET/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/MET/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/MET/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/MET/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/MET/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/MET/Run2018D-14Sep2018_ver2-v1/NANOAOD
-/SingleMuon/Run2018A-14Sep2018_06Jun2018-v1/NANOAOD
-/SingleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/SingleMuon/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/SingleMuon/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/SingleMuon/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/SingleMuon/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/SingleMuon/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/SingleMuon/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/SingleMuon/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/SingleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
-/DoubleMuon/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/DoubleMuon/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/DoubleMuon/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/DoubleMuon/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/DoubleMuon/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/DoubleMuon/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/DoubleMuon/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/DoubleMuon/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/DoubleMuon/Run2018D-14Sep2018_ver2-v1/NANOAOD
-/MuonEG/Run2018A-14Sep2018_ver1-v1/NANOAOD
-/MuonEG/Run2018A-14Sep2018_ver2-v1/NANOAOD
-/MuonEG/Run2018A-14Sep2018_ver3-v1/NANOAOD
-/MuonEG/Run2018B-14Sep2018_ver1-v1/NANOAOD
-/MuonEG/Run2018B-14Sep2018_ver2-v1/NANOAOD
-/MuonEG/Run2018C-14Sep2018_ver1-v1/NANOAOD
-/MuonEG/Run2018C-14Sep2018_ver2-v1/NANOAOD
-/MuonEG/Run2018C-14Sep2018_ver3-v1/NANOAOD
-/MuonEG/Run2018D-14Sep2018_ver2-v1/NANOAOD
-# This list was generated on  Thu, 13 Dec 2018 18:33:50 +0000
+/SingleMuon/manzoni-Run2018A-from_17Sep2018_ver2-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/SingleMuon/manzoni-Run2018B-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/SingleMuon/manzoni-Run2018C-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/SingleMuon/manzoni-Run2018D-from_PromptReco_ver2-NanoAODv4Priv-8f87a7a44696406b0351f755f100b05c/USER
 
+/DoubleMuon/peruzzi-Run2018A-from_17Sep2018_ver2-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/DoubleMuon/peruzzi-Run2018B-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/DoubleMuon/peruzzi-Run2018C-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/DoubleMuon/peruzzi-Run2018D-from_PromptReco_ver2-NanoAODv4Priv-8f87a7a44696406b0351f755f100b05c/USER
 
-###   dasgoclient --query="dataset=/EGamma/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = EGamma  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
+/EGamma/peruzzi-Run2018A-from_17Sep2018_ver2-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/EGamma/peruzzi-Run2018B-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/EGamma/peruzzi-Run2018C-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/EGamma/peruzzi-Run2018D-from_PromptReco_ver2-NanoAODv4Priv-8f87a7a44696406b0351f755f100b05c/USER
 
+/MuonEG/peruzzi-Run2018A-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/MuonEG/peruzzi-Run2018B-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/MuonEG/peruzzi-Run2018C-from_17Sep2018_ver1-NanoAODv4Priv-0cddb9e2402d2a936e94a815e9296873/USER
+/MuonEG/peruzzi-Run2018D-from_PromptReco_ver2-NanoAODv4Priv-8f87a7a44696406b0351f755f100b05c/USER
 
+/MET/mratti-Run2018A-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/MET/mratti-Run2018B-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/MET/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/MET/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4RePriv-8f87a7a44696406b0351f755f100b05c/USER
 
-###   dasgoclient --query="dataset=/JetHT/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = JetHT  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
+/JetHT/mratti-Run2018A-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/JetHT/mratti-Run2018B-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/JetHT/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4RePriv-0cddb9e2402d2a936e94a815e9296873/USER
+/JetHT/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4RePriv-8f87a7a44696406b0351f755f100b05c/USER
 
-
-
-###   dasgoclient --query="dataset=/MET/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = MET  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
-
-
-
-###   dasgoclient --query="dataset=/SingleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = SingleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
-
-
-
-###   dasgoclient --query="dataset=/DoubleMuon/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = DoubleMuon  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
-
-
-
-###   dasgoclient --query="dataset=/MuonEG/Run2018*14Sep2018*/NANOAOD dataset status=*"
-# ****
-# Summary for:  PD = MuonEG  campaign = Run2018*14Sep2018*  datatier = NANOAOD  status = * 
-# ****
 
