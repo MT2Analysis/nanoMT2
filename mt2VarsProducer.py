@@ -10,8 +10,6 @@
 # TODO: please put most numerical values in a config file
 # TODO: add some truth information
 
-# FIXME: add dxy cut, |eta|<2.4 on isotracks and other selections for isotracks
-
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 
@@ -77,15 +75,18 @@ class mt2VarsProducer(Module):
 
     # possible year-dependent configurations
     if self.year == 2016:
-      self.eleIdTune = 'Summer16'
+      self.eleIdTune = 'Spring15'
+      self.eleVIDMapName = 'vidNestedWPBitmapSpring15'
       #self.cut_btagWP =  0.8484 # medium WP for 80X csvv2
       self.cut_btagWP = 0.6324 # medium WP for 80X deepcsv
     elif self.year == 2017: 
-      self.eleIdTune = 'Fall17'
+      self.eleIdTune = 'Fall17V2'
+      self.eleVIDMapName = 'vidNestedWPBitmap'
       #self.cut_btagWP =  0.8838 # medium WP for 94X csvv2
       self.cut_btagWP =  0.4941 # medium WP for 94X deepcsv
     elif self.year == 2018:
-      self.eleIdTune = 'Fall17'
+      self.eleIdTune = 'Fall17V2'
+      self.eleVIDMapName = 'vidNestedWPBitmap'
       self.cut_btagWP = 0.4941  # FIXME 
 
 
@@ -225,7 +226,8 @@ class mt2VarsProducer(Module):
       if self.year==2017 or self.year==2016: electron.pt /= electron.eCorr # want uncalibrated electron pt to avoid systematics 
       if electron.pt < 10: continue
       if abs(electron.eta)>2.4: continue
-      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
+      #electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=electron.vidNestedWPBitmap, tune=self.eleIdTune)
+      electron.cutBasedNoIso = eleUtils.getIdLevelNoIso(bitmap=getattr(electron, eleVIDMapName), tune=self.eleIdTune)
       if electron.cutBasedNoIso == 0: continue # iso, d0 and dz cut not included in id, so need to be applied below
       #if electron.cutBased == 0: continue # does not include d0, dz, conv veto
       # d0 and dz cut are not included in the id
