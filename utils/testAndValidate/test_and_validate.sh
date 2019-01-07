@@ -1,15 +1,17 @@
-PL="2018_V03_V14"
-OLD_PL="2017_V02_V12"
+PL="2016_V04_V00"
+OLD_PL="2016_V02_V00"
 MC=false # or false if data
-YEAR=2018
+YEAR=2016
 
 echo "Going to run local test for PL=" $PL "  year=" $YEAR "  MC=" $MC
 cd ../../.
 if [ "$MC" = true ] ; then
+  echo 'MC'
   python postproc.py --year $YEAR --doMC -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_MC  -w Wlv --doLocal -N 50001 --doSkim
   echo "finished running"
 else
-  python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
+  echo 'Data'
+#  python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
   echo "finished running"
 fi
 
@@ -26,7 +28,7 @@ echo "ciao"
 
 else
 
-  python validate.py -f1 ~/MT2_UNIT_TESTS/output/test_preProd_${OLD_PL}_data/mt2.root -t1 Events -f2 ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data/mt2.root -t2 Events -o ~/MT2_UNIT_TESTS/validate/out_${PL}VS${OLD_PL}_data -l1 ${OLD_PL} -l2 ${PL} --doLog
+  python validate.py -f1 ~/MT2_UNIT_TESTS/output/test_preProd_${OLD_PL}_data/mt2.root -t1 Events -f2 ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data/mt2.root -t2 Events -o ~/MT2_UNIT_TESTS/validate/out_${PL}VS${OLD_PL}_data -l1 ${OLD_PL} -l2 ${PL} --doLog --doNorm
 echo "ciao"
 
 fi

@@ -80,6 +80,7 @@ Production Label: brief description : git commit hash (can be searched)
 2016_V03_V13: samoe as above, but for data 2016			ad57c9adab7d0844eb4f65b0a4988c5b3c672823
 2018_V03_V14: same as above, but for data 2018                  62f9802e4e0a74adf85dbf87bcafe9a62f152ab7
 2016_V03_V23: same as above, resubmission for B,D of 2016
+2016_V04_V00: several changes for 102X nanoAOD (see commits)    
 ```
 
 
