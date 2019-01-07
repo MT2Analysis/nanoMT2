@@ -249,6 +249,7 @@ class mt2VarsProducer(Module):
     # loop to look for the low pt pf candidates
     for electron in electrons:
       if electron.pt < 5: continue
+      if abs(electron.eta)>2.4: continue
       if electron.isPFcand == False: continue # passa la pf id
       #if electron.isFromLostTrack: continue 
       #if electron.fromPV <= 1: continue 
@@ -279,6 +280,7 @@ class mt2VarsProducer(Module):
     # loop again to recover low pt PFcandidates
     for muon in muons:
       if muon.pt < 5: continue
+      if abs(muon.eta)>2.4: continue
       if muon.isPFcand == False: continue # passa la pf id
       #if muon.isFromLostTrack: continue
       #if muon.fromPV <= 1: continue 
@@ -295,6 +297,7 @@ class mt2VarsProducer(Module):
     for it in isotracks:
       it.mass = 0.
       it.mtw = mtw(it.pt, it.phi, met.pt, met.phi)
+      if abs(it.eta) > 2.4: continue 
       if not it.isPFcand: continue # consider only pfcandidates
       if it.isFromLostTrack: continue 
       if it.isFromPV <= 1: continue 
@@ -310,7 +313,6 @@ class mt2VarsProducer(Module):
         selected_pfleptons.append(it)
       elif abs(it.pdgId) == 211:
         if it.pt<5: continue # this is actually not effective, since in the nanoAOD only pion tracks with pt>10 GeV are stored
-        if abs(it.eta) > 2.4: continue # this is already applied at nanoAOD level, but restated here
         if it.pfRelIso03_chg*it.pt > min(0.2*it.pt,8): continue
         selected_isoTracks_SnTCompatible.append(it)
         if it.mtw>100: continue
