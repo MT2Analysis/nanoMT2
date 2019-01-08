@@ -1,7 +1,7 @@
-PL="2016_V04_V00"
-OLD_PL="2016_V02_V00"
+PL="2017_V04_V02"
+OLD_PL="2017_V02_V12"
 MC=false # or false if data
-YEAR=2016
+YEAR=2017
 
 echo "Going to run local test for PL=" $PL "  year=" $YEAR "  MC=" $MC
 cd ../../.
@@ -11,7 +11,7 @@ if [ "$MC" = true ] ; then
   echo "finished running"
 else
   echo 'Data'
-#  python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
+  #python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
   echo "finished running"
 fi
 
