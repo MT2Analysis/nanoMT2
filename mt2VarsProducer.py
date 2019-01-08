@@ -182,11 +182,10 @@ class mt2VarsProducer(Module):
     muons = Collection(event, "Muon")
     jets = Collection(event, "Jet")
     photons = Collection(event, "Photon")
-#    if self.year==2017:
-#      met = Object(event, "METFixEE2017")
-#      print 'my met = ' , getattr(event, 'METFixEE2017_pt'),  event.METFixEE2017_pt
-#    else:
-    met = Object(event, "MET")
+    if self.year==2017:
+      met = Object(event, "METFixEE2017")
+    else:
+      met = Object(event, "MET")
     if self.verbose: print 'MET is:', met.pt, met.phi
     njets = len(jets)
     isotracks = Collection(event, "IsoTrack")
