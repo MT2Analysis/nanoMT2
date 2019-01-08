@@ -11,7 +11,7 @@ keep Jet_*
 keep *LHEWeight*
 keep *LHEPdfWeight*
 keep *LHEScaleWeight*
-keep MET_*
+keep MET*
 keep Muon_*
 keep *PSWeight*
 keep PV_*
