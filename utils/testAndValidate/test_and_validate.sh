@@ -1,4 +1,4 @@
-PL="2017_V04_V02"
+PL="2017_wCompr_200K"
 OLD_PL="2017_V02_V12"
 MC=false # or false if data
 YEAR=2017
@@ -12,6 +12,7 @@ if [ "$MC" = true ] ; then
 else
   echo 'Data'
   #python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 50001 --doSkim
+  python postproc.py --year $YEAR     -o ~/MT2_UNIT_TESTS/output/test_preProd_${PL}_data -w data --doLocal -N 200000 
   echo "finished running"
 fi
 
