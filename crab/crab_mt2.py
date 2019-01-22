@@ -14,13 +14,15 @@ parser.add_argument('--doSignal', dest='doSignal', help='is it a signal sample?'
 parser.add_argument('--doSyst', dest='doSyst', help='do you want to run syst variations?', action='store_true', default=False)
 parser.add_argument('--doSkim', dest='doSkim', help='perform skimming?', action='store_true', default=False)
 parser.add_argument('--doSkipJSON', dest='doSkipJSON', help='do you want to avoid running the json selection ?', action='store_true', default=False)
-
+parser.add_argument('--doUnblindedJSON', dest='doUnblindedJSON', help='do you want to use the partially unblinded 2017/2018 jsons ?', action='store_true', default=False)
 
 options = parser.parse_args()
 
 ## Json configuration
-if not options.doMC and not options.doSkipJSON:
+if not options.doMC and not options.doSkipJSON and not options.doUnblindedJSON: 
   jsonFile = '../data/json/current_%s.txt' % (str(options.year))
+elif not options.doMC and not options.doSkipJSON and options.doUnblindedJSON:
+  jsonFile = '../data/json/goodruns_%s_unblinded.json' % (str(options.year))
 
 ## Checks here
 if not os.path.isfile(options.inputList): raise RuntimeError('Sample list not available')
