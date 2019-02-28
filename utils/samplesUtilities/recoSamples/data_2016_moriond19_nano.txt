@@ -1,0 +1,143 @@
+/SinglePhoton/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/SinglePhoton/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/SinglePhoton/Run2016C-Nano14Dec2018-v1/NANOAOD
+/SinglePhoton/Run2016D-Nano14Dec2018-v1/NANOAOD
+/SinglePhoton/Run2016E-Nano14Dec2018-v1/NANOAOD
+/SinglePhoton/Run2016F-Nano14Dec2018-v1/NANOAOD
+/SinglePhoton/Run2016G-Nano14Dec2018-v1/NANOAOD
+/SinglePhoton/Run2016H-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/JetHT/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/JetHT/Run2016C-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016D-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016E-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016F-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016G-Nano14Dec2018-v1/NANOAOD
+/JetHT/Run2016H-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/HTMHT/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/HTMHT/Run2016C-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016D-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016E-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016F-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016G-Nano14Dec2018-v1/NANOAOD
+/HTMHT/Run2016H-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/MET/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/MET/Run2016C-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016D-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016E-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016F-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016G-Nano14Dec2018-v1/NANOAOD
+/MET/Run2016H-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/SingleElectron/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/SingleElectron/Run2016C-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016D-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016E-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016F-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016G-Nano14Dec2018-v1/NANOAOD
+/SingleElectron/Run2016H-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/SingleMuon/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/SingleMuon/Run2016C-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016D-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016E-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016F-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016G-Nano14Dec2018-v1/NANOAOD
+/SingleMuon/Run2016H-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/DoubleEG/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/DoubleEG/Run2016C-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016D-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016E-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016F-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016G-Nano14Dec2018-v1/NANOAOD
+/DoubleEG/Run2016H-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/DoubleMuon/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/DoubleMuon/Run2016C-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016D-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016E-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016F-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016G-Nano14Dec2018-v1/NANOAOD
+/DoubleMuon/Run2016H-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016B_ver1-Nano14Dec2018_ver1-v1/NANOAOD
+/MuonEG/Run2016B_ver2-Nano14Dec2018_ver2-v1/NANOAOD
+/MuonEG/Run2016C-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016D-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016E-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016F-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016G-Nano14Dec2018-v1/NANOAOD
+/MuonEG/Run2016H-Nano14Dec2018-v1/NANOAOD
+# This list was generated on  Thu, 28 Feb 2019 14:33:37 +0000
+
+
+###   dasgoclient --query="dataset=/SinglePhoton/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = SinglePhoton  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/DoublePhoton/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = DoublePhoton  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/JetHT/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = JetHT  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/HTMHT/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = HTMHT  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/MET/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = MET  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/SingleElectron/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = SingleElectron  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/SingleMuon/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = SingleMuon  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/DoubleEG/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = DoubleEG  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/DoubleMuon/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = DoubleMuon  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
+
+
+###   dasgoclient --query="dataset=/MuonEG/Run2016*Nano14Dec2018*/NANOAOD dataset status=*"
+# ****
+# Summary for:  PD = MuonEG  campaign = Run2016*Nano14Dec2018*  datatier = NANOAOD  status = * 
+# ****
+
