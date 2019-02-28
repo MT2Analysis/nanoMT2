@@ -31,8 +31,9 @@ if __name__ == "__main__":
     periods = ['B', 'C', 'D', 'E', 'F', 'G', 'H']
   elif options.year==2018:
     periods = ['A', 'B', 'C', 'D']
+    #periods = ['D']
 
-  pds = ['HTMHT', 'JetHT', 'MET', 'DoubleEG', 'DoubleMuon', 'MuonEG', 'SingleElectron', 'SingleMuon', 'SinglePhoton'] #'DoublePhoton' ]
+  pds = ['HTMHT', 'JetHT', 'MET', 'DoubleEG', 'DoubleMuon', 'MuonEG', 'SingleElectron', 'SingleMuon'] #, 'SinglePhoton'] #'DoublePhoton' ]
   if options.year==2018:
     pds = ['MET', 'JetHT', 'SingleMuon', 'MuonEG', 'DoubleMuon', 'EGamma']
 
@@ -70,16 +71,20 @@ if __name__ == "__main__":
     for period in periods:
       print '\n -> Going to merge samples for period={}'.format(period)
       #  merge all available pds of a period in one dataset
-      samples_to_merge = glob.glob('{inputPath}/*_Run{year}{period}*root'.format(inputPath=inputPath, year=options.year,period=period) )
+      samples_to_merge = glob.glob('{inputPath}/*Run{year}{period}*root'.format(inputPath=inputPath, year=options.year,period=period) )
       samples_to_merge = map(lambda x: redirector + x, samples_to_merge)
       print samples_to_merge
-      #print samples_to_merge
       #sample_merged = redirector + '{outputPath}/merged_Run{year}{period}.root'.format(outputPath=outputPath, year=options.year, period=period)
       #print sample_merged
 
       # do the haddnano step in a tmp and then copy to the SE
-      tmpdir = tempfile.mkdtemp(prefix=os.environ['USER']+'_')       
-      
+      #tmpdir = tempfile.mkdtemp(prefix=os.environ['USER']+'_')       
+      import random
+      rndm=random.randint(1,21)*random.randint(1,150)
+      tmpdir = '/scratch/{}/tmp_{}'.format(os.environ['USER'],rndm)
+      print tmpdir
+      os.mkdir(tmpdir)
+            
       mergedSampleName = 'merged_Run{year}{period}.root'.format(year=options.year, period=period)
       mergedSample = '{}/{}'.format(tmpdir, mergedSampleName)
 
@@ -91,6 +96,7 @@ if __name__ == "__main__":
          outP=mergedSample,
          inP=' '.join(samples_to_merge)
       )
+      print command
 
       try:
         ret = subprocess.call(command, shell=True)
