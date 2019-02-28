@@ -83,7 +83,7 @@ Production Label: brief description : git commit hash (can be searched)
 2016_V04_V00: several changes for 102X (see commits), data 16   314f1da7213462875efb785c0aecdc4afbfbdf7d
 2018_V04_V01: same, but data 18					314f1da7213462875efb785c0aecdc4afbfbdf7d
 2017_V04_V02: same, but data 17 (including met fix)             b98c78b04fb03cffa268f979f222f6dbe594c427
-2017_V05_V00: using partially unblinded json			f25a6b9ab691e366da9ea24ae35ff08080263776
+2017_V05_V02: using partially unblinded json			f25a6b9ab691e366da9ea24ae35ff08080263776
 2018_V05_V01: using partially unblinded json			f25a6b9ab691e366da9ea24ae35ff08080263776
 ```
 
