@@ -73,6 +73,7 @@ class mt2VarsProducer(Module):
     self.systVar = systVar
     self.systSuffix = '_sys_' + self.systVar if self.doSyst else ''
     self.redoJEC2018 = redoJEC2018
+    self.writeHistFile=True # needed to make the postprocessor write to output hist file
 
     # possible year-dependent configurations
     if self.year == 2016:
@@ -107,10 +108,14 @@ class mt2VarsProducer(Module):
                                   type1METParams={'jetPtThreshold':15., 'skipEMfractionThreshold':0.9, 'skipMuons':True} # these are the defaults, as 13 TeV MET paper 
                              ) 
 
-  def beginJob(self):
-    pass
+  def beginJob(self,histFile,histDirName):
+    Module.beginJob(self,histFile,histDirName) # this line is crucial
+    self.hEta=ROOT.TH2F('hEta','hEta',50,-5.,5.,50,0.,50.)
+    self.hPt= ROOT.TH2F('hPt' ,'hPt' ,50,15.,1265,50,0.,50.)
+    self.addObject(self.hEta )
+    self.addObject(self.hPt )
   def endJob(self):
-    pass
+    Module.endJob(self)
   def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
     self.verbose = False
     self.out = wrappedOutputTree
@@ -353,7 +358,9 @@ class mt2VarsProducer(Module):
                     addShifts=False, # syst shift, currently set to 0
                     metShift=[0,0] # currently set to 0
                    ) 
-        print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} new/old-1={:.2f}'.format(jet.pt,newJetPt,newJetPt/jet.pt-1)
+        #print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} eta={:.1f} new/old-1={:.2f}'.format(jet.pt,newJetPt,jet.eta,newJetPt/jet.pt-1)
+        self.hEta.Fill(jet.eta,(newJetPt/jet.pt-1)*100)
+        self.hPt.Fill(jet.pt,(newJetPt/jet.pt-1)*100)
       # define a customId coherently with previous analysis 
       jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmEF, jetEta=jet.eta)
       if self.verbose:  print 'jet custom id level ', jet.customId

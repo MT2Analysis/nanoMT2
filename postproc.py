@@ -128,7 +128,8 @@ if __name__ == '__main__':
 
   ## Define the post-processor
   p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/branchSel.txt', outputbranchsel='data/branchSel/branchSel.txt',
-		  modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True, jsonInput=jsonInput)#, compression="none")
+		  modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True, jsonInput=jsonInput, 
+                  histFileName='histOut.root',histDirName='plots')#, compression="none")
 
   ## Actually run the whole thing
   p.run()
