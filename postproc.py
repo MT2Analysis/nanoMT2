@@ -101,17 +101,18 @@ if __name__ == '__main__':
   from PhysicsTools.NanoAODTools.postprocessing.modules.btv.btagSFProducer import btagSFProducer
   from PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer import puWeightProducer
   from PhysicsTools.NanoAODTools.postprocessing.modules.jme.jetmetUncertainties import *
+  #from PhysicsTools.NanoAODTools.postprocessing.modules.jme.JetReCalibrator import JetReCalibrator
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2VarsProducer import mt2VarsProducer
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.metaDataProducer import metaDataProducer
   from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.smsAnalyzer import smsAnalyzer
 
   modules = [ 
-   mt2VarsProducer(isMC=options.doMC, isSignal=options.doSignal, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None),
+   mt2VarsProducer(isMC=options.doMC, isSignal=options.doSignal, year=options.year, doSkim=options.doSkim, doSyst=False, systVar=None, redoJEC2018=True),
    metaDataProducer(xSecFile='data/xSec/xSecs_{}.txt'.format(str(options.year)), sampleName=sampleName, isMC=options.doMC, year=options.year),
    #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
    #btagSFProducer(era=str(options.year), algo='csvv2'),
   ]
-  ### jet met uncertainties module module needs to be run before mt2VarsProducer
+  ### jet met uncertainties module module needs to be run before mt2VarsProducer # NOTE: not really supported currently
   if options.doSyst:
     modules.insert(0,jetmetUncertaintiesProducer(str(options.year), 'Fall17_17Nov2017_V6_MC', [ 'Total' ], redoJEC=True, attachToEvt=True, attachToTree=False))
     modules.insert(1,mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalUp'))

@@ -23,9 +23,10 @@ f[2016]['sig'] = '/store/mc/RunIISummer16NanoAOD/SMS-T2tt_mStop-500_mLSP-325_Tun
 # ********
 # For Mo19
 f[2017]['data'] = '/store/data/Run2017D/MET/NANOAOD/Nano14Dec2018-v1/10000/2536594C-ABC3-2A48-87DF-4FF2EDE55069.root'
+f[2017]['Wlv'] = '/store/mc/RunIIFall17NanoAODv4/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/10000/45FF054F-C558-A541-AD74-A46F79B96CEB.root'
 
 #f[2017]['data'] = '/store/data/Run2017D/MET/NANOAOD/31Mar2018-v1/10000/2891A264-4C45-E811-A30A-C4346BC80410.root'
-f[2017]['Wlv'] = '/store/mc/RunIIFall17NanoAOD/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/70000/5CD5289E-5856-E811-A5DB-A0369FD0B22A.root'
+#f[2017]['Wlv'] = '/store/mc/RunIIFall17NanoAOD/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/70000/5CD5289E-5856-E811-A5DB-A0369FD0B22A.root'
 
 # old PU
 #f[2017]['ttbar'] = '/store/mc/RunIIFall17NanoAOD/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/NANOAODSIM/PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/00000/9035EBEE-7442-E811-AEFB-001E677923F4.root'
@@ -38,9 +39,8 @@ f[2017]['ttbar'] = '/store/mc/RunIIFall17NanoAOD/TTJets_TuneCP5_13TeV-amcatnloFX
 # For Mo19
 f[2018]['data'] = '/store/group/phys_susy/mratti/nanoMaking/NanoAODv4RePriv/MET/Run2018C-from_17Sep2018_ver1-NanoAODv4RePriv/181221_221740/0000/myNanoRunData2018ABC_NANO_23.root'
 
-#
-#f[2018]['data'] = '/store/data/Run2018C/MET/NANOAOD/14Sep2018_ver3-v1/60000/7F7F7AA4-FCBB-B343-BA4C-8678B7A1BAEC.root'
-f[2018]['Wlv'] = '' # not MC currently
+# For Mo19 (600-800 HT sample not yet available)
+f[2018]['Wlv'] = '/store/mc/RunIIAutumn18NanoAODv4/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano14Dec2018_102X_upgrade2018_realistic_v16-v1/60000/3EC850FB-2306-B44C-9566-3CBC4D64BFA0.root' 
 
 
 ##

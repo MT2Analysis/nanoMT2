@@ -12,11 +12,13 @@
 
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
+import os
 
 from PhysicsTools.NanoAODTools.postprocessing.framework.datamodel import Collection, Object
 from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 import PhysicsTools.NanoAODTools.postprocessing.tools as tools
 from PhysicsTools.NanoAODTools.postprocessing.analysis.mt2.mt2Analyzer import getMT2
+from PhysicsTools.NanoAODTools.postprocessing.modules.jme.JetReCalibrator import JetReCalibrator
 
 import electronIdUtils as eleUtils
 import jetIdUtils as jetUtils
@@ -62,7 +64,7 @@ def getMht4vec(objects):
     return ROOT.TLorentzVector(0, 0, 0, 0)
 
 class mt2VarsProducer(Module):
-  def __init__(self, isMC=True, isSignal=False, year=2017, doSkim=False, doSyst=False, systVar=None): # 'jesTotalUp', 'jesTotalDown'
+  def __init__(self, isMC=True, isSignal=False, year=2017, doSkim=False, doSyst=False, systVar=None, redoJEC2018=False): # 'jesTotalUp', 'jesTotalDown'
     self.year = year
     self.isMC = isMC
     self.isSignal = isSignal
@@ -70,6 +72,7 @@ class mt2VarsProducer(Module):
     self.doSyst = doSyst
     self.systVar = systVar
     self.systSuffix = '_sys_' + self.systVar if self.doSyst else ''
+    self.redoJEC2018 = redoJEC2018
 
     # possible year-dependent configurations
     if self.year == 2016:
@@ -89,6 +92,20 @@ class mt2VarsProducer(Module):
       self.eleVIDMapName = 'vidNestedWPBitmap'
       self.cut_btagWP = 0.4941  # FIXME 
       self.jetIdCustomLevel = 3 # tight
+
+    # configure jet recalibrator
+    # JEC recommendation --> https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC
+    if self.redoJEC2018:
+      self.jetReCalibrator = JetReCalibrator( 
+                                  globalTag="Fall17_17Nov2017_V32_MC", # Fall17_17Nov2017_V32_MC Autumn18_V3_MC 
+                                  jetFlavour="AK4PFchs", # poor choice of the term "flavour" in this context!
+                                  doResidualJECs=True, # residuals for 2018 data not available yet
+                                  jecPath=os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/", 
+                                  upToLevel=3,
+                                  calculateSeparateCorrections = True,  # Needed for T1 MET corrections
+                                  calculateType1METCorrection  = False, # True is not supported currently
+                                  type1METParams={'jetPtThreshold':15., 'skipEMfractionThreshold':0.9, 'skipMuons':True} # these are the defaults, as 13 TeV MET paper 
+                             ) 
 
   def beginJob(self):
     pass
@@ -325,6 +342,18 @@ class mt2VarsProducer(Module):
 
     for jet in jets:
       jet.isToRemove = False
+
+      # rewrite over jet pt with re-corrected jet pt based on new JECs 
+      if self.redoJEC2018 and self.year==2018 or self.year==2017:
+        newJetPt = self.jetReCalibrator.correct(
+                    jet=jet,
+                    rho=event.fixedGridRhoFastjetAll, # rho from all PF Candidates, used e.g. for JECs
+                    delta=0, # DO not put to higher values unless you know what you're doing
+                    addCorr=False, # currently only supported option
+                    addShifts=False, # syst shift, currently set to 0
+                    metShift=[0,0] # currently set to 0
+                   ) 
+        print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} new/old-1={:.2f}'.format(jet.pt,newJetPt,newJetPt/jet.pt-1)
       # define a customId coherently with previous analysis 
       jet.customId = jetUtils.getCustomId(jetId=jet.jetId, jetChHadFrac=jet.chHEF, jetNeuHadFrac=jet.neHEF, jetNeuEMFrac=jet.neEmEF, jetEta=jet.eta)
       if self.verbose:  print 'jet custom id level ', jet.customId
