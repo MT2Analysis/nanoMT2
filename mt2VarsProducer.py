@@ -121,7 +121,7 @@ class mt2VarsProducer(Module):
     self.out = wrappedOutputTree
     if not self.doSyst: # create these branches only for nominal analysis
       self.out.branch("lumi".format(self.systSuffix), "I")
-      self.out.branch("evt".format(self.systSuffix), "L"))
+      self.out.branch("evt".format(self.systSuffix), "L")
     
     self.out.branch("nJet20{}".format(self.systSuffix), "I")
     self.out.branch("nJet30{}".format(self.systSuffix), "I")
@@ -350,9 +350,8 @@ class mt2VarsProducer(Module):
 
     for jet in jets:
       jet.isToRemove = False
-
-      # rewrite over jet pt with re-corrected jet pt based on new JECs 
-      if self.redoJEC2018 and self.year==2018 or self.year==2017:
+      # TEST: rewrite over jet pt with re-corrected jet pt based on new JECs 
+      if self.redoJEC2018 and (self.year==2018):
         newJetPt = self.jetReCalibrator.correct(
                     jet=jet,
                     rho=event.fixedGridRhoFastjetAll, # rho from all PF Candidates, used e.g. for JECs
