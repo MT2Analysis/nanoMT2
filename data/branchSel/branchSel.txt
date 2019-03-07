@@ -25,6 +25,7 @@ keep event
 keep genWeight
 keep luminosityBlock
 keep run
+keep fixedGridRhoFastjetAll
 
 keep HLT_PFHT*
 keep HLT_PFJet*
