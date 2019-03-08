@@ -91,7 +91,7 @@ class mt2VarsProducer(Module):
     elif self.year == 2018:
       self.eleIdTune = 'Fall17V2'
       self.eleVIDMapName = 'vidNestedWPBitmap'
-      self.cut_btagWP = 0.4941  # FIXME 
+      self.cut_btagWP = 0.4184  # FIXME  # 0.4184 new rec https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation102X, old rec 0.4941
       self.jetIdCustomLevel = 3 # tight
 
     # configure jet recalibrator
