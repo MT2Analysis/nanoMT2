@@ -165,7 +165,7 @@ class mt2VarsProducer(Module):
       self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nLep") # 
       self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nLep") # 
       self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_pdgId{}".format(self.systSuffix), "F", 1, "nLep") # 
+      self.out.branch("lep_pdgId{}".format(self.systSuffix), "I", 1, "nLep") # 
       self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") #
       self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # 
       self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nLep") # 
@@ -178,7 +178,7 @@ class mt2VarsProducer(Module):
       self.out.branch("isoTrack_mass".format(self.systSuffix), "F", 1, "nIt") #
       self.out.branch("isoTrack_dz".format(self.systSuffix), "F", 1, "nIt") #
       self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_pdgId".format(self.systSuffix), "F", 1, "nIt") #
+      self.out.branch("isoTrack_pdgId".format(self.systSuffix), "I", 1, "nIt") #
       self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nIt") #
       self.out.branch("isoTrack_miniPFRelIso_chg".format(self.systSuffix), "F", 1, "nIt") #
       self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nIt") #
@@ -540,7 +540,7 @@ class mt2VarsProducer(Module):
     lep_phi =  [-99.]*len(clean_recoleptons)
     lep_mass = [-99.]*len(clean_recoleptons)
     lep_charge = [-99.]*len(clean_recoleptons)
-    lep_pdgId = [-99.]*len(clean_recoleptons)
+    lep_pdgId = [-99]*len(clean_recoleptons)
     lep_dxy = [-99.]*len(clean_recoleptons)
     lep_dz = [-99.]*len(clean_recoleptons)
     lep_id = [-99]*len(clean_recoleptons)
@@ -572,7 +572,7 @@ class mt2VarsProducer(Module):
     isoTrack_mass = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_dz = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_dxy = [-99.]*len(selected_isoTracks_SnTCompatible)
-    isoTrack_pdgId = [-99.]*len(selected_isoTracks_SnTCompatible)
+    isoTrack_pdgId = [-99]*len(selected_isoTracks_SnTCompatible)
     isoTrack_absIso = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_miniPFRelIso_chg = [-99.]*len(selected_isoTracks_SnTCompatible)
     isoTrack_mtw = [-99.]*len(selected_isoTracks_SnTCompatible)
