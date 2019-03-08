@@ -103,8 +103,8 @@ for dataset in datasets :
     config.Data.lumiMask  = ''
 
   print 'Going to submit job with following parameters: '
-  print 'outputdatasettag = ', config.Data.outputDatasetTag
-  print 'requestname = ', config.General.requestName
-  print 'inputdataset = ', config.Data.inputDataset 
+  print '   outputdatasettag = ', config.Data.outputDatasetTag
+  print '   requestname =      ', config.General.requestName
+  print '   inputdataset =     ', config.Data.inputDataset 
 
   crabCommand('submit', config = config)

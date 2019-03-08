@@ -46,12 +46,13 @@ f[2018]['data'] = '/store/group/phys_susy/mratti/nanoMaking/NanoAODv4RePriv/MET/
 f[2018]['Wlv'] = '/store/mc/RunIIAutumn18NanoAODv4/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano14Dec2018_102X_upgrade2018_realistic_v16-v1/60000/3EC850FB-2306-B44C-9566-3CBC4D64BFA0.root' 
 
 
-##
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_15K.root']
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_V2.root']
-#      if options.year == 2017:
-        # used only for nano vs mini files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+    #files = ['$XRDGLO//store/group/phys_susy/mratti/nanoMaking/NanoAODv4PrivORIG0/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIAutumn18NanoAODv4PrivORIG0-from_PUMoriond17_94X_mcRun2_asymptotic_v3_ver2/190307_144426/0000/myNanoRunMc2018_NANO_1.root']
+    #files = ['$XRDGLO/store/group/phys_susy/mratti/nanoMaking/NanoAODv4PrivTest3/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIAutumn18NanoAODv4PrivTest3-from_PUMoriond17_94X_mcRun2_asymptotic_v3_ver2/190307_143303/0000/myNanoRunMc2018_NANO_1.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT_diffIso.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCut.root']
+    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCutNoOR.root']
+    #files = ['/work/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_9/src/test_for_mini_comparison/SUS-RunIIFall17NanoAODv4-00004.root']
+    #files = ['/work/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_9/src/test_for_mini_comparison_2016/SUS-RunIISummer16NanoAODv4-00181.root']
 
-
-      #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_V2.root']
 

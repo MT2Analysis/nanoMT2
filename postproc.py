@@ -2,8 +2,7 @@
 
 # Script to setup and launch the post-processing of nanoAODs for the MT2 analysis
 
-# FIXME:  2016 is not really supported currently, due to missing isotracks
-# NOTE: Please check the xsection file to make sure that the naming is correct !
+# TODO: add PU reweighting to 2018
 
 import os, sys
 import ROOT
@@ -77,13 +76,8 @@ if __name__ == '__main__':
     print 'Running in local'
     from unitTestFiles import f
     sampleName = 'test' # please do not change
-    #files = ['root://cms-xrd-global.cern.ch/' + f[options.year][options.what] ]
-    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Zll_NANO_5K_nodxyIT_diffIso.root']
-    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noselIT.root']
-    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCut.root']
-    #files = ['/shome/mratti/nanoaod_workarea/nano_making/CMSSW_9_4_6_patch1/src/PhysicsTools/NanoAOD/test/test94X_Wlv_NANO_5K_noCutNoOR.root']
-    #files = ['/work/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_9/src/test_for_mini_comparison/SUS-RunIIFall17NanoAODv4-00004.root']
-    files = ['/work/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_9/src/test_for_mini_comparison_2016/SUS-RunIISummer16NanoAODv4-00181.root']
+    files = ['root://cms-xrd-global.cern.ch/' + f[options.year][options.what] ]
+    #files = ['/work/mratti/nanoaod_workarea/nano_making/CMSSW_10_2_9/src/test_for_mini_comparison_2016/SUS-RunIISummer16NanoAODv4-00181.root']
   else:
     print 'Running on the grid'
     dofwkJobReport = True
@@ -118,14 +112,14 @@ if __name__ == '__main__':
    #lepSFProducer('LooseWP_2016', 'GPMVA90_2016'),
    #btagSFProducer(era=str(options.year), algo='csvv2'),
   ]
-## really???  ### jet met uncertainties module module needs to be run before mt2VarsProducer # NOTE: not really supported currently
+  ### jet met uncertainties module module needs to be run before mt2VarsProducer # NOTE: not really supported currently
   if options.doSyst:
     modules.append(jetmetUncertaintiesProducer(str(options.year), 'Fall17_17Nov2017_V32_MC', [ 'Total' ], redoJEC=True)) #attachToEvt=True, attachToTree=False))
     modules.append(mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalUp'))
     modules.append(mt2VarsProducer(isMC=options.doMC, year=options.year, doSkim=options.doSkim, doSyst=options.doSyst, systVar='jesTotalDown'))
 
   ### modules to be loaded only for MC
-  if options.doMC and options.doSyst==False:
+  if options.doMC and options.doSyst==False and options.year!=2018:
     modules.append(puWeightProducer(myfile=puFileMC, targetfile=puFileData, myhist='pu_mc', targethist='pileup', name='puWeight', norm=True, verbose=False, nvtx_var='Pileup_nTrueInt', doSysVar=True))
 
   ### last module is for the signal analysis

@@ -98,7 +98,7 @@ class mt2VarsProducer(Module):
     # JEC recommendation --> https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECDataMC
     if self.redoJEC2018:
       self.jetReCalibrator = JetReCalibrator( 
-                                  globalTag="Fall17_17Nov2017_V32_MC", # Fall17_17Nov2017_V32_MC Autumn18_V3_MC 
+                                  globalTag="Autumn18_V8_MC", # Fall17_17Nov2017_V32_MC Autumn18_V3_MC 
                                   jetFlavour="AK4PFchs", # poor choice of the term "flavour" in this context!
                                   doResidualJECs=True, # residuals for 2018 data not available yet
                                   jecPath=os.environ['CMSSW_BASE']+"/src/PhysicsTools/NanoAODTools/data/jme/", 
@@ -354,13 +354,14 @@ class mt2VarsProducer(Module):
       if self.redoJEC2018 and (self.year==2018):
         newJetPt = self.jetReCalibrator.correct(
                     jet=jet,
+                    muons=muons,
                     rho=event.fixedGridRhoFastjetAll, # rho from all PF Candidates, used e.g. for JECs
                     delta=0, # DO not put to higher values unless you know what you're doing
                     addCorr=False, # currently only supported option
                     addShifts=False, # syst shift, currently set to 0
                     metShift=[0,0] # currently set to 0
                    ) 
-        #print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} eta={:.1f} new/old-1={:.2f}'.format(jet.pt,newJetPt,jet.eta,newJetPt/jet.pt-1)
+        print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} eta={:.1f} new/old-1={:.2f}'.format(jet.pt,newJetPt,jet.eta,newJetPt/jet.pt-1)
         self.hEta.Fill(jet.eta,(newJetPt/jet.pt-1)*100)
         self.hPt.Fill(jet.pt,(newJetPt/jet.pt-1)*100)
       # define a customId coherently with previous analysis 
