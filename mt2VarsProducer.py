@@ -160,36 +160,36 @@ class mt2VarsProducer(Module):
     # array variables from here on
 
     if not self.doSyst: # create these branches only for nominal analysis
-      self.out.branch("lep_pt{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_eta{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_pdgId{}".format(self.systSuffix), "I", 1, "nLep") # 
-      self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nLep") #
-      self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nLep") # 
-      self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nLep") # 
-      self.out.branch("lep_mtw{}".format(self.systSuffix), "F", 1, "nLep") # 
+      self.out.branch("lep_pt{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_eta{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_phi{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_mass{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_charge{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_pdgId{}".format(self.systSuffix), "I", 1, "nlep") # 
+      self.out.branch("lep_dxy{}".format(self.systSuffix), "F", 1, "nlep") #
+      self.out.branch("lep_dz{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_id{}".format(self.systSuffix), "I", 1, "nlep") # 
+      self.out.branch("lep_miniRelIso{}".format(self.systSuffix), "F", 1, "nlep") # 
+      self.out.branch("lep_mtw{}".format(self.systSuffix), "F", 1, "nlep") # 
 
-      self.out.branch("isoTrack_pt".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_eta".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_phi".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_mass".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_dz".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_pdgId".format(self.systSuffix), "I", 1, "nIt") #
-      self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_miniPFRelIso_chg".format(self.systSuffix), "F", 1, "nIt") #
-      self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nIt") #
+      self.out.branch("isoTrack_pt".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_eta".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_phi".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_mass".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_dz".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_dxy".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_pdgId".format(self.systSuffix), "I", 1, "nit") #
+      self.out.branch("isoTrack_absIso".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_miniPFRelIso_chg".format(self.systSuffix), "F", 1, "nit") #
+      self.out.branch("isoTrack_mtw".format(self.systSuffix), "F", 1, "nit") #
       
-      self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "nJet") #
-      self.out.branch("jet_eta{}".format(self.systSuffix), "F", 1, "nJet") #
-      self.out.branch("jet_phi{}".format(self.systSuffix), "F", 1, "nJet")
-      self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "nJet")
-      self.out.branch("jet_mcFlavour{}".format(self.systSuffix), "I", 1, "nJet")
-      self.out.branch("jet_btagCSV{}".format(self.systSuffix), "F", 1, "nJet")
-      self.out.branch("jet_btagDeepCSV{}".format(self.systSuffix), "F", 1, "nJet")
+      self.out.branch("jet_pt{}".format(self.systSuffix), "F", 1, "njet") #
+      self.out.branch("jet_eta{}".format(self.systSuffix), "F", 1, "njet") #
+      self.out.branch("jet_phi{}".format(self.systSuffix), "F", 1, "njet")
+      self.out.branch("jet_id{}".format(self.systSuffix), "I", 1, "njet")
+      self.out.branch("jet_mcFlavour{}".format(self.systSuffix), "I", 1, "njet")
+      self.out.branch("jet_btagCSV{}".format(self.systSuffix), "F", 1, "njet")
+      self.out.branch("jet_btagDeepCSV{}".format(self.systSuffix), "F", 1, "njet")
 
       self.out.branch("zll_pt{}".format(self.systSuffix), "F")
       self.out.branch("zll_eta{}".format(self.systSuffix), "F")
