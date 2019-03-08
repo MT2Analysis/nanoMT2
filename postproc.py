@@ -133,9 +133,9 @@ if __name__ == '__main__':
     modules.append(smsAnalyzer(sampleName=sampleName,isMC=options.doMC))
 
   ## Define the post-processor
-  p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/branchSel.txt', outputbranchsel='data/branchSel/branchSel.txt',
+  p=PostProcessor(outputDir=options.outdirname,inputFiles=files,cut=preselection,branchsel='data/branchSel/in_branchSel.txt', outputbranchsel='data/branchSel/out_branchSel.txt',
 		  modules=modules,noOut=False, maxEvents=options.nevents, fwkJobReport=dofwkJobReport, haddFileName=haddFileName, provenance=True, jsonInput=jsonInput, 
-                  histFileName='histOut.root',histDirName='plots')#, compression="none")
+                  histFileName='histOut.root',histDirName='plots', compression="none")
 
   ## Actually run the whole thing
   p.run()
