@@ -1,0 +1,90 @@
+# python checkDatasetsMT2.py -g sig -f NANOAOD* -l PDsamples/mc_sigs_greedy.txt -s "*" -c "RunIIFall17NanoAODv4*" 
+# This list was generated on  Thu, 14 Mar 2019 09:39:59 +0000
+#****
+# Summary for:  group = T1qqqq  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1qqqq*
+/SMS-T1qqqq-LLChipm_ctau-200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1qqqq-LLChipm_ctau-200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T1qqqq-LLChipm_ctau-50_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1qqqqL_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1qqqqL_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T1qqqq_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1qqqq_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T1qqqq_mGluino-1000_mLSP-800_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1qqqq_mGluino-1400_mLSP-100_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+
+#****
+# Summary for:  group = T1bbbb  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1bbbb*
+/SMS-T1bbbb_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1bbbb_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T1bbbb_mGluino-1000_mLSP-900_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1bbbb_mGluino-1500_mLSP-100_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+
+#****
+# Summary for:  group = T1tttt  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T1tttt*
+/SMS-T1tttt_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_pilot_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T1tttt_mGluino-1200_mLSP-800_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T1tttt_mGluino-2000_mLSP-100_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+
+#****
+# Summary for:  group = T2qq  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2qq*
+/SMS-T2qq-LLChipm_ctau-200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2qq-LLChipm_ctau-200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T2qq-LLChipm_ctau-50_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2qq-LLChipm_ctau-50_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T2qq_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2qq_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T2qq_mSq-1850to2600_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2qq_mSq-1850to2300_mLSP-1*
+
+#****
+# Summary for:  group = T2bb  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2bb*
+/SMS-T2bb_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2bb_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T2bb_mSbot-1650to2600_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+/SMS-T2bb_mSbot-1650to2600_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_pileupfromucsd_102X_mc2017_realistic_v6-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2bb_mSbot-1650to2300_mLSP-1*
+
+#****
+# Summary for:  group = T2tt  campaign = RunIIFall17NanoAODv4*  datatier = NANOAOD*  status = * 
+#****
+
+# Gen sample:  SMS-T2tt_mStop-150to250*
+
+# Gen sample:  SMS-T2tt_mStop-250to350*
+/SMS-T2tt_mStop-250to350_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2tt_mStop-250to350_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-350to400*
+/SMS-T2tt_mStop-350to400_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2tt_mStop-350to400_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-400to1200*
+/SMS-T2tt_mStop-400to1200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2tt_mStop-400to1200_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PUFall17Fast_Nano14Dec2018_102X_mc2017_realistic_v6_ext1-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-425_mLSP-325*
+
+# Gen sample:  SMS-T2tt_mStop-500_mLSP-325*
+
+# Gen sample:  SMS-T2tt_mStop-850_mLSP-100*
+/SMS-T2tt_mStop-850_mLSP-100_TuneCP2_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+/SMS-T2tt_mStop-850_mLSP-100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAODv4-PU2017_12Apr2018_Nano14Dec2018_102X_mc2017_realistic_v6-v1/NANOAODSIM
+
+# Gen sample:  SMS-T2tt_mStop-1550to2300_mLSP-1*
