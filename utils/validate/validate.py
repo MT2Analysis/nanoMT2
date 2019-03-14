@@ -56,7 +56,7 @@ def getBinDiff(h1, h2):
 
 if __name__ == "__main__":
   # add style please
-  ROOT.gROOT.ProcessLine('.L ~/CMS_style/tdrstyle.C')
+  ROOT.gROOT.ProcessLine('.L /work/mratti/CMS_style/tdrstyle.C')
   ROOT.gROOT.ProcessLine('setTDRStyle()')
   ROOT.gROOT.SetBatch(True)
 

@@ -85,6 +85,10 @@ Production Label: brief description : git commit hash (can be searched)
 2017_V04_V02: same, but data 17 (including met fix)             b98c78b04fb03cffa268f979f222f6dbe594c427
 2017_V05_V02: using partially unblinded json			f25a6b9ab691e366da9ea24ae35ff08080263776
 2018_V05_V01: using partially unblinded json			f25a6b9ab691e366da9ea24ae35ff08080263776
+2018_V06_V00: equivalent to 2018_V04, private vs official
+2018_V06_V01: test
+2018_V06_V01: same as above, 2018 test w/ updated JECs
+2018_V07_V01: preparation for next reprocessing			7b480c71b831ac2fa26cd082567ce9beb68e3ea0
 ```
 
 
