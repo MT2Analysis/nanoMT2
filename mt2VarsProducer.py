@@ -361,7 +361,7 @@ class mt2VarsProducer(Module):
                     addShifts=False, # syst shift, currently set to 0
                     metShift=[0,0] # currently set to 0
                    ) 
-        print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} eta={:.1f} new/old-1={:.2f}'.format(jet.pt,newJetPt,jet.eta,newJetPt/jet.pt-1)
+        #print 'DEBUG: jet pt recalibration, old={:.2f} new={:.2f} eta={:.1f} new/old-1={:.2f}'.format(jet.pt,newJetPt,jet.eta,newJetPt/jet.pt-1)
         self.hEta.Fill(jet.eta,(newJetPt/jet.pt-1)*100)
         self.hPt.Fill(jet.pt,(newJetPt/jet.pt-1)*100)
       # define a customId coherently with previous analysis 
