@@ -132,4 +132,5 @@ if __name__ == '__main__':
                   histFileName='histOut.root',histDirName='plots', compression="none")
 
   ## Actually run the whole thing
+  print("I will run the post-processing routine")
   p.run()

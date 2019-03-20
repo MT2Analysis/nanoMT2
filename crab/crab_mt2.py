@@ -45,7 +45,8 @@ config = config()
 
 exampleSample = '/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/RunIIFall17NanoAOD-PU2017_12Apr2018_94X_mc2017_realistic_v14-v1/NANOAODSIM'
 config.General.requestName = options.productionLabel + '_' + exampleSample.split('/')[1]  # only for crab log information
-config.General.workArea = '/shome/%s/crab_workarea/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) #
+#config.General.workArea = '/t3home/%s/crab_workarea/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) #
+config.General.workArea = '/t3home/%s/CMSSW_10_0_3/src/PhysicsTools/NanoAODTools/python/postprocessing/analysis/mt2/crab/workarea_crabjobs/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel)
 config.General.transferOutputs = True
 config.General.transferLogs = False
 config.JobType.pluginName = 'Analysis'
@@ -59,7 +60,7 @@ config.Data.inputDBS = 'global' # should be changed only in case you are running
 config.Data.splitting = 'FileBased' if options.doMC else 'EventAwareLumiBased'#'EventAwareLumiBased' 'LumiBased'
 config.Data.unitsPerJob = 5 if options.doMC else 1000000 # 1000000 1000 # 1M events per job, 115 M in period B of MET pd
 # The path where the output is stored will be:  /store/user/$USER/crab/nanoMT2/productionLabel/PD/campaign/timestamp/counter/mt2_bla.root
-config.Data.outLFNDirBase = '/store/user/%s/crab/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code
+config.Data.outLFNDirBase = '/store/user/%s/nanoMT2/%s/' % (getUsernameFromSiteDB(), options.productionLabel) # may want to change nanoMT2 in a more descriptive version of the code
 config.Data.outputDatasetTag = exampleSample.split('/')[2]  #  campaign
 config.Data.publication = True
 config.Data.allowNonValidInputDataset = True
