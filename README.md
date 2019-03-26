@@ -89,6 +89,8 @@ Production Label: brief description : git commit hash (can be searched)
 2018_V06_V01: test
 2018_V06_V01: same as above, 2018 test w/ updated JECs
 2018_V07_V01: preparation for next reprocessing			7b480c71b831ac2fa26cd082567ce9beb68e3ea0
+2016_V08_V00: minor changes                                     e4b15fde3d9020d645bf330857becd38026eb373
+2017_V08_V00: same as above
 ```
 
 
