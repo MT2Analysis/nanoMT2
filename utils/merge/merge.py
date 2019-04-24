@@ -94,16 +94,17 @@ if __name__ == "__main__":
 
   MT2groups = getMT2groups()
 
-  inputPath = '/pnfs/psi.ch/cms/trivcat/store/user/{}/crab/nanoMT2/{}/'.format(os.environ['USER'],  options.productionLabel)
+  #inputPath = '/pnfs/psi.ch/cms/trivcat/store/user/{}/crab/nanoMT2/{}/'.format(os.environ['USER'],  options.productionLabel)
+  inputPath = '/pnfs/psi.ch/cms/trivcat/store/user/{}/nanoMT2/{}/'.format(os.environ['USER'],  options.productionLabel)
 #  outputPath = '/scratch/{}/merged_nanoMT2/{}_{}/'.format(os.environ['USER'], options.productionLabel, options.version)
   outputPath = '/pnfs/psi.ch/cms/trivcat/store/user/{}/merged_nanoMT2/{}_{}/'.format(os.environ['USER'], options.productionLabel, options.version)
   cfgFile = 'cfg/{df}_{y}_merge_{pl}.txt'.format(df='mc_bkg' if options.doMC else 'data', y=str(options.year), pl=options.productionLabel)
 
   from groupMerger import GroupMerger
-
   for MT2Group in MT2groups[options.year][mc_or_data][options.group]:
     g = GroupMerger(groupName=MT2Group.name, groupExprs=MT2Group.exprs, inputPath=inputPath, outputPath=outputPath, doMC=options.doMC)
     g.configGroupMembers(cfgFile=cfgFile)
     g.configOutput()
     ret = g.process()
+
 
