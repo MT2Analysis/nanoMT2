@@ -64,8 +64,9 @@ config.Data.outputDatasetTag = exampleSample.split('/')[2]  #  campaign
 config.Data.publication = True
 config.Data.allowNonValidInputDataset = True
 config.Site.storageSite = 'T3_CH_PSI' # T3_CH_PSI # T2_CH_CSCS
-#config.Site.whitelist = ['T3_CH_PSI', 'T2_CH_CSCS']
-#config.Data.ignoreLocality = True # otherwise won't use AAA
+config.Site.whitelist = ['T3_CH_PSI', 'T2_CH_CERN', 'T2_CH_CSCS_HPC'] # T2_CH_CERN
+config.Data.ignoreLocality = True # if true will use AAA, otherwise job will go where dataset is
+#config.Site.blacklist = ['T2_CH_CSCS']
 
 if not options.doMC and not options.doSkipJSON:
   config.Data.lumiMask = jsonFile

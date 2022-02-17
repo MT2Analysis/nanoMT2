@@ -13,7 +13,9 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
   path = '{}/*/*/*root'.format(fullSamplePath, fileName)
 
   try:
-    out = subprocess.check_output('ls {}'.format(path), shell=True)
+    out = subprocess.check_output('ls {}'.format(path), stderr=subprocess.STDOUT, shell=True)
+    print 'out is',  out
+    print 'end out'
   except subprocess.CalledProcessError as e:
     print 'ERROR in reading the input files', e
     return None
@@ -22,18 +24,25 @@ def mergeMember(fullSamplePath, fileName='mt2.root'):
   list = filter(lambda x: x != '', list)
   protocol = 'root://t3dcachedb.psi.ch:1094/'
   list_new = map(lambda x: protocol + x, list)
-
-
+ 
   #issue the command haddnano.py out.root joined_string
   try:
-    tmpdir = tempfile.mkdtemp(prefix=os.environ['USER']+'_') 
+    #tmpdir = tempfile.mkdtemp(prefix=os.environ['USER']+'_') 
+    import random
+    rndm=random.randint(1,21)*random.randint(1,150)
+    tmpdir = '/scratch/{}/tmp_{}'.format(os.environ['USER'],rndm)
+    print tmpdir
+    os.mkdir(tmpdir)
     hadd_command = '{hadd} {outp} {inp}'.format(hadd='../../../../../../scripts/haddnano.py',
                                               outp='{}/{}'.format(tmpdir, fileName),
                                               inp=' '.join(list_new) )
-    # FIXME: to run on batch you'll have to copy the script where the job is processed, relative path won't work
-    subprocess.call(hadd_command, shell=True)
+    print 'hadd command will be'
+    print hadd_command
+    out = 'mt2'#subprocess.check_output(hadd_command, stderr=subprocess.STDOUT, shell=True)
+    print 'second out is', out
+    print 'end second out'
   except subprocess.CalledProcessError as e:
-    print 'ERROR in merging the files'
+    print 'ERROR in merging the files', e
     return None
 
   outFileName = '{}/{}'.format(tmpdir, fileName)

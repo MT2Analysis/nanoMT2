@@ -12,7 +12,8 @@ The version of the output file will be characterised by two labels, the producti
 - production label, version of nanoMT2, indicated with capital letters, e.g. V01_V03
 - merging label, version of merge, indicated with lower case, e.g. v2
 
-The merging is done sample-per-sample in a /tmp directory and then the merged file is copied to a /scratch/USER/merged_nanoMT2/${PL}_${ML}/<SAMPLE-NAME>
+The merging is done sample-per-sample in a /tmp directory and then the merged file is copied to a to the tier3 storage element area
+```/pnfs/psi.ch/cms/trivcat/store/user/$USER/merged_nanoMT2/${PL}_${ML}/<SAMPLE-NAME>```
 
 ### Configuration
 Add the list of samples that you want to do the merging for in ```cfg/```, one list for data, one list for MC.

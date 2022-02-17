@@ -3,20 +3,20 @@
 /DoubleMuon/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
 /DoubleMuon/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4-Priv-Mo19JECs/USER
 
-#/JetHT/mratti-Run2018A-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
-#/JetHT/mratti-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
-#/JetHT/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
-#/JetHT/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4-Priv-Mo19JECs/USER
+/JetHT/mratti-Run2018A-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
+/JetHT/mratti-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
+/JetHT/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
+/JetHT/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4-Priv-Mo19JECs/USER
 
 /MET/mratti-Run2018A-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
 /MET/mratti-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
 /MET/mratti-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
 /MET/mratti-Run2018D-from_PromptReco_ver2-NanoAODv4-Priv-Mo19JECs/USER
 
-#/EGamma/algomez-Run2018A-from_17Sep2018_ver2-NanoAODv4-Priv-Mo19JECs/USER
-#/EGamma/algomez-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
-#/EGamma/algomez-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
-#/EGamma/mratti-Run2018D-from_22Jan2019_ver2-NanoAODv4-Priv-Mo19JECs/USER
+/EGamma/algomez-Run2018A-from_17Sep2018_ver2-NanoAODv4-Priv-Mo19JECs/USER
+/EGamma/algomez-Run2018C-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
+/EGamma/algomez-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv-Mo19JECs/USER
+/EGamma/mratti-Run2018D-from_22Jan2019_ver2-NanoAODv4-Priv-Mo19JECs/USER
 
 /SingleMuon/anlyon-Run2018A-from_17Sep2018_ver2-NanoAODv4-Priv--Mo19JECs/USER
 /SingleMuon/anlyon-Run2018B-from_17Sep2018_ver1-NanoAODv4-Priv--Mo19JECs/USER

@@ -24,7 +24,7 @@ logsDir = 'logs_{pl}_{ml}'.format(pl=PL,ml=ML)
 command = 'mkdir -p {l}'.format(l=logsDir)
 if not os.path.isdir(logsDir):
   subprocess.check_output(command, shell=True)
-else: raise RuntimeError('logsDir {l} already present please check'.format(l=logsDir))
+#else: raise RuntimeError('logsDir {l} already present please check'.format(l=logsDir))
 
 # prepare script for submission
 for group in groups_to_submit_for_merging:
